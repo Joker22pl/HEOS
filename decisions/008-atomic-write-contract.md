@@ -180,3 +180,9 @@ Wszystkie 10 testów PASS na `update_quality.py`.
 - **2026-07-27** (bonus): `heos_lint.py` fix — rozpoznaje cross-refs do
   `lessons-*`, `checklist-*`, `playbook-*` (nie tylko `skill-*`/`adr-*`).
   Eliminuje 3 false-positive WARN po dodaniu nowych typów artefaktów.
+- **2026-07-27** (bugfix pass 2): 4 bugi wykryte w audycie kodu
+  - `check_related_symmetry.py`: obsługa 3 formatów `related:` (lista/inline/scalar)
+  - `heos_lint.py`: cross-ref do nieistniejącego artefaktu → ERROR (spójnie)
+  - `weekly_report.py`: broken since v1.2 migration (szukał v1.1 layout
+    `03-quality/skill_audit.py` i parsował '%' który nigdy nie było w output)
+  - 2 nowe testy regresji w `tools/test_weekly_report.py`
