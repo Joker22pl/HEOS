@@ -223,11 +223,9 @@ def lint(root: Path, strict: bool = False) -> list[Finding]:
                 if r_str in valid_ids:
                     pass  # OK
                 else:
-                    # Spróbuj znormalizować "skill-XXX" do id (skills mają "skill-<name>")
-                    if r_str.startswith("skill-"):
-                        findings.append(Finding("ERROR", rel, "BROKEN_REF", f"related={r!r} → skill {r_str[6:]} nie istnieje"))
-                    else:
-                        findings.append(Finding("WARN", rel, "BROKEN_REF", f"related={r!r} nie rozpoznany (nie ADR, nie skill)"))
+                    # Nieznany artefakt — ERROR (niezależnie od typu prefixu)
+                    findings.append(Finding("ERROR", rel, "BROKEN_REF",
+                                              f"related={r!r} → {r_str} nie istnieje"))
     # 4. Orphan ADR (info)
     cited = set()
     for _, fm in artefakty:

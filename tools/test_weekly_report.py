@@ -9,6 +9,7 @@ import importlib
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 
 def test_module_imports():
@@ -60,3 +61,31 @@ def test_build_report_minimal():
 if __name__ == "__main__":
     import pytest
     sys.exit(pytest.main([__file__, "-v"]))
+
+
+def test_parse_audit_output_standard_format():
+    """Parser odczytuje Schema: ✅ N PASS | ⚠️  N WARN | ❌ N FAIL.
+
+    Regression test — wcześniej parser szukał '%' który nigdy nie był w output.
+    """
+    from weekly_report import _run_audit
+    from pathlib import Path
+    # Mock: używamy prawdziwego skill_audit.py na HEOS (mamy 5 skille, 5 PASS, 0 WARN, 0 FAIL)
+    heos = Path(__file__).resolve().parent.parent
+    stats = _run_audit(heos)
+    assert "error" not in stats, f"_run_audit error: {stats.get('error')}"
+    assert stats["total"] == 5, f"Expected total=5, got {stats['total']}"
+    assert stats["pass"] == 5, f"Expected pass=5, got {stats['pass']}"
+    assert stats["warn"] == 0, f"Expected warn=0, got {stats['warn']}"
+    assert stats["fail"] == 0, f"Expected fail=0, got {stats['fail']}"
+
+
+def test_audit_path_is_v12_layout():
+    """_run_audit szuka tools/skill_audit.py (nie 03-quality/ z v1.1)."""
+    from weekly_report import _run_audit, HEOS_ROOT
+    heos = HEOS_ROOT
+    expected_path = heos / "tools" / "skill_audit.py"
+    assert expected_path.exists(), f"v1.2 layout missing: {expected_path}"
+    # Stary v1.1 layout NIE powinien istnieć
+    legacy_path = heos / "03-quality" / "skill_audit.py"
+    assert not legacy_path.exists(), f"Legacy v1.1 path still present: {legacy_path}"

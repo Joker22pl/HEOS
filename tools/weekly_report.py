@@ -26,7 +26,8 @@ HERMES_SKILLS = Path("/home/gaja/.hermes/profiles/gaja/skills")
 
 def _run_audit(target: Path) -> dict:
     """Uruchom skill_audit.py na danym katalogu i zwróć statystyki."""
-    audit_script = HEOS_ROOT / "03-quality" / "skill_audit.py"
+    # HEOS v1.2 layout: tools/skill_audit.py (nie 03-quality/skill_audit.py z v1.1)
+    audit_script = HEOS_ROOT / "tools" / "skill_audit.py"
     if not audit_script.exists():
         return {"error": f"audit script not found: {audit_script}"}
     try:
@@ -37,16 +38,30 @@ def _run_audit(target: Path) -> dict:
             timeout=60,
         )
         # Parsuj podsumowanie
+        # Format: "Schema: ✅ 5 PASS | ⚠️  0 WARN | ❌ 0 FAIL"
+        # Format: "Zbadane Skills: 5"
         stats = {"pass": 0, "warn": 0, "fail": 0, "total": 0}
         for line in result.stdout.splitlines():
-            if "Zbadane Skills:" in line:
-                stats["total"] = int(line.split(":")[-1].strip())
-            elif "PASS" in line and "%" in line:
-                stats["pass"] = int(line.split(":")[-1].strip().split()[0])
-            elif "WARN" in line and "%" in line:
-                stats["warn"] = int(line.split(":")[-1].strip().split()[0])
-            elif "FAIL" in line and "%" in line:
-                stats["fail"] = int(line.split(":")[-1].strip().split()[0])
+            line = line.strip()
+            if line.startswith("Zbadane Skills:"):
+                # "Zbadane Skills: 5"
+                try:
+                    stats["total"] = int(line.rsplit(":", 1)[1].strip())
+                except (ValueError, IndexError):
+                    pass
+            elif line.startswith("Schema:"):
+                # "Schema: ✅ 5 PASS | ⚠️  0 WARN | ❌ 0 FAIL"
+                # Szukamy wzorca "N PASS"
+                import re
+                m_pass = re.search(r"(\d+)\s*PASS", line)
+                m_warn = re.search(r"(\d+)\s*WARN", line)
+                m_fail = re.search(r"(\d+)\s*FAIL", line)
+                if m_pass:
+                    stats["pass"] = int(m_pass.group(1))
+                if m_warn:
+                    stats["warn"] = int(m_warn.group(1))
+                if m_fail:
+                    stats["fail"] = int(m_fail.group(1))
         return stats
     except subprocess.TimeoutExpired:
         return {"error": "audit timeout"}

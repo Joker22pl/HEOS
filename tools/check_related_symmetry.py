@@ -29,11 +29,25 @@ def _collect_artefakty(root: Path) -> dict[str, tuple[Path, set[str]]]:
             continue
         fm = m.group(1)
         id_m = re.search(r"^id:\s*(\S+)", fm, re.M)
-        rel_m = re.search(r"related:\n((?:\s*-\s*\S+\n?)+)", fm)
         if not id_m:
             continue
         my_id = id_m.group(1)
-        rels = set(re.findall(r"-\s*(\S+)", rel_m.group(1))) if rel_m else set()
+        # Format 1: lista (related:\n  - X\n  - Y)
+        rels: set[str] = set()
+        rel_list_m = re.search(r"^related:\n((?:\s*-\s*\S+\n?)+)", fm, re.M)
+        if rel_list_m:
+            rels.update(re.findall(r"-\s*(\S+)", rel_list_m.group(1)))
+        # Format 2: inline (related: [X, Y])
+        rel_inline_m = re.search(r"^related:\s*\[([^\]]*)\]", fm, re.M)
+        if rel_inline_m:
+            for item in rel_inline_m.group(1).split(","):
+                item = item.strip()
+                if item:
+                    rels.add(item)
+        # Format 3: scalar (related: X)
+        rel_scalar_m = re.search(r"^related:\s*(\S+)$", fm, re.M)
+        if rel_scalar_m and not rel_list_m and not rel_inline_m:
+            rels.add(rel_scalar_m.group(1))
         out[my_id] = (p, rels)
     return out
 
