@@ -1,33 +1,14 @@
 _meta:
-  generated_at: '2026-07-27T18:44:49.898870+00:00'
+  generated_at: '2026-07-27T21:23:17.596262+00:00'
   heos_root: /home/gaja/gaja-projekty/HEOS
-  total_artifacts: 16
+  total_artifacts: 17
   by_type:
-    checklist: 1
-    adr: 6
-    skill: 7
+    adr: 7
     lessons: 1
     playbook: 1
+    skill: 7
+    checklist: 1
 artifacts:
-  checklist:
-  - type: checklist
-    id: checklist-heos-pre-commit-validation
-    name: heos-pre-commit-validation
-    title: HEOS pre-commit validation — co sprawdzić przed commitem
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-27'
-    updated_at: '2026-07-27'
-    review_due: '2027-01-25'
-    version: 1.0.0
-    heos_standard_version: '1.2'
-    tags:
-    - quality
-    - pre-commit
-    - audit
-    related:
-    - skill-using-heos
-    path: checklists/heos-pre-commit-validation.md
   adr:
   - type: adr
     id: adr-001
@@ -124,6 +105,27 @@ artifacts:
     adr_number: 5
     path: decisions/005-granice-profili-hermes.md
   - type: adr
+    id: adr-007
+    name: 007-operational-evidence-model
+    title: Model dowodu operacyjnego dla skilli HEOS
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-27'
+    updated_at: '2026-07-27'
+    review_due: '2027-01-25'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    - heos-internal
+    - quality
+    - runtime-evidence
+    related:
+    - adr-008
+    - skill-using-heos
+    adr_number: 7
+    path: decisions/007-operational-evidence-model.md
+  - type: adr
     id: adr-008
     name: 008-atomic-write-contract
     title: Atomic Write Contract dla narzędzi HEOS modyfikujących pliki
@@ -141,8 +143,46 @@ artifacts:
     related:
     - skill-using-heos
     - skill-nightly-evolution
+    - adr-007
     adr_number: 8
     path: decisions/008-atomic-write-contract.md
+  lessons:
+  - type: lessons
+    id: lessons-2026-07-27-heos-audit-fix-bug
+    name: 2026-07-27-heos-audit-fix-bug
+    title: HEOS audit catch-all — fałszywe FAIL z joker-deliverables
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-27'
+    updated_at: '2026-07-27'
+    review_due: '2027-01-25'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - audit
+    - tooling
+    - bug-fix
+    related:
+    - skill-using-heos
+    path: lessons/2026-07-27-heos-audit-fix-bug.md
+  playbook:
+  - type: playbook
+    id: playbook-heos-new-skill
+    name: heos-new-skill
+    title: HEOS — tworzenie nowego skilla (krok-po-kroku)
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-27'
+    updated_at: '2026-07-27'
+    review_due: '2027-01-25'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - workflow
+    - authoring
+    related:
+    - skill-using-heos
+    path: playbooks/heos-new-skill.md
   skill:
   - type: skill
     id: skill-embedded-communications-debug
@@ -285,12 +325,13 @@ artifacts:
     - playbook-heos-new-skill
     - skill-using-chm
     - checklist-heos-pre-commit-validation
+    - adr-007
     path: skills/using-heos.md
-  lessons:
-  - type: lessons
-    id: lessons-2026-07-27-heos-audit-fix-bug
-    name: 2026-07-27-heos-audit-fix-bug
-    title: HEOS audit catch-all — fałszywe FAIL z joker-deliverables
+  checklist:
+  - type: checklist
+    id: checklist-heos-pre-commit-validation
+    name: heos-pre-commit-validation
+    title: HEOS pre-commit validation — co sprawdzić przed commitem
     status: accepted
     owner: gaja
     created_at: '2026-07-27'
@@ -299,39 +340,13 @@ artifacts:
     version: 1.0.0
     heos_standard_version: '1.2'
     tags:
+    - quality
+    - pre-commit
     - audit
-    - tooling
-    - bug-fix
     related:
     - skill-using-heos
-    path: lessons/2026-07-27-heos-audit-fix-bug.md
-  playbook:
-  - type: playbook
-    id: playbook-heos-new-skill
-    name: heos-new-skill
-    title: HEOS — tworzenie nowego skilla (krok-po-kroku)
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-27'
-    updated_at: '2026-07-27'
-    review_due: '2027-01-25'
-    version: 1.0.0
-    heos_standard_version: '1.2'
-    tags:
-    - workflow
-    - authoring
-    related:
-    - skill-using-heos
-    path: playbooks/heos-new-skill.md
+    path: checklists/heos-pre-commit-validation.md
 inverse_index:
-  skill-using-heos:
-  - checklist-heos-pre-commit-validation
-  - adr-002
-  - adr-005
-  - adr-008
-  - skill-using-chm
-  - lessons-2026-07-27-heos-audit-fix-bug
-  - playbook-heos-new-skill
   skill-esp32-s3-micropython-blink:
   - adr-001
   - skill-gaja-lab-core
@@ -348,6 +363,15 @@ inverse_index:
   adr-004:
   - adr-002
   - adr-003
+  skill-using-heos:
+  - adr-002
+  - adr-005
+  - adr-007
+  - adr-008
+  - lessons-2026-07-27-heos-audit-fix-bug
+  - playbook-heos-new-skill
+  - skill-using-chm
+  - checklist-heos-pre-commit-validation
   adr-001:
   - adr-003
   - skill-esp32-s3-micropython-blink
@@ -360,6 +384,13 @@ inverse_index:
   - adr-005
   - skill-nightly-evolution
   - skill-using-heos
+  adr-008:
+  - adr-007
+  - skill-nightly-evolution
+  - skill-using-heos
+  adr-007:
+  - adr-008
+  - skill-using-heos
   skill-gaja-lab-core:
   - skill-embedded-communications-debug
   - skill-esp32-s3-micropython-blink
@@ -368,9 +399,6 @@ inverse_index:
   adr-005:
   - skill-nightly-evolution
   - skill-using-chm
-  - skill-using-heos
-  adr-008:
-  - skill-nightly-evolution
   - skill-using-heos
   skill-memory-hygiene:
   - skill-nightly-evolution

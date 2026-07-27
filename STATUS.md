@@ -1,19 +1,19 @@
 # HEOS — STATUS
 
-**Wygenerowano:** 2026-07-27T18:44:51.155711+00:00  
-**Wersja HEOS:** `v1.2.0`  
+**Wygenerowano:** 2026-07-27T21:23:19.766835+00:00  
+**Wersja HEOS:** `v1.2.3`  
 **Auto-generowany:** ✅ (z `tools/generate_status.py`)
 
 ---
 
 ## Artefakty
 
-Łącznie: **16**
+Łącznie: **17**
 
 | Typ | Liczba |
 |---|---|
 | skill | 7 |
-| adr | 6 |
+| adr | 7 |
 | lessons | 1 |
 | checklist | 1 |
 | playbook | 1 |
@@ -21,20 +21,20 @@
 ## Jakość
 
 - **Skill audit:** 5 PASS / 0 WARN / 0 FAIL (z 5 zbadanych)
-- **HEOS lint:** 0 ERROR / 3 WARN / 0 INFO
+- **HEOS lint:** 0 ERROR / 0 WARN / 0 INFO
 
 ## Struktura
 
 - **Templates:** 6 (`HEOS/templates/`)
-- **Tools:** 20 (`HEOS/tools/`)
+- **Tools:** 23 (`HEOS/tools/`)
 - **Migration infra:** 5 (`HEOS/heos-migration/`)
 - **Backup:** ❌ brak (`~/hermes-backups/heos-pre-v1.2-*.tar.gz` nie istnieje)
 
 ## Git
 
-- **Ostatni commit:** `12a09c3c` — [ci] fix: usuń cache: 'pip' z actions/setup-python@v5
-  - Data: 2026-07-27 20:42:01 +0200
-- **Tagi:** v1.2.0
+- **Ostatni commit:** `fa42981a` — [fix] update_quality v3 — eliminuj silent corruption 'value---'
+  - Data: 2026-07-27 21:51:13 +0200
+- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3
 
 ---
 

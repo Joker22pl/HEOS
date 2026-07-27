@@ -23,6 +23,7 @@ related:
 - playbook-heos-new-skill
 - skill-using-chm
 - checklist-heos-pre-commit-validation
+- adr-007
 quality_schema: pass
 quality_technical: pass
 quality_operational: unmeasured

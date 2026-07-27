@@ -439,6 +439,9 @@ def main() -> int:
                         help="Poziom audytu (domyślnie: schema)")
     parser.add_argument("--strict", action="store_true", help="Traktuj WARN jako FAIL")
     parser.add_argument("--quiet", action="store_true", help="Tylko podsumowanie")
+    parser.add_argument("--with-runtime", action="store_true",
+                        help="Dodatkowo sprawdź runtime evidence (Hermes sidecar ~/.hermes/skills/.usage.json). "
+                             "Raportuje rozbieżności quality_operational vs runtime rekomendacja.")
     args = parser.parse_args()
     root = Path(args.sciezka).expanduser().resolve()
     if not root.is_dir():
@@ -470,6 +473,49 @@ def main() -> int:
         print(f"Technical: ✅ {n_tech_pass} PASS | ❌ {n_tech_fail} FAIL")
     if "all" in levels or args.level == "all":
         print(f"Combined: approved={n_approved} | partial={n_partial} | broken={n_broken} | invalid={n_invalid}")
+    # Runtime evidence check (per ADR-007)
+    if args.with_runtime:
+        try:
+            from check_operational_proven import _read_usage_json, _recommend_operational
+            import re
+            # ~/.hermes/skills/.usage.json jest HARD-CODED w Hermes
+            # (skill_usage.py używa hermes_constants.get_hermes_home()).
+            # Dla HEOS hardcodujemy ścieżkę ~/.hermes/skills/.usage.json
+            # — NIE expanduser (który w profilu Hermesa daje dziwną ścieżkę).
+            usage_path = Path("/home/gaja/.hermes/skills/.usage.json")
+            usage_data = _read_usage_json(usage_path)
+            n_runtime_diff = 0
+            print()
+            print("--- Runtime evidence (ADR-007) ---")
+            print(f"Source: {usage_path}")
+            for r in raporty:
+                if r.is_not_skill:
+                    continue
+                # Parsuj name: z frontmatter (re-use read_text)
+                try:
+                    txt = r.path.read_text(encoding="utf-8", errors="replace")
+                except OSError:
+                    continue
+                m = re.match(r"---\n(.*?)\n---", txt, re.DOTALL)
+                if not m:
+                    continue
+                name_m = re.search(r"^name:\s*(\S+)", m.group(1), re.M)
+                if not name_m:
+                    continue
+                skill_name = name_m.group(1)
+                record = usage_data.get(skill_name)
+                recommended = _recommend_operational(record)
+                cur_m = re.search(r"^quality_operational:\s*(\S+)", m.group(1), re.M)
+                current = cur_m.group(1) if cur_m else "(brak)"
+                if current != recommended:
+                    n_runtime_diff += 1
+                    print(f"  ⚠️  {skill_name}: {current} (frontmatter) vs {recommended} (runtime) — diff")
+            if n_runtime_diff == 0:
+                print("  ✓ Wszystkie skille mają quality_operational zgodny z runtime rekomendacją")
+            else:
+                print(f"  → {n_runtime_diff} skille wymagają ręcznej aktualizacji")
+        except ImportError:
+            print("⚠️  check_operational_proven.py nie znaleziony — runtime check pominięty")
     return 1 if n_fail > 0 else 0
 
 
