@@ -315,3 +315,62 @@ def test_missing_quality_field_added(tmp_path):
     txt = skill_path.read_text()
     assert "quality_schema: pass" in txt
     assert "quality_technical: pass" in txt
+
+def test_no_silent_corruption_when_body_immediately_after_dashes():
+    """Regression: _ustaw_quality nie generuje 'value---' (silent corruption).
+
+    Bug wykryty 2026-07-27 w audycie kodu: _ustaw_quality nie
+    gwarantował trailing newline, więc '---' (separator frontmatter/body)
+    wklejało się do wartości YAML (np. 'pass---' zamiast 'pass').
+    """
+    from update_quality import _ustaw_quality, _ensure_leading_newline
+    import yaml
+
+    # Przypadek który wcześniej psuł — fm bez trailing newline,
+    # rest zaczynający się od "##" (bez leading newline).
+    fm_text = "\nfoo: bar\ntitle: X\nstatus: accepted\n"
+    rest = "## Cel\nTest.\n"
+
+    new_fm = _ustaw_quality(fm_text, "quality_schema", "pass")
+    new_fm = _ustaw_quality(new_fm, "quality_technical", "pass")
+
+    # Symuluję logikę main() (po fix)
+    rest_norm = _ensure_leading_newline(rest) if rest else ""
+    new_txt = f"---{new_fm}---{rest_norm}"
+
+    # Brak silent corruption
+    assert "pass---" not in new_txt, f"silent corruption: {new_txt!r}"
+    # Separator po '---' — następna linia to body (lub pusta), nie kontynuacja
+    # value. Szukamy linii '---' po którym NIE ma kontynuacji value.
+    # Ignoruj puste linie w skanie.
+    lines = new_txt.split("\n")
+    for i, line in enumerate(lines):
+        if line.strip() == "---" and i + 1 < len(lines):
+            # Następna niepusta linia nie może być kontynuacją wartości YAML
+            # (np. 'pass---'). Musi być pusta, '#', lub nowa sekcja.
+            next_line = lines[i + 1]
+            assert not (next_line.startswith("pass") or next_line.startswith("fail")), \
+                f"Po '---' oczekiwany separator, dostałem kontynuację: '{next_line}'"
+
+    # YAML roundtrip — quality_technical NIE może zawierać '---'
+    parts = new_txt.split("---", 2)
+    fm = yaml.safe_load(parts[1])
+    assert fm["quality_technical"] == "pass", \
+        f"YAML corruption: {fm.get('quality_technical')!r}"
+    assert fm["quality_schema"] == "pass"
+
+
+def test_ensure_trailing_newline_idempotent():
+    """_ensure_trailing_newline powinien być idempotentny."""
+    from update_quality import _ensure_trailing_newline
+    assert _ensure_trailing_newline("foo") == "foo\n"
+    assert _ensure_trailing_newline("foo\n") == "foo\n"
+    assert _ensure_trailing_newline("foo\n\n") == "foo\n\n"  # author intent
+
+
+def test_ensure_leading_newline_idempotent():
+    """_ensure_leading_newline powinien być idempotentny."""
+    from update_quality import _ensure_leading_newline
+    assert _ensure_leading_newline("") == ""
+    assert _ensure_leading_newline("foo") == "\nfoo"
+    assert _ensure_leading_newline("\nfoo") == "\nfoo"

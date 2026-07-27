@@ -48,6 +48,23 @@ def _parsuj_frontmatter(tekst: str) -> tuple[str | None, str]:
     return parts[1], parts[2]
 
 
+def _ensure_trailing_newline(text: str) -> str:
+    """Gwarantuje że text kończy się single \\n."""
+    if not text.endswith("\n"):
+        return text + "\n"
+    # Jeśli kończy się wieloma \n, zostaw — to author intent.
+    return text
+
+
+def _ensure_leading_newline(text: str) -> str:
+    """Gwarantuje że text zaczyna się od \\n (chyba że jest pusty)."""
+    if not text:
+        return ""
+    if not text.startswith("\n"):
+        return "\n" + text
+    return text
+
+
 def _ustaw_quality(fm_text: str, key: str, value: str) -> str:
     """Ustaw key: value w frontmatter (YAML-aware regex).
 
@@ -55,12 +72,16 @@ def _ustaw_quality(fm_text: str, key: str, value: str) -> str:
     Jeśli klucz nie istnieje → dodaj na końcu frontmatter (przed ostatnim
     quality_* jeśli istnieje, lub na samym końcu).
 
+    Wynik ZAWSZE kończy się single \\n. To gwarantuje że caller
+    (który wstawi '---' po fm) nie sklei jakoś wartości.
+
     Nie psuje komentarzy ani porządku kluczy (regex operuje na pojedynczej
     linii, nie na całym bloku).
     """
     pattern = re.compile(rf"^{key}:\s*\S+", re.M)
     if pattern.search(fm_text):
-        return pattern.sub(f"{key}: {value}", fm_text)
+        result = pattern.sub(f"{key}: {value}", fm_text)
+        return _ensure_trailing_newline(result)
     # Nie ma klucza — dodaj na końcu frontmatter.
     # Sprawdź czy są inne quality_* — jeśli tak, dodaj za ostatnim.
     quality_lines = list(re.finditer(r"^quality_\w+:\s*\S+\s*$", fm_text, re.M))
@@ -68,11 +89,11 @@ def _ustaw_quality(fm_text: str, key: str, value: str) -> str:
         last = quality_lines[-1]
         # Wstaw po ostatnim quality_*
         insert_pos = last.end()
-        return fm_text[:insert_pos] + f"\n{key}: {value}" + fm_text[insert_pos:]
+        result = fm_text[:insert_pos] + f"\n{key}: {value}" + fm_text[insert_pos:]
+        return _ensure_trailing_newline(result)
     # Brak quality_* — dodaj na samym końcu
-    if fm_text.endswith("\n"):
-        return fm_text + f"{key}: {value}\n"
-    return fm_text + f"\n{key}: {value}\n"
+    result = _ensure_trailing_newline(fm_text) + f"{key}: {value}\n"
+    return result
 
 
 def _atomic_write(path: Path, content: str) -> None:
@@ -201,7 +222,11 @@ def main() -> int:
                 raise RuntimeError(f"Brak frontmatter w {p['path']}")
             new_fm = _ustaw_quality(fm, "quality_schema", p["new_schema"])
             new_fm = _ustaw_quality(new_fm, "quality_technical", p["new_tech"])
-            new_txt = f"---{new_fm}---{rest}"
+            # new_fm zawsze kończy się \n (gwarantowane przez _ustaw_quality).
+            # rest normalizujemy żeby zaczynał się od \n (separator od '---').
+            # Pusty rest → "" (nie wstawiamy \n na początku pustego).
+            rest_norm = _ensure_leading_newline(rest) if rest else ""
+            new_txt = f"---{new_fm}---{rest_norm}"
             _atomic_write(p["path"], new_txt)
             print(f"  ✓ {p['path'].relative_to(root)}")
         # Faza 3: cleanup backup dir (sukces)
