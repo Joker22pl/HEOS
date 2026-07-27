@@ -1,0 +1,267 @@
+_meta:
+  generated_at: '2026-07-25T23:51:49.645777+00:00'
+  heos_root: /home/gaja/gaja-projekty/HEOS
+  total_artifacts: 12
+  by_type:
+    adr: 5
+    skill: 7
+artifacts:
+  adr:
+  - type: adr
+    id: adr-001
+    name: 001-micropython-esp32-s3-pico
+    title: MicroPython + mpremote dla ESP32-S3-PICO
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-23'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - embedded
+    related:
+    - skill-esp32-s3-micropython-blink
+    - adr-003
+    adr_number: 1
+    path: decisions/001-micropython-esp32-s3-pico.md
+  - type: adr
+    id: adr-002
+    name: 002-hub-repo-i-osobne-repo
+    title: Hub repo `gaja-projekty` + osobne repo per projekt
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-23'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    related:
+    - adr-004
+    - adr-003
+    adr_number: 2
+    path: decisions/002-hub-repo-i-osobne-repo.md
+  - type: adr
+    id: adr-003
+    name: 003-konwencja-commitow-po-polsku
+    title: Konwencja commitów — `[tag] opis` po polsku
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-23'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    related:
+    - adr-002
+    - adr-004
+    adr_number: 3
+    path: decisions/003-konwencja-commitow-po-polsku.md
+  - type: adr
+    id: adr-004
+    name: 004-cookiecutter-i-pre-commit
+    title: Cookiecutter template + pre-commit hooks (ruff, gitleaks)
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-23'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    related:
+    - adr-002
+    - adr-003
+    adr_number: 4
+    path: decisions/004-cookiecutter-i-pre-commit.md
+  - type: adr
+    id: adr-005
+    name: 005-granice-profili-hermes
+    title: Granice profili Hermes (gaja / gaja-it / gaja-med)
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-23'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    related:
+    - skill-using-heos
+    - skill-nightly-evolution
+    - skill-using-chm
+    adr_number: 5
+    path: decisions/005-granice-profili-hermes.md
+  skill:
+  - type: skill
+    id: skill-embedded-communications-debug
+    name: embedded-communications-debug
+    title: Embedded Communications Debug — UART/I2C/SPI/CAN/USB-serial
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-25'
+    updated_at: '2026-07-25'
+    review_due: '2027-01-25'
+    version: 0.2.0
+    heos_standard_version: '1.2'
+    tags:
+    - embedded
+    - robotics
+    - debugging
+    - uart
+    - i2c
+    - spi
+    - can
+    - usb-serial
+    - hardware
+    related:
+    - skill-gaja-lab-core
+    path: skills/embedded-communications-debug/SKILL.md
+  - type: skill
+    id: skill-esp32-s3-micropython-blink
+    name: esp32-s3-micropython-blink
+    title: ESP32-S3 MicroPython Blink — first-board test
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-24'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - embedded
+    related:
+    - adr-001
+    path: skills/esp32-s3-micropython-blink.md
+  - type: skill
+    id: skill-gaja-lab-core
+    name: gaja-lab-core
+    title: gaja-lab-core — workshop USB/serial diagnostic foundation
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-25'
+    updated_at: '2026-07-25'
+    review_due: '2027-01-25'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - embedded
+    - workshop
+    - usb
+    - serial
+    - diagnostics
+    related:
+    - esp32-s3-micropython-blink
+    path: skills/gaja-lab-core/SKILL.md
+  - type: skill
+    id: skill-memory-hygiene
+    name: memory-hygiene
+    title: Memory Hygiene
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-25'
+    updated_at: '2026-07-25'
+    review_due: '2027-01-23'
+    version: 1.1.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    - memory
+    - audit
+    related:
+    - skill-nightly-evolution
+    path: skills/memory-hygiene.md
+  - type: skill
+    id: skill-nightly-evolution
+    name: nightly-evolution
+    title: Nightly Evolution
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-24'
+    updated_at: '2026-07-25'
+    review_due: '2027-01-23'
+    version: 1.2.1
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    related:
+    - adr-002
+    - adr-005
+    path: skills/nightly-evolution.md
+  - type: skill
+    id: skill-using-chm
+    name: using-chm
+    title: Using CHM (Context Health Manager)
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-24'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    - observability
+    - hermes-plugin
+    related:
+    - adr-005
+    - skill-using-heos
+    - skill-nightly-evolution
+    path: skills/using-chm.md
+  - type: skill
+    id: skill-using-heos
+    name: using-heos
+    title: Using HEOS
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-24'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    related:
+    - adr-002
+    - adr-005
+    path: skills/using-heos.md
+inverse_index:
+  skill-esp32-s3-micropython-blink:
+  - adr-001
+  adr-003:
+  - adr-001
+  - adr-002
+  - adr-004
+  adr-004:
+  - adr-002
+  - adr-003
+  adr-002:
+  - adr-003
+  - adr-004
+  - skill-nightly-evolution
+  - skill-using-heos
+  skill-using-heos:
+  - adr-005
+  - skill-using-chm
+  skill-nightly-evolution:
+  - adr-005
+  - skill-memory-hygiene
+  - skill-using-chm
+  skill-using-chm:
+  - adr-005
+  skill-gaja-lab-core:
+  - skill-embedded-communications-debug
+  adr-001:
+  - skill-esp32-s3-micropython-blink
+  esp32-s3-micropython-blink:
+  - skill-gaja-lab-core
+  adr-005:
+  - skill-nightly-evolution
+  - skill-using-chm
+  - skill-using-heos

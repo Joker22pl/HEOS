@@ -1,0 +1,6 @@
+
+--- Podsumowanie HEOS Skill Audit ---
+Zbadane Skills: 87
+✅ PASS (kompletne):       0  (0%)
+⚠️  WARN (bez >2 opcjon.):  2  (2%)
+❌ FAIL (brak obowiązk.):   85  (97%)

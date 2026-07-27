@@ -1,0 +1,93 @@
+❌ apple/apple-notes/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Workflow, Przykłady, Lessons Learned
+❌ apple/apple-reminders/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Workflow, Przykłady, Lessons Learned
+❌ apple/findmy/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Przykłady, Lessons Learned
+❌ apple/imessage/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Workflow, Lessons Learned
+❌ autonomous-ai-agents/claude-code/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady
+❌ autonomous-ai-agents/codex/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ autonomous-ai-agents/hermes-agent/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Kiedy nie używać, Workflow, Lessons Learned
+❌ autonomous-ai-agents/opencode/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady
+❌ computer-use/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Workflow, Przykłady, Lessons Learned
+❌ creative/architecture-diagram/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Kiedy używać, Kiedy nie używać, Przykłady, Lessons Learned
+❌ creative/ascii-art/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Lessons Learned
+❌ creative/ascii-video/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady, Lessons Learned
+❌ creative/baoyu-infographic/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady
+❌ creative/claude-design/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady
+❌ creative/comfyui/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady
+❌ creative/design-md/SKILL.md  BRAK OBOWIĄZKOWYCH: Zakres, Kiedy nie używać, Przykłady
+❌ creative/excalidraw/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady, Lessons Learned
+❌ creative/humanizer/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady, Lessons Learned
+❌ creative/manim-video/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady, Lessons Learned
+❌ creative/p5js/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady, Lessons Learned
+❌ creative/popular-web-designs/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Przykłady, Lessons Learned
+❌ creative/pretext/SKILL.md  BRAK OBOWIĄZKOWYCH: Zakres, Kiedy nie używać, Przykłady, Lessons Learned
+❌ creative/sketch/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Workflow, Przykłady, Lessons Learned
+❌ creative/songwriting-and-ai-music/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ creative/touchdesigner-mcp/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Przykłady, Lessons Learned
+❌ data-science/jupyter-live-kernel/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ dogfood/SKILL.md  BRAK OBOWIĄZKOWYCH: Zakres, Kiedy używać, Kiedy nie używać, Przykłady, Lessons Learned
+❌ email/himalaya/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ gaja-server-audit/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ github/codebase-inspection/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady
+❌ github/github-auth/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ github/github-code-review/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ github/github-issues/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Przykłady, Lessons Learned
+❌ github/github-pr-workflow/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ github/github-repo-management/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ hardware/raspberry-pi-display-kiosk/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady
+❌ hermes-desktop-plugins/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady
+❌ media/gif-search/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ media/heartmula/SKILL.md  BRAK OBOWIĄZKOWYCH: Zakres, Kiedy nie używać, Workflow
+❌ media/songsee/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ media/youtube-content/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Lessons Learned
+❌ mlops/evaluation/lm-evaluation-harness/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady, Lessons Learned
+❌ mlops/evaluation/weights-and-biases/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ mlops/huggingface-hub/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ mlops/inference/llama-cpp/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ mlops/inference/vllm/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Lessons Learned
+❌ mlops/models/audiocraft/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Lessons Learned
+❌ mlops/models/segment-anything/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady, Lessons Learned
+❌ note-taking/obsidian/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ productivity/airtable/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady
+❌ productivity/docx/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady
+❌ productivity/esp32-nuc-flash/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ productivity/google-workspace/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Lessons Learned
+❌ productivity/kolaboracja-joker-gaja/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ productivity/kolaboracja-rfa-review/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ productivity/maps/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady
+❌ productivity/nano-pdf/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Lessons Learned
+❌ productivity/notion/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ productivity/ocr-and-documents/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ productivity/pdf/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady
+❌ productivity/petdex/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady
+❌ productivity/pi-touchscreen-panel-bringup/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Przykłady
+❌ productivity/powerpoint/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ productivity/secret-credential-handling-in-chat/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady
+❌ productivity/teams-meeting-pipeline/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ productivity/xlsx/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ research/arxiv/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ research/blogwatcher/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Lessons Learned
+❌ research/llm-wiki/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady
+❌ research/polymarket/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Workflow, Przykłady, Lessons Learned
+❌ research/research-paper-writing/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ research/web-research/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Przykłady, Lessons Learned
+❌ robotics/esp32-micropython-blink/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Przykłady
+❌ robotics/esp32-robotics-bringup/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Przykłady
+❌ smart-home/openhue/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ social-media/xurl/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ software-development/hermes-agent-skill-authoring/SKILL.md  BRAK OBOWIĄZKOWYCH: Zakres, Kiedy nie używać, Przykłady, Lessons Learned
+❌ software-development/node-inspect-debugger/SKILL.md  BRAK OBOWIĄZKOWYCH: Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ software-development/plan/SKILL.md  BRAK OBOWIĄZKOWYCH: Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ software-development/python-debugpy/SKILL.md  BRAK OBOWIĄZKOWYCH: Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ software-development/requesting-code-review/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady
+❌ software-development/simplify-code/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady
+❌ software-development/spike/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Workflow, Przykłady, Lessons Learned
+❌ software-development/systematic-debugging/SKILL.md  BRAK OBOWIĄZKOWYCH: Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ software-development/test-driven-development/SKILL.md  BRAK OBOWIĄZKOWYCH: Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ sudo-system-config-changes/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+❌ yuanbao/SKILL.md  BRAK OBOWIĄZKOWYCH: Cel, Zakres, Kiedy używać, Kiedy nie używać, Workflow, Przykłady, Lessons Learned
+
+--- Podsumowanie HEOS Skill Audit ---
+Zbadane Skills: 87
+✅ PASS (kompletne):       0  (0%)
+⚠️  WARN (bez >2 opcjon.):  0  (0%)
+❌ FAIL (brak obowiązk.):   87  (100%)

@@ -1,0 +1,21 @@
+# Pre-commit hooks dla HEOS
+# Bramka 7/7 — Skill audit (v1.2) przed commitem
+# Instaluj: pre-commit install
+# Pomiń (niezalecane): git commit --no-verify
+#
+# Hook wykrywa pliki Skills (skills/*.md, */SKILL.md) w staged.
+# Jeśli znaleziono → uruchamia skill_audit.py z poziomem schema.
+# Blokuje commit gdy Schema FAIL.
+
+repos:
+  - repo: local
+    hooks:
+      - id: heos-skill-audit
+        name: HEOS Skill audit (schema)
+        entry: tools/pre_commit_skill_check.sh
+        language: script
+        pass_filenames: false
+        always_run: false
+        stages: [pre-commit]
+        # Wykrywane pliki (wymusza hook gdy zmienione):
+        files: '(skills/.*\.md|.+/SKILL\.md)$'

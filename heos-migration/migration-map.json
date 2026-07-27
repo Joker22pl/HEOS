@@ -1,0 +1,207 @@
+{
+  "generated_at": "2026-07-24T00:36:53.594600Z",
+  "heos_root": "/home/gaja/gaja-projekty/HEOS",
+  "operations": [
+    {
+      "op": "move",
+      "old": "00-foundation/HEOS-MASTER-PROMPT-v1.1.md",
+      "new": "CONSTITUTION.md",
+      "reason": "Konstytucja idzie do root, bez wersji w nazwie"
+    },
+    {
+      "op": "move",
+      "old": "00-foundation/00-HEOS-ARCHITECTURE.md",
+      "new": "ARCHITECTURE.md",
+      "reason": "Architektura idzie do root"
+    },
+    {
+      "op": "archive",
+      "old": "00-foundation/00-HEOS-OVERVIEW.md",
+      "new": "archive/00-HEOS-OVERVIEW-v1.1.md",
+      "reason": "Statyczny snapshot → archiwum"
+    },
+    {
+      "op": "archive",
+      "old": "00-foundation/00-HEOS-CHANGELOG.md",
+      "new": "archive/00-HEOS-CHANGELOG-v1.1.md",
+      "reason": "Historia wersji → archiwum"
+    },
+    {
+      "op": "archive",
+      "old": "00-foundation/00-HEOS-ROADMAP.md",
+      "new": "archive/00-HEOS-ROADMAP-v1.1.md",
+      "reason": "Roadmapa v1.1 → archiwum"
+    },
+    {
+      "op": "archive",
+      "old": "00-foundation/00-HEOS-OPEN-DECISIONS.md",
+      "new": "archive/00-HEOS-OPEN-DECISIONS-v1.1.md",
+      "reason": "ODA v1.1 → archiwum"
+    },
+    {
+      "op": "move",
+      "old": "00-foundation/archive-HEOS-MASTER-PROMPT-v1.0.docx",
+      "new": "archive/HEOS-MASTER-PROMPT-v1.0.docx",
+      "reason": "Archiwum archiwum"
+    },
+    {
+      "op": "delete",
+      "old": "01-domains/embedded/README.md",
+      "reason": "Domena = tag, README zbędne"
+    },
+    {
+      "op": "delete",
+      "old": "01-domains/ai-ml/README.md",
+      "reason": "Domena = tag, README zbędne"
+    },
+    {
+      "op": "delete",
+      "old": "01-domains/robotics/README.md",
+      "reason": "Domena = tag, README zbędne"
+    },
+    {
+      "op": "delete",
+      "old": "01-domains/infrastructure/README.md",
+      "reason": "Domena = tag, README zbędne"
+    },
+    {
+      "op": "delete",
+      "old": "01-domains/web/README.md",
+      "reason": "Domena = tag, README zbędne"
+    },
+    {
+      "op": "move",
+      "old": "01-domains/embedded/skills/esp32-s3-micropython-blink/SKILL.md",
+      "new": "skills/esp32-s3-micropython-blink.md",
+      "reason": "Skill zagnieżdżony → płaski + domena jako tag"
+    },
+    {
+      "op": "delete",
+      "old": "02-artifacts/decision-records/README.md",
+      "reason": "Rejestr → .registry.yaml"
+    },
+    {
+      "op": "move",
+      "old": "02-artifacts/decision-records/template.md",
+      "new": "templates/adr.md",
+      "reason": "Template do templates/",
+      "already_done_by_stage1": true,
+      "note": "Etap 1 dodał lepszą wersję; stara zostanie skasowana w Etapie 2"
+    },
+    {
+      "op": "move",
+      "old": "02-artifacts/decision-records/ADR-001-micropython-esp32-s3-pico.md",
+      "new": "decisions/001-micropython-esp32-s3-pico.md",
+      "reason": "ADR płasko"
+    },
+    {
+      "op": "move",
+      "old": "02-artifacts/decision-records/ADR-002-hub-repo-i-osobne-repo-per-projekt.md",
+      "new": "decisions/002-hub-repo-i-osobne-repo.md",
+      "reason": "ADR płasko"
+    },
+    {
+      "op": "move",
+      "old": "02-artifacts/decision-records/ADR-003-konwencja-commitow-po-polsku.md",
+      "new": "decisions/003-konwencja-commitow-po-polsku.md",
+      "reason": "ADR płasko"
+    },
+    {
+      "op": "move",
+      "old": "02-artifacts/decision-records/ADR-004-cookiecutter-i-pre-commit.md",
+      "new": "decisions/004-cookiecutter-i-pre-commit.md",
+      "reason": "ADR płasko"
+    },
+    {
+      "op": "move",
+      "old": "02-artifacts/decision-records/ADR-005-granice-profili-hermes.md",
+      "new": "decisions/005-granice-profili-hermes.md",
+      "reason": "ADR płasko"
+    },
+    {
+      "op": "delete",
+      "old": "02-artifacts/skills/README.md",
+      "reason": "Rejestr → .registry.yaml"
+    },
+    {
+      "op": "move",
+      "old": "02-artifacts/skills/using-heos/SKILL.md",
+      "new": "skills/using-heos.md",
+      "reason": "Skill płasko + domena cross-cutting jako tag"
+    },
+    {
+      "op": "move",
+      "old": "02-artifacts/skills/nightly-evolution/SKILL.md",
+      "new": "skills/nightly-evolution.md",
+      "reason": "Skill płasko + domena cross-cutting jako tag"
+    },
+    {
+      "op": "delete",
+      "old": "02-artifacts/checklists/README.md",
+      "reason": "Pusty katalog, brak zawartości"
+    },
+    {
+      "op": "delete",
+      "old": "02-artifacts/lessons-learned/README.md",
+      "reason": "Pusty katalog, brak zawartości"
+    },
+    {
+      "op": "delete",
+      "old": "02-artifacts/playbooks/README.md",
+      "reason": "Pusty katalog, brak zawartości"
+    },
+    {
+      "op": "move",
+      "old": "03-quality/skill_audit.py",
+      "new": "tools/skill_audit.py",
+      "reason": "tools/ zamiast 03-quality/"
+    },
+    {
+      "op": "move",
+      "old": "03-quality/heos_lint.py",
+      "new": "tools/heos_lint.py",
+      "reason": "tools/ zamiast 03-quality/",
+      "already_done_by_stage1": true,
+      "note": "Etap 1 dodał lepszą wersję; stara zostanie skasowana w Etapie 2"
+    },
+    {
+      "op": "move",
+      "old": "03-quality/heos_weekly_audit.py",
+      "new": "tools/weekly_report.py",
+      "reason": "tools/ + nowa nazwa (bez heos_ prefix)"
+    },
+    {
+      "op": "archive",
+      "old": "03-quality/baseline-report-2026-07-23.txt",
+      "new": "archive/03-quality-baseline-v1.1.txt",
+      "reason": "Baseline v1.1 → archiwum"
+    },
+    {
+      "op": "archive",
+      "old": "03-quality/full-audit-2026-07-23.txt",
+      "new": "archive/03-quality-full-audit-v1.1.txt",
+      "reason": "Full audit v1.1 → archiwum"
+    },
+    {
+      "op": "archive",
+      "old": "03-quality/weekly-reports/audit-2026-07-23.md",
+      "new": "archive/weekly-reports-v1.1/audit-2026-07-23.md",
+      "reason": "Weekly report → archiwum"
+    },
+    {
+      "op": "archive",
+      "old": "03-quality/weekly-reports/audit-2026-07-23-updated.txt",
+      "new": "archive/weekly-reports-v1.1/audit-2026-07-23-updated.txt",
+      "reason": "Weekly report → archiwum"
+    }
+  ],
+  "summary": {
+    "total": 33,
+    "move": 13,
+    "archive": 8,
+    "delete": 10,
+    "already_done_by_stage1": 2
+  },
+  "updated_at": "2026-07-24T00:40:00Z",
+  "note": "2 operacje (template.md → templates/adr.md, 03-quality/heos_lint.py → tools/heos_lint.py) zostały już zrobione w Etapie 1 z lepszą wersją. W Etapie 2 tylko SKASUJEMY stare pliki (operacja delete)."
+}
