@@ -1,9 +1,9 @@
 # HEOS — Hermes Engineering Operating System
 
-**Wersja:** 1.2
+**Wersja HEOS:** v1.2.0
 **Status:** 📊 patrz `STATUS.md` (auto-generowany)
 
-System standardów, procedur, ADR i Skills dla Hermesa. Mieści się w `gaja-projekty/HEOS/` (git: `Joker22pl/gaja-projekty`, branch `main`).
+System standardów, procedur, ADR i Skills dla Hermesa. Repozytorium: `Joker22pl/HEOS` (osobne repo od 2026-07-27, branch `main`).
 
 ## Punkt wejścia
 
