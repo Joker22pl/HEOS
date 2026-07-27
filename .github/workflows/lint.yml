@@ -1,0 +1,69 @@
+name: HEOS lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+# Anuluje poprzednie uruchomienia w tym samym PR (oszczędza CI minuty)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: HEOS lint + tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # shallow checkout (1 commit wystarczy)
+          fetch-depth: 1
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pyyaml pytest
+
+      - name: Schema audit (obowiązkowe sekcje)
+        run: python3 tools/skill_audit.py . --level schema --quiet
+
+      - name: Technical audit (code blocks, puste sekcje)
+        run: python3 tools/skill_audit.py . --level technical --quiet
+
+      - name: HEOS lint (cross-refs + metadata)
+        run: python3 tools/heos_lint.py
+
+      - name: Lifecycle audit (review_due, orphan ADR)
+        run: python3 tools/lifecycle_audit.py --quiet
+
+      - name: Related symmetry (dry-run only — nie naprawia)
+        run: python3 tools/check_related_symmetry.py --dry-run
+
+      - name: Update quality (check mode — wykrywa czy pliki wymagają aktualizacji)
+        run: python3 tools/update_quality.py || true
+
+      - name: Pytest
+        run: python3 -m pytest -q
+
+      - name: Working tree clean
+        # Weryfikuje że bramki nie zostawiają śmieci w repo
+        run: |
+          if [[ -n "$(git status --short)" ]]; then
+            echo "::error::Working tree not clean after CI run:"
+            git status --short
+            exit 1
+          fi
