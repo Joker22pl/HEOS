@@ -42,8 +42,8 @@ ALIASY: dict[str, tuple[str, ...]] = {
     "Kiedy używać": ("When to use", "Kiedy używac", "When use", "Use this when", "Use when"),
     "Kiedy nie używać": ("When not to use", "Kiedy używac", "When not use", "Don't use", "When to avoid", "Limitations", "Not for"),
     "Workflow": ("Workflow", "How to use", "How it works", "Process", "Step-by-step", "Steps", "Procedure", "Implementation", "Quick Reference", "Usage", "Basic Usage", "How"),
-    "Przykłady": ("Examples", "Example", "Usage examples", "Usage", "Sample code", "Code examples", "Example usage"),
-    "Lessons Learned": ("Lessons learned", "Lessons learned.", "Lesson learned", "Lessons", "Pitfalls", "Gotchas", "Tips", "Notes", "Caveats", "Known issues", "Common issues"),
+    "Przykłady": ("Examples", "Example", "Usage examples", "Usage", "Sample code", "Code examples", "Example usage", "Przykłady użycia"),
+    "Lessons Learned": ("Lessons learned", "Lessons learned.", "Lesson learned", "Lessons", "Pitfalls", "Pitfalls / Lessons Learned", "Pitfalle", "Pitfalle / Lessons Learned", "Gotchas", "Tips", "Notes", "Caveats", "Known issues", "Common issues"),
     "Typowe błędy": ("Common errors", "Common mistakes", "Common pitfalls", "Typical errors", "Mistakes to avoid"),
     "Debugging": ("Debugging", "Debug", "Troubleshooting", "Common issues", "Troubleshooting guide"),
     "Biblioteki": ("Libraries", "Dependencies", "Required packages"),
@@ -85,6 +85,8 @@ class SkillReport:
     operational: str = "unmeasured"
     # Czy to runtime Skill (mniej wymagań) — wykrywane w audytuj_skill()
     is_runtime: bool = False
+    # Marker: plik nie jest skilliem (type: lessons/checklist/playbook/adr)
+    is_not_skill: bool = False
     # Wymagane sekcje (zależne od typu)
     required_sections: list[str] = field(default_factory=list)
 
@@ -258,6 +260,12 @@ def audytuj_skill(sciezka: Path) -> SkillReport:
         tekst = sciezka.read_text(encoding="latin-1")
     # Frontmatter
     fm, body = _parsuj_frontmatter(tekst)
+    # Pomiń pliki które nie są skillami (np. lessons/checklists/playbooks/adr)
+    # Zwracamy "skip" marker, który audytuj_katalog odfiltrowuje
+    if fm and fm.get("type") and fm.get("type") != "skill":
+        raport.has_frontmatter = True
+        raport.is_not_skill = True
+        return raport
     if fm:
         raport.has_frontmatter = True
         for f in SCHEMA_V12_FIELDS:
@@ -359,7 +367,8 @@ def audytuj_katalog(root: Path) -> list[SkillReport]:
     # KAŻDA ścieżka pod root zawiera 'HEOS' w parts → filtr odrzuca wszystko.
     # HEOS root jest zawsze katalogiem najwyższego poziomu więc 'skills/' jest legit
     # ścieżką dla HEOS Skills.
-    HEOS_KATALOGI = ("tools", "templates", "heos-migration", "archive", "decisions", "01-domains")
+    HEOS_KATALOGI = ("tools", "templates", "heos-migration", "archive", "decisions",
+                  "01-domains", "joker-deliverables", "lessons", "checklists", "playbooks")
     for p in sorted(root.rglob("SKILL.md")):
         # Pomiń jeśli już dodany i jeśli to HEOS katalog (już obsłużone)
         if p in seen:
@@ -386,7 +395,11 @@ def audytuj_katalog(root: Path) -> list[SkillReport]:
                 continue
             if _jest_plik_runtime(p):
                 continue
-            raporty.append(audytuj_skill(p))
+            r = audytuj_skill(p)
+            # Filtruj non-skille (lessons/checklists/playbooks w root)
+            if r.is_not_skill:
+                continue
+            raporty.append(r)
             seen.add(p)
     return raporty
 

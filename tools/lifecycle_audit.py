@@ -222,7 +222,9 @@ def _analizuj(artefakty: list[dict]) -> dict:
 
 
 def _format_text(report: dict) -> str:
-    lines = ["# HEOS Lifecycle Audit", ""]
+    lines: list[str] = []
+    lines.append("# HEOS Lifecycle Audit")
+    lines.append("")
     lines.append(f"**Data:** {report['today']}")
     lines.append(f"**Łącznie artefaktów:** {report['total_artifacts']}")
     lines.append("")
@@ -262,11 +264,31 @@ def _format_text(report: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _format_text_quiet(report: dict) -> str:
+    """Kompaktowe podsumowanie: tylko counts i nagłówki sekcji."""
+    lines: list[str] = []
+    lines.append(f"# HEOS Lifecycle Audit (quiet)")
+    lines.append(f"**Data:** {report['today']}")
+    lines.append(f"**Łącznie artefaktów:** {report['total_artifacts']}")
+    lines.append("")
+    lines.append("## Rozkład typów")
+    for t, n in report["by_type"].items():
+        if n > 0:
+            lines.append(f"- {t}: {n}")
+    lines.append("")
+    lines.append(f"## ⚠️  review_due w przeszłości: {len(report['overdue_review'])}")
+    lines.append(f"## 📦 Kandydaci do archived: {len(report['stale_deprecated'])}")
+    lines.append(f"## 🔗 Orphan ADR: {len(report['orphan_adrs'])}")
+    lines.append(f"## 🏛 Engineering Principles: {report['ep_count']}")
+    return "\n".join(lines) + "\n"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Audyt lifecycle HEOS")
     parser.add_argument("--root", default=str(HEOS_ROOT_DEFAULT), help="Katalog HEOS")
     parser.add_argument("--format", choices=["text", "json"], default="text", help="Format wyjścia")
     parser.add_argument("--output", help="Plik wyjściowy (domyślnie: stdout)")
+    parser.add_argument("--quiet", action="store_true", help="Tylko podsumowanie (bez szczegółów per artefakt)")
     args = parser.parse_args()
     root = Path(args.root).expanduser().resolve()
     if not root.is_dir():
@@ -277,7 +299,11 @@ def main() -> int:
     if args.format == "json":
         output_text = json.dumps(report, indent=2, ensure_ascii=False)
     else:
-        output_text = _format_text(report)
+        if args.quiet:
+            # Kompaktowe podsumowanie: tylko counts i nagłówki
+            output_text = _format_text_quiet(report)
+        else:
+            output_text = _format_text(report)
     if args.output:
         Path(args.output).write_text(output_text, encoding="utf-8")
         print(f"✅ Raport zapisany: {args.output}")
