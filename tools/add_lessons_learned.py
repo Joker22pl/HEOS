@@ -126,7 +126,9 @@ def process_adr(adr_path: Path, dry_run: bool) -> tuple[bool, str]:
     if dry_run:
         return True, f"  [DRY] {adr_path.name}: dodałby Lessons Learned"
 
-    adr_path.write_text(new_text, encoding="utf-8")
+    # ADR-008: atomic write
+    from _heos_atomic import atomic_write
+    atomic_write(adr_path, new_text)
     return True, f"  ✅ {adr_path.name}: dodano Lessons Learned"
 
 

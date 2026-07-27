@@ -147,7 +147,8 @@ def update_skill(path: Path) -> bool:
     fm.pop("domain", None)  # domain → tags
     # Zapisz
     new_fm = yaml.safe_dump(fm, default_flow_style=False, sort_keys=False, allow_unicode=True, width=120)
-    path.write_text("---\n" + new_fm + "---" + parts[2], encoding="utf-8")
+    from _heos_atomic import atomic_write
+    atomic_write(path, "---\n" + new_fm + "---\n" + parts[2])
     print(f"  ✅ {path.name}: updated ({fm['status']}, {len(fm['tags'])} tags)")
     return True
 
@@ -208,7 +209,8 @@ def update_adr(path: Path) -> bool:
         "quality_operational": "unmeasured",
     }
     new_fm = yaml.safe_dump(fm, default_flow_style=False, sort_keys=False, allow_unicode=True, width=120)
-    path.write_text("---\n" + new_fm + "---" + text, encoding="utf-8")
+    from _heos_atomic import atomic_write
+    atomic_write(path, "---\n" + new_fm + "---\n" + text)
     print(f"  ✅ {path.name}: added YAML frontmatter (status={fm['status']}, related={len(related)})")
     return True
 

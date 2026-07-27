@@ -104,28 +104,12 @@ def _atomic_write(path: Path, content: str) -> None:
     2. flush + fsync (wymusza zapis na dysk)
     3. os.replace (atomowa zamiana)
     4. Cleanup tmp przy wyjątku
+
+    DEPRECATED wrapper — użyj _heos_atomic.atomic_write() (ADR-008).
+    Zachowany dla backward-compat z istniejącymi testami.
     """
-    path_dir = path.parent
-    fd, tmp_name = tempfile.mkstemp(
-        prefix=f".{path.name}.",
-        suffix=".tmp",
-        dir=str(path_dir),
-    )
-    tmp_path = Path(tmp_name)
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8") as f:
-            f.write(content)
-            f.flush()
-            os.fsync(f.fileno())
-        os.replace(tmp_path, path)
-    except Exception:
-        # Rollback — usuń tmp jeśli istnieje
-        if tmp_path.exists():
-            try:
-                tmp_path.unlink()
-            except OSError:
-                pass
-        raise
+    from _heos_atomic import atomic_write
+    atomic_write(path, content)
 
 
 def _cleanup_old_baks(root: Path) -> int:

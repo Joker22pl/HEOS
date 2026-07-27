@@ -22,7 +22,7 @@ related:
 - skill-nightly-evolution
 quality_schema: pass
 quality_technical: pass
-quality_operational: fresh
+quality_operational: candidate
 last_verified: 2026-07-27
 verified_on: manual consolidation session (25,103 B → 8,612 B), Krok 8 verified w praktyce
 ---

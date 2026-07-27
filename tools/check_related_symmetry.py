@@ -80,28 +80,34 @@ def main() -> int:
         return 1
 
     # Napraw: dodaj src do t.related
+    # ADR-008: transakcja — albo wszystkie pliki zaktualizowane, albo żaden
     fixed = 0
-    for src, t in asym:
-        path, rels = artefakty[t]
-        if src in rels:
-            continue
-        txt = path.read_text(encoding="utf-8")
-        # Dodaj src do related w frontmatter
-        if re.search(r"^related:\n", txt, re.M):
-            # Zachowaj spójny format: dodaj na końcu listy related (przed quality_/description)
-            new_txt = re.sub(r"(related:\n((?:\s*-\s*\S+\n?)+))",
-                             lambda m: m.group(1) + f"- {src}\n" if not m.group(1).endswith(f"- {src}\n") else m.group(1),
-                             txt, count=1)
-        else:
-            # Brak related — dodaj blok przed quality
-            new_txt = re.sub(r"(quality_)", f"related:\n- {src}\n\n\\1", txt, count=1)
-        path.with_suffix(path.suffix + ".bak").write_text(txt)
-        path.write_text(new_txt, encoding="utf-8")
-        print(f"  ✓ Naprawiono: {t} dodano {src} do related")
-        fixed += 1
+    from _heos_atomic import transaction
+    try:
+        with transaction(root) as tx:
+            for src, t in asym:
+                path, rels = artefakty[t]
+                if src in rels:
+                    continue
+                txt = path.read_text(encoding="utf-8")
+                # Dodaj src do related w frontmatter
+                if re.search(r"^related:\n", txt, re.M):
+                    # Zachowaj spójny format: dodaj na końcu listy related (przed quality_/description)
+                    new_txt = re.sub(r"(related:\n((?:\s*-\s*\S+\n?)+))",
+                                     lambda m: m.group(1) + f"- {src}\n" if not m.group(1).endswith(f"- {src}\n") else m.group(1),
+                                     txt, count=1)
+                else:
+                    # Brak related — dodaj blok przed quality
+                    new_txt = re.sub(r"(quality_)", f"related:\n- {src}\n\n\\1", txt, count=1)
+                # ADR-008: atomic write + backup via transaction
+                tx.atomic_write(path, new_txt)
+                fixed += 1
+    except Exception as e:
+        # transaction automatycznie rollback
+        print(f"\n❌ Błąd podczas naprawy: {e}. Rollback wykonany przez transaction.")
+        return 2
     print(f"\nNaprawiono: {fixed}")
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

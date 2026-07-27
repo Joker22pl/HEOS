@@ -221,6 +221,38 @@ raportuje rozbieżności.
   Pełna integracja wymagałaby dodania API w Hermes (np. Pythonowa klasa
   zamiast JSON sidecar).
 
+### Manual use cases (wyjątki od runtime-only)
+
+Runtime Hermes sidecar (`bump_use` w `skill_usage.py`) loguje tylko
+użycia przez agenta (skill_view, skill_manage, bezpośrednie wywołanie
+przez Hermes). **Manual use cases** (np. konsolidacja wywołana przez Gają
+w sesji poza Hermes agentem) **NIE są automatycznie logowane**.
+
+Dla takich use cases:
+
+- Autor może **ręcznie** ustawić `quality_operational: candidate` w
+  frontmatter (po pierwszym manual use), z `verified_on: <krótki opis>`.
+- Wartość `fresh` (z HEOS v1.2) jest **deprecated** w v1.3 — nie
+  występuje w valid set ADR-007 (`unmeasured | candidate | proven | stale | failed`).
+- Check `check_operational_proven.py` zgłosi diff między runtime
+  (`unmeasured`) a frontmatter (`candidate`) jako "warning do review".
+  Recenzent akceptuje lub koryguje.
+- Pełne rozwiązanie wymagałoby instrumentacji runtime (Hermes musi
+  wywoływać `bump_use` dla każdej konsolidacji Gaja, co wymaga zmian
+  w Hermes runtime) — poza scope HEOS.
+
+**Przykład** (skill `memory-hygiene`, 2026-07-27):
+
+```yaml
+quality_operational: candidate
+last_verified: 2026-07-27
+verified_on: manual consolidation session (25,103 B → 8,612 B), Krok 8 verified w praktyce
+```
+
+Runtime mówi `unmeasured` (brak `bump_use` z konsolidacji), ale `candidate`
+w frontmatter oddaje realny fakt (skill był użyty i pomógł). Ręczne
+potwierdzenie przez autora z `verified_on` zapewnia provenance.
+
 ## Dotyczy
 
 | Narzędzie | Status |

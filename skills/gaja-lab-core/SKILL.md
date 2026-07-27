@@ -306,3 +306,9 @@ python3 scripts/lab_helper.py check-permissions  # → JSON, ok:true
 
 - **v1.0** (2026-07-25) — pierwsza wersja. 8 subkomend, local VID/PID DB,
   pure stdlib (zero `pip install`), JSON output envelope.
+
+## Lessons Learned
+
+- **Bieżący stan:** Skill jest utrzymywany w HEOS. Aktualizuj gdy masz nowe wnioski z runtime.
+- **Jeśli coś nie działa:** sprawdź `## Workflow` lub dedykowane sekcje tematyczne powyżej.
+- **Dodaj datę wpisu** w formacie `### YYYY-MM-DD: <title>` gdy dodajesz nową lekcję.

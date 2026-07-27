@@ -344,7 +344,9 @@ def migrate_skill(file_path: Path, dry_run: bool) -> tuple[bool, str, dict]:
     new_text = "---\n" + new_fm_yaml + "---" + "\n".join(new_body_lines) + "\n"
 
     # 5. Backup + zapis
-    file_path.write_text(new_text, encoding="utf-8")
+    # ADR-008: atomic write (chroni przed crash w trakcie zapisu)
+    from _heos_atomic import atomic_write
+    atomic_write(file_path, new_text)
     msg = f"  ✅ {file_path.name}: +{len(missing_sections)} sekcji, +{len(diff['added_fm_fields'])} fm"
     return True, msg, diff
 
