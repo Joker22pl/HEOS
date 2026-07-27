@@ -1,4 +1,5 @@
 ---
+
 name: memory-hygiene
 description: Audyt pamięci operacyjnej profilu Hermes Agent gaja. Sprawdza rozmiar MEMORY.md, append-only do przeniesienia,
   wiek spraw pending-review, duplikaty między MEMORY.md a memory/, oraz synchronizację projects-index z hub README. Load
@@ -19,8 +20,8 @@ tags:
 - audit
 related:
 - skill-nightly-evolution
-quality_schema: pending
-quality_technical: pending
+quality_schema: pass
+quality_technical: pass
 quality_operational: fresh
 last_verified: 2026-07-27
 verified_on: manual consolidation session (25,103 B → 8,612 B), Krok 8 verified w praktyce
