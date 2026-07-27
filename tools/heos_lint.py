@@ -155,6 +155,10 @@ def lint(root: Path, strict: bool = False) -> list[Finding]:
     # 2. Walidacja per artefakt
     adr_ids: set[str] = set()
     skill_ids: set[str] = set()
+    lessons_ids: set[str] = set()
+    checklist_ids: set[str] = set()
+    playbook_ids: set[str] = set()
+    artifact_ids: set[str] = set()
     for md, fm in artefakty:
         rel = str(md.relative_to(root))
         type_ = fm.get("type")
@@ -191,6 +195,15 @@ def lint(root: Path, strict: bool = False) -> list[Finding]:
             adr_ids.add(id_)
         elif type_ == "skill":
             skill_ids.add(id_)
+        elif type_ == "lessons":
+            lessons_ids.add(id_)
+        elif type_ == "checklist":
+            checklist_ids.add(id_)
+        elif type_ == "playbook":
+            playbook_ids.add(id_)
+        artifact_ids.add(id_)
+    # Wszystkie ID są dozwolone jako cel cross-ref
+    valid_ids = adr_ids | skill_ids | lessons_ids | checklist_ids | playbook_ids | artifact_ids
     # 3. Cross-references
     for md, fm in artefakty:
         rel = str(md.relative_to(root))
@@ -206,10 +219,8 @@ def lint(root: Path, strict: bool = False) -> list[Finding]:
                 if r_norm not in adr_ids:
                     findings.append(Finding("ERROR", rel, "BROKEN_REF", f"related={r!r} → {r_norm} nie istnieje"))
             else:
-                # Może być skill-X lub inny identyfikator
-                if r_str in skill_ids:
-                    pass  # OK
-                elif r_str in adr_ids:
+                # Może być skill-X, lessons-X, checklist-X, playbook-X lub inny ID
+                if r_str in valid_ids:
                     pass  # OK
                 else:
                     # Spróbuj znormalizować "skill-XXX" do id (skills mają "skill-<name>")

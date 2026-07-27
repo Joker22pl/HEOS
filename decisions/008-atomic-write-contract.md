@@ -87,6 +87,7 @@ Contract**:
 |---|---|---|
 | `update_quality.py` | ✅ Tak | Pełny kontrakt z 10 testami |
 | `check_related_symmetry.py` | 🟡 Częściowe | `--dry-run` istnieje; transakcyjność NIE |
+| `heos_lint.py` | N/A | Nie modyfikuje — ale 2026-07-27 fix: rozpoznaje `lessons-X`/`checklist-X`/`playbook-X` w cross-refs (nie tylko `skill-X`/`adr-X`) |
 | `migrate_files.py` | ❌ Nie | Migration tools — audit przed zastosowaniem |
 | `migrate_runtime_skills.py` | ❌ Nie | Migration tools |
 | `update_frontmatter.py` | ❌ Nie | Refactor zalecany |
@@ -176,3 +177,6 @@ Wszystkie 10 testów PASS na `update_quality.py`.
 - **2026-07-27**: Accepted. Wdrożone w `update_quality.py`. 10 testów.
   Planowane wdrożenie w `check_related_symmetry.py`, `migrate_*.py`,
   `update_frontmatter.py`, `add_lessons_learned.py`.
+- **2026-07-27** (bonus): `heos_lint.py` fix — rozpoznaje cross-refs do
+  `lessons-*`, `checklist-*`, `playbook-*` (nie tylko `skill-*`/`adr-*`).
+  Eliminuje 3 false-positive WARN po dodaniu nowych typów artefaktów.
