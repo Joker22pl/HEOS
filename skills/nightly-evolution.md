@@ -19,6 +19,7 @@ heos_standard_version: "1.2"
 tags:
 - cross-cutting
 related:
+- skill-using-chm
 - adr-002
 - adr-005
 quality_schema: pending
@@ -173,11 +174,11 @@ Wybierz TYLKO wnioski z wartością długoterminową. Dla każdego:
 
 ```
 - Wniosek: ...
-  - Źródło/dowód: <plik:linia lub daily-summary>
-  - Pewność: ★☆☆☆☆ do ★★★★★ (uzasadnij jednym zdaniem)
-  - Trwałość: długoterminowa | średnioterminowa | jednorazowa
-  - Proponowane miejsce: <skill | ADR | README | pamięć>
-  - Rekomendacja: zachować | odrzucić | sprawdzić | zaproponować jako standard
+- Źródło/dowód: <plik:linia lub daily-summary>
+- Pewność: ★☆☆☆☆ do ★★★★★ (uzasadnij jednym zdaniem)
+- Trwałość: długoterminowa | średnioterminowa | jednorazowa
+- Proponowane miejsce: <skill | ADR | README | pamięć>
+- Rekomendacja: zachować | odrzucić | sprawdzić | zaproponować jako standard
 ```
 
 **Nie zapisuj hipotez jako faktów.** Brak dowodu = brak wpisu.
@@ -192,14 +193,14 @@ Dla każdego kandydata z okna (Lessons Learned, powtarzający się błąd, skute
 
 ```
 - Informacja: <jedno zdanie streszczające>
-  - Typ: pamiec | skill | skill-update | project-doc | tracker | audit-log | session-only
-  - Dowód: <plik:linia | daily-summary | log:linia>
-  - Trwałość: jednorazowa | średnioterminowa | długoterminowa
-  - Pewność: HIGH | MEDIUM | LOW
-  - Kontekst: <profil gaja | projekt X | HEOS | ogólne>
-  - Docelowa ścieżka: <np. memories/<topic>.md | skills/<skill>/SKILL.md | ~/gaja-projekty/<proj>/docs/... | state/improvement-backlog.md>
-  - Akcja: zapisz | zaproponuj | pozostaw-w-raporcie | odrzuc
-  - Uzasadnienie: <1-2 zdania dlaczego taki typ>
+- Typ: pamiec | skill | skill-update | project-doc | tracker | audit-log | session-only
+- Dowód: <plik:linia | daily-summary | log:linia>
+- Trwałość: jednorazowa | średnioterminowa | długoterminowa
+- Pewność: HIGH | MEDIUM | LOW
+- Kontekst: <profil gaja | projekt X | HEOS | ogólne>
+- Docelowa ścieżka: <np. memories/<topic>.md | skills/<skill>/SKILL.md | ~/gaja-projekty/<proj>/docs/... | state/improvement-backlog.md>
+- Akcja: zapisz | zaproponuj | pozostaw-w-raporcie | odrzuc
+- Uzasadnienie: <1-2 zdania dlaczego taki typ>
 ```
 
 #### Tabela routingu (reguła domyślna)
@@ -492,12 +493,12 @@ Dla każdego istotnego błędu w oknie:
 
 ```
 - Błąd: <krótki opis>
-  - Objaw: ...
-  - Prawdopodobna przyczyna: ...
-  - Potwierdzone dowody: <log:linia, plik:linia>
-  - Zastosowane rozwiązanie: ...
-  - Prewencja: ...
-  - Występował wcześniej: tak/nie, dowód
+- Objaw: ...
+- Prawdopodobna przyczyna: ...
+- Potwierdzone dowody: <log:linia, plik:linia>
+- Zastosowane rozwiązanie: ...
+- Prewencja: ...
+- Występował wcześniej: tak/nie, dowód
 ```
 
 **Nie raportuj tego samego błędu wielokrotnie** — grupuj lub wskaż "patrz <daily-...>".
@@ -549,18 +550,18 @@ Format wpisu:
 
 ```
 - [IMP-YYYY-NNN] <tytuł>
-  - Data dodania: YYYY-MM-DD
-  - Źródło: daily-YYYY-MM-DD | Etap K Knowledge Routing
-  - Typ: <z tabeli powyżej>
-  - Opis problemu: ...
-  - Dowód: <ścieżka/sekcja>
-  - Proponowane rozwiązanie: ...
-  - Wpływ: HIGH|MEDIUM|LOW
-  - Koszt wdrożenia: S|M|L|XL
-  - Ryzyko: HIGH|MEDIUM|LOW
-  - Priorytet: P0|P1|P2|P3
-  - Status: OPEN | ACCEPTED | IN_PROGRESS | DONE | REJECTED
-  - Powiązania: <ADR-NNN | skill-name | daily-YYYY-MM-DD>
+- Data dodania: YYYY-MM-DD
+- Źródło: daily-YYYY-MM-DD | Etap K Knowledge Routing
+- Typ: <z tabeli powyżej>
+- Opis problemu: ...
+- Dowód: <ścieżka/sekcja>
+- Proponowane rozwiązanie: ...
+- Wpływ: HIGH|MEDIUM|LOW
+- Koszt wdrożenia: S|M|L|XL
+- Ryzyko: HIGH|MEDIUM|LOW
+- Priorytet: P0|P1|P2|P3
+- Status: OPEN | ACCEPTED | IN_PROGRESS | DONE | REJECTED
+- Powiązania: <ADR-NNN | skill-name | daily-YYYY-MM-DD>
 ```
 
 ### Krok 12 — Etap J: Plan na kolejny dzień → `## Plan` w daily
@@ -748,34 +749,34 @@ Etap K klasyfikuje:
 
 ```
 - Informacja: BNO085 wymaga I2C clock stretch, nie wspiera 400kHz
-  - Typ: project-doc | Trwałość: długoterminowa | Pewność: HIGH | Kontekst: projekt imp2-arch
-  - Docelowa ścieżka: ~/gaja-projekty/imp2-arch/docs/imu-limitations.md
-  - Akcja: zaproponuj (wymaga akceptacji)
+- Typ: project-doc | Trwałość: długoterminowa | Pewność: HIGH | Kontekst: projekt imp2-arch
+- Docelowa ścieżka: ~/gaja-projekty/imp2-arch/docs/imu-limitations.md
+- Akcja: zaproponuj (wymaga akceptacji)
 
 - Informacja: Procedura flash ESP32 przez USB-CDC wymaga resetu w 1s oknie
-  - Typ: new-skill | Trwałość: długoterminowa | Pewność: HIGH | Kontekst: ogólne
-  - Powtórzeń: 4 (sesje 2026-07-20, 21, 22, 24)
-  - Docelowa ścieżka: skills/hardware/esp32-s3-flash/SKILL.md
-  - Akcja: zaproponuj
+- Typ: new-skill | Trwałość: długoterminowa | Pewność: HIGH | Kontekst: ogólne
+- Powtórzeń: 4 (sesje 2026-07-20, 21, 22, 24)
+- Docelowa ścieżka: skills/hardware/esp32-s3-flash/SKILL.md
+- Akcja: zaproponuj
 
 - Informacja: Joker przy krytycznym review chce ADR-y jeden-po-drugim z TL;DR
-  - Typ: memory | Trwałość: długoterminowa | Pewność: HIGH | Kontekst: profil gaja
-  - Docelowa ścieżka: memories/MEMORY.md (update istniejącego wpisu o preferencjach)
-  - Akcja: zaproponuj
+- Typ: memory | Trwałość: długoterminowa | Pewność: HIGH | Kontekst: profil gaja
+- Docelowa ścieżka: memories/MEMORY.md (update istniejącego wpisu o preferencjach)
+- Akcja: zaproponuj
 
 - Informacja: micro-ROS UDP nie działa stabilnie (issue #732)
-  - Typ: adr | Trwałość: długoterminowa | Pewność: HIGH | Kontekst: projekt imp2-arch
-  - Docelowa ścieżka: ~/gaja-projekty/imp2-arch/decisions/0012-micro-ros-transport.md
-  - Akcja: zaproponuj
+- Typ: adr | Trwałość: długoterminowa | Pewność: HIGH | Kontekst: projekt imp2-arch
+- Docelowa ścieżka: ~/gaja-projekty/imp2-arch/decisions/0012-micro-ros-transport.md
+- Akcja: zaproponuj
 
 - Informacja: Dziś tooling: micro-ROS tools brak pakietu w apt
-  - Typ: session-only | Trwałość: jednorazowa | Pewność: HIGH
-  - Akcja: odrzuć (locka w toolchain to nie jest kandydat do pamięci)
+- Typ: session-only | Trwałość: jednorazowa | Pewność: HIGH
+- Akcja: odrzuć (locka w toolchain to nie jest kandydat do pamięci)
 
 - Informacja: 3× w tym tygodniu ten sam błąd import w Pythonie 3.13 (FileFinder)
-  - Typ: error-fix | Trwałość: długoterminowa | Pewność: HIGH | Kontekst: ogólne
-  - Docelowa ścieżka: backlog (typ error-fix), później skill/patch hermes-panel
-  - Akcja: zapisz automatycznie w backlogu (bo to problem narzędzia, nie decyzja arch.)
+- Typ: error-fix | Trwałość: długoterminowa | Pewność: HIGH | Kontekst: ogólne
+- Docelowa ścieżka: backlog (typ error-fix), później skill/patch hermes-panel
+- Akcja: zapisz automatycznie w backlogu (bo to problem narzędzia, nie decyzja arch.)
 ```
 
 Po Etapie K: 4 kandydatów do akceptacji (memory, new-skill, adr, project-doc), 1 zapis automatyczny (backlog error-fix), 1 odrzucony.
@@ -831,37 +832,37 @@ Wynik:
 ## Wersjonowanie
 
 - **v1.0** (2026-07-23) — pierwsza wersja, zainstalowana przez Jokera w profilu `gaja`.
-  - 14-etapowy workflow (A–J + Krok 0 + 13 + 14).
-  - Katalog danych: `~/.hermes/profiles/gaja/nightly-evolution/`.
-  - Cron: `Nightly Evolution`, `0 1 * * *`, workdir `~/gaja-projekty/HEOS`, delivery `origin`.
+- 14-etapowy workflow (A–J + Krok 0 + 13 + 14).
+- Katalog danych: `~/.hermes/profiles/gaja/nightly-evolution/`.
+- Cron: `Nightly Evolution`, `0 1 * * *`, workdir `~/gaja-projekty/HEOS`, delivery `origin`.
 - **v1.1** (2026-07-24) — Knowledge Routing (Etap K).
-  - Dodany Krok 5.5 (Etap K) — klasyfikacja i routing wiedzy PRZED zapisem na stałe.
-  - Tabela routingu: rodzaj informacji → miejsce zapisu → kto zapisuje.
-  - Sekcja `## Knowledge Routing` w daily report z kandydatami do akceptacji.
-  - Format backlogu rozszerzony o pole `Typ` (10 wartości: `new-skill`, `skill-update`, `adr`, `adr-update`, `project-doc`, `heos-doc`, `memory`, `tracker`, `error-fix`, `process-improvement`).
-  - Statusy backlogu: `OPEN | ACCEPTED | IN_PROGRESS | DONE | REJECTED` (zamiast stałego `OPEN`).
-  - Krok 14 (Discord) zawiera dedykowaną sekcję `🧭 Knowledge Routing`.
-  - Bez zmian w: Krok 0.5 (self-check), Krok 13 (atomowy zapis), katalog danych, cron config.
+- Dodany Krok 5.5 (Etap K) — klasyfikacja i routing wiedzy PRZED zapisem na stałe.
+- Tabela routingu: rodzaj informacji → miejsce zapisu → kto zapisuje.
+- Sekcja `## Knowledge Routing` w daily report z kandydatami do akceptacji.
+- Format backlogu rozszerzony o pole `Typ` (10 wartości: `new-skill`, `skill-update`, `adr`, `adr-update`, `project-doc`, `heos-doc`, `memory`, `tracker`, `error-fix`, `process-improvement`).
+- Statusy backlogu: `OPEN | ACCEPTED | IN_PROGRESS | DONE | REJECTED` (zamiast stałego `OPEN`).
+- Krok 14 (Discord) zawiera dedykowaną sekcję `🧭 Knowledge Routing`.
+- Bez zmian w: Krok 0.5 (self-check), Krok 13 (atomowy zapis), katalog danych, cron config.
 - **v1.2.1** (2026-07-25) — Memory Hygiene v1.2.1 (incremental).
-  - Skill `memory-hygiene` v1.0.0 (nowy, class-level, standalone audyt pamięci na żądanie).
-  - Etap L: dodany pkt 6 "Baseline tracking" → `state/memory-metrics.jsonl` (append-only
+- Skill `memory-hygiene` v1.0.0 (nowy, class-level, standalone audyt pamięci na żądanie).
+- Etap L: dodany pkt 6 "Baseline tracking" → `state/memory-metrics.jsonl` (append-only
     trend rozmiaru MEMORY.md, duplikatów, append-only, pending).
-  - Krok 14 (Discord): dodana sekcja `📊 Zmiana od ostatniej nocy` + `📈 Trend (7 dni)`.
-  - Reference: `skills/memory-hygiene/references/race-condition-signs.md` (7 sygnałów).
-  - Bez zmian w: Krok 0.5, Etap A-K+L+, katalog danych, cron config, harmonogram.
+- Krok 14 (Discord): dodana sekcja `📊 Zmiana od ostatniej nocy` + `📈 Trend (7 dni)`.
+- Reference: `skills/memory-hygiene/references/race-condition-signs.md` (7 sygnałów).
+- Bez zmian w: Krok 0.5, Etap A-K+L+, katalog danych, cron config, harmonogram.
 
 - **v1.2** (2026-07-25) — Etap L Memory Hygiene (audyt mojej pamięci operacyjnej).
-  - Dodany Krok 5.6 (Etap L) — codzienny audyt `~/.hermes/profiles/gaja/memories/`:
+- Dodany Krok 5.6 (Etap L) — codzienny audyt `~/.hermes/profiles/gaja/memories/`:
     rozmiar MEMORY.md, append-only do przeniesienia, sprawdzenie pending-review,
     wykrycie duplikatów między MEMORY.md a `memory/`.
-  - Dodany Krok 5.6b (Etap L+) — **audyt miesięczny** aktywowany gdy `day == 1`:
+- Dodany Krok 5.6b (Etap L+) — **audyt miesięczny** aktywowany gdy `day == 1`:
     pełen przegląd struktury memory/, wskaźników do repo, archiwizacja projektów
     zamkniętych, sync `memory/projects-index.md` z `~/gaja-projekty/README.md`.
-  - Sekcja `## Memory Hygiene` w daily (nowa, po `## Knowledge Routing`).
-  - Sekcja `🧠 Memory Hygiene` w raporcie Discord (Krok 14).
-  - Realizuje instrukcję Jokera "System samodzielnej higieny pamięci Gai" §10-12.
-  - Bez zmian w: Krok 0.5, Etap A-K, katalog danych, cron config, harmonogram.
-  - Krok 14b (alert) — gdy MEMORY.md > 95% limitu (22,000 B) przez 3 kolejne
+- Sekcja `## Memory Hygiene` w daily (nowa, po `## Knowledge Routing`).
+- Sekcja `🧠 Memory Hygiene` w raporcie Discord (Krok 14).
+- Realizuje instrukcję Jokera "System samodzielnej higieny pamięci Gai" §10-12.
+- Bez zmian w: Krok 0.5, Etap A-K, katalog danych, cron config, harmonogram.
+- Krok 14b (alert) — gdy MEMORY.md > 95% limitu (22,000 B) przez 3 kolejne
     przebiegi, wysyłany jest alert do użytkownika (bo to jest stan krytyczny
     wymagający ręcznej konsolidacji).
 

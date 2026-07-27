@@ -1,4 +1,5 @@
 ---
+
 type: skill
 id: skill-embedded-communications-debug
 name: embedded-communications-debug
@@ -22,8 +23,8 @@ tags:
 - hardware
 related:
 - skill-gaja-lab-core
-quality_schema: pending
-quality_technical: pending
+quality_schema: pass
+quality_technical: pass
 quality_operational: unmeasured
 last_verified: 2026-07-26
 verified_on: ESP32-S3 + I2C sensor (2026-07-25), UART debug session
@@ -199,6 +200,37 @@ konfiguracja: tryb transceivera B w standby.
 **Poprawka:** wybudź transceiver B (pin STB/EN), restart node'a. Po fix licznik błędów 0.
 
 **Wynik:** magistrala działa stabilnie po wielu restartach.
+
+### Przykład 4: Najczęstsze komendy debug (copy-paste)
+
+```bash
+# 1. Identyfikacja portu
+lsusb
+ls -la /dev/ttyACM* /dev/ttyUSB* 2>/dev/null
+dmesg | tail -20
+
+# 2. UART loopback (zwarcie RX↔TX adaptera)
+stty -F /dev/ttyACM0 115200 raw -echo
+echo "hello" > /dev/ttyACM0
+cat /dev/ttyACM0  # powinno zwrócić "hello"
+
+# 3. I2C scan (wymaga i2c-tools)
+sudo i2cdetect -y 1        # scan na bus 1 (RPi)
+sudo i2cget -y 1 0x3C 0x00 # odczyt rejestru 0x00 z urządzenia 0x3C
+
+# 4. SPI loopback (zwarcie MOSI↔MISO)
+sudo spi-tools -d /dev/spidev0.0 -s 1000000 \
+     -w "\xAA\x55" -r 4    # wyślij 2 bajty, odbierz 4
+
+# 5. CAN dump (wymaga can-utils)
+candump can0               # pasywny listening
+cansend can0 123#DEADBEEF  # nadaj ramkę
+
+# 6. USB-serial: VID/PID lookup
+udevadm info -a -p /dev/ttyACM0 | grep -E "ATTRS{idVendor}|ATTRS{idProduct}"
+```
+
+**Pass gdy:** każda komenda zwraca oczekiwany output dla twojego peryferyjnego.
 
 ## Lessons Learned
 

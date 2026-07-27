@@ -1,4 +1,5 @@
 ---
+
 name: esp32-s3-micropython-blink
 description: Flash MicroPython on ESP32-S3 boards (Waveshare Pico, Adafruit Feather S3, DevKitC) and verify with an RGB NeoPixel
   blink test. Use when a new ESP32-S3 board is just connected, when Arduino-ESP32 core variant pinning is giving wrong LED
@@ -20,8 +21,8 @@ tags:
 - embedded
 related:
 - adr-001
-quality_schema: pending
-quality_technical: pending
+quality_schema: pass
+quality_technical: pass
 quality_operational: unmeasured
 ---
 

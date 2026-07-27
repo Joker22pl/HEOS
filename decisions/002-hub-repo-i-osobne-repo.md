@@ -14,6 +14,7 @@ heos_standard_version: '1.2'
 tags:
 - cross-cutting
 related:
+- skill-nightly-evolution
 - adr-004
 - adr-003
 quality_schema: pending

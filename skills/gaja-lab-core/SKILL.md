@@ -1,4 +1,5 @@
 ---
+
 name: gaja-lab-core
 description: First-response workshop diagnostics for USB devices, serial ports, and embedded boards. Use when a device is just
   plugged in and you need VID/PID, port name, permission audit, or a board identification hint. Read-only — never flashes, never
@@ -24,8 +25,8 @@ tags:
 - diagnostics
 related:
 - skill-esp32-s3-micropython-blink
-quality_schema: pending
-quality_technical: pending
+quality_schema: pass
+quality_technical: pass
 quality_operational: unmeasured
 ---
 
@@ -244,6 +245,17 @@ pojawił się w `list-usb`.
    Labs CP2102/CP2104", ale NIE wie czy to Wemos D1 czy Sonoff.
 6. **Nie pytaj o VID/PID w runtime** — baza jest w skrypcie, łatwa do
    rozszerzenia. Dodaj nowy wpis do `BOARD_DB` gdy trafisz na nową płytkę.
+7. **CH9102 vs CP2102 — różne VID/PID, ten sam use-case.** CH9102 ma
+   `1a86:55d3/55d4`, CP2102 ma `10c4:ea60`. Adaptery CH9102 często
+   wchodzą w tryb `cdc_acm` (pojawiają się jako `/dev/ttyACM*`), ale
+   pod Linuksem bywają traktowane jako `/dev/ttyUSB*` (driver
+   `ch341`). Diagnostyka: zawsze `lsusb -v` VID/PID przed założeniem
+   jaki driver. Helper zwraca VID/PID w polu `usb.device.vid_pid`.
+8. **ESP32-S3 native USB vs UART bridge** — dwa różne porty. Native USB
+   (USB-C na płytce) = `/dev/ttyACM0` (CDC-ACM). UART bridge (external
+   adapter) = `/dev/ttyUSB0`. Ten sam chip, dwa endpointy, dwa różne
+   flow-control. mpremote działa z obu, ale `mpremote connect` potrzebuje
+   świadomości który. Helper pokazuje oba w `usb.device.endpoints`.
 
 ## Instalacja (jednorazowa per host)
 

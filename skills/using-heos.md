@@ -1,4 +1,5 @@
 ---
+
 name: using-heos
 description: How to use, extend, and contribute to HEOS (Hermes Engineering Operating System). Load when starting any task
   that touches standards, ADR, Skills, or HEOS quality audits.
@@ -17,8 +18,8 @@ tags:
 related:
 - adr-002
 - adr-005
-quality_schema: pending
-quality_technical: pending
+quality_schema: pass
+quality_technical: pass
 quality_operational: unmeasured
 ---
 

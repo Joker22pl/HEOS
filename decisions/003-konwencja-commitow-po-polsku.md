@@ -14,6 +14,7 @@ heos_standard_version: '1.2'
 tags:
 - cross-cutting
 related:
+- adr-001
 - adr-002
 - adr-004
 quality_schema: pending
