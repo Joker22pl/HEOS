@@ -56,7 +56,7 @@ jobs:
         run: python3 tools/update_quality.py || true
 
       - name: Pytest
-        run: python3 -m pytest -q --tb=short
+        run: python3 -m pytest --tb=long -v 2>&1 | tail -50
 
       - name: Working tree clean
         # Weryfikuje że bramki nie zostawiają śmieci w repo
