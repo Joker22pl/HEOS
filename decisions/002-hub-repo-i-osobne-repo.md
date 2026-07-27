@@ -17,6 +17,7 @@ related:
 - skill-nightly-evolution
 - adr-004
 - adr-003
+- skill-using-heos
 quality_schema: pending
 quality_technical: pending
 quality_operational: unmeasured

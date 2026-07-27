@@ -21,6 +21,7 @@ tags:
 - embedded
 related:
 - adr-001
+- skill-gaja-lab-core
 quality_schema: pass
 quality_technical: pass
 quality_operational: unmeasured

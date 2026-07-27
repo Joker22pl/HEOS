@@ -25,6 +25,7 @@ tags:
 - diagnostics
 related:
 - skill-esp32-s3-micropython-blink
+- skill-embedded-communications-debug
 quality_schema: pass
 quality_technical: pass
 quality_operational: unmeasured

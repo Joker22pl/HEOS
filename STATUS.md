@@ -1,6 +1,6 @@
 # HEOS — STATUS
 
-**Wygenerowano:** 2026-07-27T18:40:20.866922+00:00  
+**Wygenerowano:** 2026-07-27T18:44:51.155711+00:00  
 **Wersja HEOS:** `v1.2.0`  
 **Auto-generowany:** ✅ (z `tools/generate_status.py`)
 
@@ -21,7 +21,7 @@
 ## Jakość
 
 - **Skill audit:** 5 PASS / 0 WARN / 0 FAIL (z 5 zbadanych)
-- **HEOS lint:** 0 ERROR / 0 WARN / 1 INFO
+- **HEOS lint:** 0 ERROR / 3 WARN / 0 INFO
 
 ## Struktura
 
@@ -32,8 +32,8 @@
 
 ## Git
 
-- **Ostatni commit:** `059dfba7` — [ci] GitHub Actions workflow — HEOS lint
-  - Data: 2026-07-27 20:39:00 +0200
+- **Ostatni commit:** `12a09c3c` — [ci] fix: usuń cache: 'pip' z actions/setup-python@v5
+  - Data: 2026-07-27 20:42:01 +0200
 - **Tagi:** v1.2.0
 
 ---

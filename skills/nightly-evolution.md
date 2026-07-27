@@ -22,6 +22,8 @@ related:
 - skill-using-chm
 - adr-002
 - adr-005
+- adr-008
+- skill-memory-hygiene
 quality_schema: pending
 quality_technical: pending
 quality_operational: unmeasured

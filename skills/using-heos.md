@@ -18,6 +18,11 @@ tags:
 related:
 - adr-002
 - adr-005
+- lessons-2026-07-27-heos-audit-fix-bug
+- adr-008
+- playbook-heos-new-skill
+- skill-using-chm
+- checklist-heos-pre-commit-validation
 quality_schema: pass
 quality_technical: pass
 quality_operational: unmeasured

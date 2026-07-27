@@ -1,19 +1,19 @@
 _meta:
-  generated_at: '2026-07-27T18:40:18.833722+00:00'
+  generated_at: '2026-07-27T18:44:49.898870+00:00'
   heos_root: /home/gaja/gaja-projekty/HEOS
   total_artifacts: 16
   by_type:
-    lessons: 1
-    skill: 7
-    adr: 6
-    playbook: 1
     checklist: 1
+    adr: 6
+    skill: 7
+    lessons: 1
+    playbook: 1
 artifacts:
-  lessons:
-  - type: lessons
-    id: lessons-2026-07-27-heos-audit-fix-bug
-    name: 2026-07-27-heos-audit-fix-bug
-    title: HEOS audit catch-all — fałszywe FAIL z joker-deliverables
+  checklist:
+  - type: checklist
+    id: checklist-heos-pre-commit-validation
+    name: heos-pre-commit-validation
+    title: HEOS pre-commit validation — co sprawdzić przed commitem
     status: accepted
     owner: gaja
     created_at: '2026-07-27'
@@ -22,146 +22,12 @@ artifacts:
     version: 1.0.0
     heos_standard_version: '1.2'
     tags:
-    - audit
-    - tooling
-    - bug-fix
-    related:
-    - skill-using-heos
-    path: lessons/2026-07-27-heos-audit-fix-bug.md
-  skill:
-  - type: skill
-    id: skill-embedded-communications-debug
-    name: embedded-communications-debug
-    title: Embedded Communications Debug — UART/I2C/SPI/CAN/USB-serial
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-25'
-    updated_at: '2026-07-26'
-    review_due: '2027-01-25'
-    version: 0.3.0
-    heos_standard_version: '1.2'
-    tags:
-    - embedded
-    - robotics
-    - debugging
-    - uart
-    - i2c
-    - spi
-    - can
-    - usb-serial
-    - hardware
-    related:
-    - skill-gaja-lab-core
-    path: skills/embedded-communications-debug/SKILL.md
-  - type: skill
-    id: skill-esp32-s3-micropython-blink
-    name: esp32-s3-micropython-blink
-    title: ESP32-S3 MicroPython Blink — first-board test
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-24'
-    updated_at: '2026-07-24'
-    review_due: '2027-01-23'
-    version: 1.0.0
-    heos_standard_version: '1.2'
-    tags:
-    - embedded
-    related:
-    - adr-001
-    path: skills/esp32-s3-micropython-blink.md
-  - type: skill
-    id: skill-gaja-lab-core
-    name: gaja-lab-core
-    title: gaja-lab-core — workshop USB/serial diagnostic foundation
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-25'
-    updated_at: '2026-07-25'
-    review_due: '2027-01-25'
-    version: 1.0.0
-    heos_standard_version: '1.2'
-    tags:
-    - embedded
-    - workshop
-    - usb
-    - serial
-    - diagnostics
-    related:
-    - skill-esp32-s3-micropython-blink
-    path: skills/gaja-lab-core/SKILL.md
-  - type: skill
-    id: skill-memory-hygiene
-    name: memory-hygiene
-    title: Memory Hygiene
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-25'
-    updated_at: '2026-07-26'
-    review_due: '2027-01-23'
-    version: 1.4.0
-    heos_standard_version: '1.2'
-    tags:
-    - cross-cutting
-    - memory
+    - quality
+    - pre-commit
     - audit
     related:
-    - skill-nightly-evolution
-    path: skills/memory-hygiene/SKILL.md
-  - type: skill
-    id: skill-nightly-evolution
-    name: nightly-evolution
-    title: Nightly Evolution
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-24'
-    updated_at: '2026-07-25'
-    review_due: '2027-01-23'
-    version: 1.2.1
-    heos_standard_version: '1.2'
-    tags:
-    - cross-cutting
-    related:
-    - skill-using-chm
-    - adr-002
-    - adr-005
-    path: skills/nightly-evolution.md
-  - type: skill
-    id: skill-using-chm
-    name: using-chm
-    title: Using CHM (Context Health Manager)
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-24'
-    updated_at: '2026-07-24'
-    review_due: '2027-01-23'
-    version: 1.0.0
-    heos_standard_version: '1.2'
-    tags:
-    - cross-cutting
-    - observability
-    - hermes-plugin
-    related:
-    - adr-005
     - skill-using-heos
-    - skill-nightly-evolution
-    path: skills/using-chm.md
-  - type: skill
-    id: skill-using-heos
-    name: using-heos
-    title: Using HEOS
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-24'
-    updated_at: '2026-07-24'
-    review_due: '2027-01-23'
-    version: 1.0.0
-    heos_standard_version: '1.2'
-    tags:
-    - cross-cutting
-    related:
-    - adr-002
-    - adr-005
-    path: skills/using-heos.md
+    path: checklists/heos-pre-commit-validation.md
   adr:
   - type: adr
     id: adr-001
@@ -198,6 +64,7 @@ artifacts:
     - skill-nightly-evolution
     - adr-004
     - adr-003
+    - skill-using-heos
     adr_number: 2
     path: decisions/002-hub-repo-i-osobne-repo.md
   - type: adr
@@ -276,6 +143,168 @@ artifacts:
     - skill-nightly-evolution
     adr_number: 8
     path: decisions/008-atomic-write-contract.md
+  skill:
+  - type: skill
+    id: skill-embedded-communications-debug
+    name: embedded-communications-debug
+    title: Embedded Communications Debug — UART/I2C/SPI/CAN/USB-serial
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-25'
+    updated_at: '2026-07-26'
+    review_due: '2027-01-25'
+    version: 0.3.0
+    heos_standard_version: '1.2'
+    tags:
+    - embedded
+    - robotics
+    - debugging
+    - uart
+    - i2c
+    - spi
+    - can
+    - usb-serial
+    - hardware
+    related:
+    - skill-gaja-lab-core
+    path: skills/embedded-communications-debug/SKILL.md
+  - type: skill
+    id: skill-esp32-s3-micropython-blink
+    name: esp32-s3-micropython-blink
+    title: ESP32-S3 MicroPython Blink — first-board test
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-24'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - embedded
+    related:
+    - adr-001
+    - skill-gaja-lab-core
+    path: skills/esp32-s3-micropython-blink.md
+  - type: skill
+    id: skill-gaja-lab-core
+    name: gaja-lab-core
+    title: gaja-lab-core — workshop USB/serial diagnostic foundation
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-25'
+    updated_at: '2026-07-25'
+    review_due: '2027-01-25'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - embedded
+    - workshop
+    - usb
+    - serial
+    - diagnostics
+    related:
+    - skill-esp32-s3-micropython-blink
+    - skill-embedded-communications-debug
+    path: skills/gaja-lab-core/SKILL.md
+  - type: skill
+    id: skill-memory-hygiene
+    name: memory-hygiene
+    title: Memory Hygiene
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-25'
+    updated_at: '2026-07-26'
+    review_due: '2027-01-23'
+    version: 1.4.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    - memory
+    - audit
+    related:
+    - skill-nightly-evolution
+    path: skills/memory-hygiene/SKILL.md
+  - type: skill
+    id: skill-nightly-evolution
+    name: nightly-evolution
+    title: Nightly Evolution
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-24'
+    updated_at: '2026-07-25'
+    review_due: '2027-01-23'
+    version: 1.2.1
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    related:
+    - skill-using-chm
+    - adr-002
+    - adr-005
+    - adr-008
+    - skill-memory-hygiene
+    path: skills/nightly-evolution.md
+  - type: skill
+    id: skill-using-chm
+    name: using-chm
+    title: Using CHM (Context Health Manager)
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-24'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    - observability
+    - hermes-plugin
+    related:
+    - adr-005
+    - skill-using-heos
+    - skill-nightly-evolution
+    path: skills/using-chm.md
+  - type: skill
+    id: skill-using-heos
+    name: using-heos
+    title: Using HEOS
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-24'
+    updated_at: '2026-07-24'
+    review_due: '2027-01-23'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    related:
+    - adr-002
+    - adr-005
+    - lessons-2026-07-27-heos-audit-fix-bug
+    - adr-008
+    - playbook-heos-new-skill
+    - skill-using-chm
+    - checklist-heos-pre-commit-validation
+    path: skills/using-heos.md
+  lessons:
+  - type: lessons
+    id: lessons-2026-07-27-heos-audit-fix-bug
+    name: 2026-07-27-heos-audit-fix-bug
+    title: HEOS audit catch-all — fałszywe FAIL z joker-deliverables
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-27'
+    updated_at: '2026-07-27'
+    review_due: '2027-01-25'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - audit
+    - tooling
+    - bug-fix
+    related:
+    - skill-using-heos
+    path: lessons/2026-07-27-heos-audit-fix-bug.md
   playbook:
   - type: playbook
     id: playbook-heos-new-skill
@@ -294,63 +323,60 @@ artifacts:
     related:
     - skill-using-heos
     path: playbooks/heos-new-skill.md
-  checklist:
-  - type: checklist
-    id: checklist-heos-pre-commit-validation
-    name: heos-pre-commit-validation
-    title: HEOS pre-commit validation — co sprawdzić przed commitem
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-27'
-    updated_at: '2026-07-27'
-    review_due: '2027-01-25'
-    version: 1.0.0
-    heos_standard_version: '1.2'
-    tags:
-    - quality
-    - pre-commit
-    - audit
-    related:
-    - skill-using-heos
-    path: checklists/heos-pre-commit-validation.md
 inverse_index:
   skill-using-heos:
-  - lessons-2026-07-27-heos-audit-fix-bug
-  - skill-using-chm
-  - adr-005
-  - adr-008
-  - playbook-heos-new-skill
   - checklist-heos-pre-commit-validation
-  skill-gaja-lab-core:
-  - skill-embedded-communications-debug
-  adr-001:
-  - skill-esp32-s3-micropython-blink
-  - adr-003
-  skill-esp32-s3-micropython-blink:
-  - skill-gaja-lab-core
-  - adr-001
-  skill-nightly-evolution:
-  - skill-memory-hygiene
-  - skill-using-chm
   - adr-002
   - adr-005
   - adr-008
-  skill-using-chm:
-  - skill-nightly-evolution
-  - adr-005
-  adr-002:
-  - skill-nightly-evolution
-  - skill-using-heos
-  - adr-003
-  - adr-004
-  adr-005:
-  - skill-nightly-evolution
   - skill-using-chm
-  - skill-using-heos
+  - lessons-2026-07-27-heos-audit-fix-bug
+  - playbook-heos-new-skill
+  skill-esp32-s3-micropython-blink:
+  - adr-001
+  - skill-gaja-lab-core
   adr-003:
   - adr-001
   - adr-002
   - adr-004
+  skill-nightly-evolution:
+  - adr-002
+  - adr-005
+  - adr-008
+  - skill-memory-hygiene
+  - skill-using-chm
   adr-004:
   - adr-002
   - adr-003
+  adr-001:
+  - adr-003
+  - skill-esp32-s3-micropython-blink
+  adr-002:
+  - adr-003
+  - adr-004
+  - skill-nightly-evolution
+  - skill-using-heos
+  skill-using-chm:
+  - adr-005
+  - skill-nightly-evolution
+  - skill-using-heos
+  skill-gaja-lab-core:
+  - skill-embedded-communications-debug
+  - skill-esp32-s3-micropython-blink
+  skill-embedded-communications-debug:
+  - skill-gaja-lab-core
+  adr-005:
+  - skill-nightly-evolution
+  - skill-using-chm
+  - skill-using-heos
+  adr-008:
+  - skill-nightly-evolution
+  - skill-using-heos
+  skill-memory-hygiene:
+  - skill-nightly-evolution
+  lessons-2026-07-27-heos-audit-fix-bug:
+  - skill-using-heos
+  playbook-heos-new-skill:
+  - skill-using-heos
+  checklist-heos-pre-commit-validation:
+  - skill-using-heos
