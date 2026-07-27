@@ -56,7 +56,11 @@ jobs:
         run: python3 tools/update_quality.py || true
 
       - name: Pytest
-        run: python3 -m pytest -q
+        run: |
+          python3 -m pytest --tb=long --showlocals -v 2>&1 | tail -100
+          # Save full log for debug
+          python3 -m pytest --tb=long --showlocals -v 2>&1 > /tmp/pytest.log || true
+          tail -50 /tmp/pytest.log
 
       - name: Working tree clean
         # Weryfikuje że bramki nie zostawiają śmieci w repo
