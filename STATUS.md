@@ -29,9 +29,15 @@
 
 ## Git
 
-- **Ostatni commit:** `e6e09e17` — [skill] Faza 1 batch 5a continuation — 17 skilli zmigrowane do v2 (OK: 18→45)
-  - Data: 2026-07-26 17:30:01 +0000
-- **Tagi:** pre-embedded-communications-debug-20260725, pre-heos-extract, v1.1.0-pre-migration, v1.2.0
+- **Repozytorium:** zainicjalizowane 2026-07-27 (`git init`), branch `main`.
+  - Pierwszy commit: `556163e` — [init] HEOS baseline snapshot (2026-07-27), 64 pliki.
+  - Wcześniejsze commity z epoki roboczej (np. `e6e09e17`) **nie zostały odzyskane** —
+    dokumentacja była utrzymywana na dysku + tarball backupy
+    (`~/hermes-backups/heos-pre-*.tar.gz`), bez `.git`. Tamte commity są
+    referencją historyczną, nie częścią tej historii.
+- **Tagi:** brak (dopiero zostaną dodane — patrz `heos-migration/`).
+- **Remote:** brak — patrz raport audytu 2026-07-27. Do dodania:
+  `git remote add origin git@github.com:Joker22pl/HEOS.git` (gdy repo na GH utworzone).
 
 ---
 
