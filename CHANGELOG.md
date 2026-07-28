@@ -42,6 +42,43 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ---
 
+## [v1.6.5] — 2026-07-29
+
+### Fixed
+- **Cross-refs cleanup po nightly-evolution v1.6.2** (`d1621df`, `f84dc3d`):
+  - `decisions/011-private-repo-by-default.md` — reverse-ref do `skill-nightly-evolution` (bo nightly-evolution v1.6.3 dodał ADR-011 do related).
+  - `decisions/006-skills-format-policy.md` — reverse-ref do `skill-nightly-evolution` (per format katalogowy opisany w ADR-006, nightly-evolution stosuje ten format).
+  - `skills/nightly-evolution/SKILL.md` related — dodane `adr-006` (skills format policy, bo nightly-evolution jest w katalogu `SKILL.md + references/`).
+  - **Weryfikacja:** `check_related_symmetry --dry-run: 0 asymetrii, exit 0`, CI green.
+
+---
+
+## [v1.6.3] — 2026-07-29
+
+### Added
+- **`skills/nightly-evolution/SKILL.md` — Krok 5.7 (Etap M: Runtime Health Check)** (`03c468d`)
+  - Sprawdza 4 endpointy codziennie o 03:00: RPi `.178` (ping + ssh), NUC `.173:8766/healthz` (HTTP), router `.1` (ping kontrolny).
+  - Sekcja `## Runtime Health` dodawana do daily report z PASS/FAIL dla każdego hosta.
+  - Timeout 3-5s per host, non-blocking (+15s max do nightly run).
+  - Failures NIE przerywają nightly run — tylko wpis w daily report.
+  - Frontmatter: `version 1.5.0 → 1.6.2`, `related: +adr-011`.
+  - Sekcja "Struktura pliku" zaktualizowana (Runtime Health inline w SKILL.md, nie w references/).
+- **Korzyść:** wykrywanie downtime hostów zamiast 30h+ czekania do manual discovery. Smoke test wykazał: RPi `.178` ping fail + NUC `.173:8766/healthz` HTTP 000 (oba wykryte).
+
+---
+
+## [v1.6.2] — 2026-07-28
+
+### Fixed
+- **`CHANGELOG.md` — poprawki duplikatów + brakujące wpisy** (`ffbc41b`):
+  - Usunięto DUPLIKAT wpisu v1.5.3 (był 2x przez wcześniejsze commity `6908eff` + `8abc3b5` oba dodawały ten sam wpis).
+  - Dodano BRAKUJĄCY wpis v1.5.2 (commit `8abc3b5` - "CHANGELOG — wpisy v1.4.2 + v1.5.0 + v1.5.1").
+  - Dodano wpis v1.6.1 (commit `6b10b2b` - cross-refs cleanup po ADR-011).
+  - Poprawiono treść v1.5.4 (był błędny - opisywał `_count_files` fix, ale to było w v1.5.5).
+  - **Po zmianach:** 14 unikalnych wersji w CHANGELOG (v1.0 → v1.6.1).
+
+---
+
 ## [v1.6.1] — 2026-07-28
 
 ### Fixed
