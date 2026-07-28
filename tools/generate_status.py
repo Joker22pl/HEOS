@@ -85,8 +85,15 @@ def _heos_version(root: Path, tags: list[str]) -> str:
 
 
 def _count_files(root: Path, pattern: str) -> int:
-    """Liczy pliki pasujące do wzorca (glob)."""
-    return sum(1 for _ in root.glob(pattern))
+    """Liczy pliki pasujące do wzorca (glob). Pomija katalogi cache i ukryte pliki.
+
+    Wcześniejszy bug: glob('*') łapał też __pycache__/ + .pytest_cache/ (ukryte katalogi),
+    co dawało zawyżone "Tools: 25" zamiast realnych 22 .py + 1 .sh = 23 plików.
+    """
+    return sum(
+        1 for p in root.glob(pattern)
+        if p.is_file() and not p.name.startswith(".")
+    )
 
 
 def _registry_or_generate(root: Path) -> dict:

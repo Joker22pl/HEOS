@@ -14,6 +14,15 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ---
 
+## [v1.5.5] — 2026-07-28
+
+### Fixed
+- **`generate_status.py` `_count_files` zawyżał Tools** — `glob('*')` łapał też `__pycache__/` + `.pytest_cache/` (ukryte katalogi), co dawało "Tools: 25" zamiast realnych 23 (22 .py + 1 .sh). Fix: filtruj katalogi (`p.is_file()`) i ukryte pliki (`not p.name.startswith(".")`).
+  - STATUS.md teraz pokazuje "Tools: 24" (23 produkcyjne + 1 nowy test).
+- **Brak testów dla `_count_files`** — dodany `tools/test_generate_status.py` z 5 testami (skips hidden cache, pattern specific, empty dir, real HEOS integration, no subdir count).
+
+---
+
 ## [v1.5.3] — 2026-07-28
 
 ### Changed
