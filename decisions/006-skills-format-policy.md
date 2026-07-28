@@ -18,6 +18,7 @@ tags:
 related:
 - adr-005
 - adr-009
+- adr-010
 
 # === Specyficzne dla ADR ===
 adr_number: 6

@@ -1,33 +1,14 @@
 _meta:
-  generated_at: '2026-07-27T22:26:57.103962+00:00'
+  generated_at: '2026-07-28T09:27:06.235692+00:00'
   heos_root: /home/gaja/gaja-projekty/HEOS
-  total_artifacts: 17
+  total_artifacts: 20
   by_type:
-    checklist: 1
     playbook: 1
     skill: 7
     lessons: 1
-    adr: 7
+    adr: 10
+    checklist: 1
 artifacts:
-  checklist:
-  - type: checklist
-    id: checklist-heos-pre-commit-validation
-    name: heos-pre-commit-validation
-    title: HEOS pre-commit validation — co sprawdzić przed commitem
-    status: accepted
-    owner: gaja
-    created_at: '2026-07-27'
-    updated_at: '2026-07-27'
-    review_due: '2027-01-25'
-    version: 1.0.0
-    heos_standard_version: '1.2'
-    tags:
-    - quality
-    - pre-commit
-    - audit
-    related:
-    - skill-using-heos
-    path: checklists/heos-pre-commit-validation.md
   playbook:
   - type: playbook
     id: playbook-heos-new-skill
@@ -134,9 +115,9 @@ artifacts:
     status: accepted
     owner: gaja
     created_at: '2026-07-24'
-    updated_at: '2026-07-25'
+    updated_at: '2026-07-28'
     review_due: '2027-01-23'
-    version: 1.2.1
+    version: 1.5.0
     heos_standard_version: '1.2'
     tags:
     - cross-cutting
@@ -145,8 +126,10 @@ artifacts:
     - adr-002
     - adr-005
     - adr-008
+    - adr-009
+    - adr-010
     - skill-memory-hygiene
-    path: skills/nightly-evolution.md
+    path: skills/nightly-evolution/SKILL.md
   - type: skill
     id: skill-using-chm
     name: using-chm
@@ -302,8 +285,31 @@ artifacts:
     - skill-using-heos
     - skill-nightly-evolution
     - skill-using-chm
+    - adr-006
     adr_number: 5
     path: decisions/005-granice-profili-hermes.md
+  - type: adr
+    id: adr-006
+    name: 006-skills-format-policy
+    title: Polityka formatu Skills — kiedy .md vs katalog
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-28'
+    updated_at: '2026-07-28'
+    review_due: '2027-01-26'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    - heos-internal
+    - authoring
+    related:
+    - adr-005
+    - adr-009
+    - adr-010
+    adr_number: 6
+    superseded_by: (none)
+    path: decisions/006-skills-format-policy.md
   - type: adr
     id: adr-007
     name: 007-operational-evidence-model
@@ -322,6 +328,7 @@ artifacts:
     - runtime-evidence
     related:
     - adr-008
+    - adr-009
     - skill-using-heos
     adr_number: 7
     path: decisions/007-operational-evidence-model.md
@@ -344,11 +351,75 @@ artifacts:
     - skill-using-heos
     - skill-nightly-evolution
     - adr-007
+    - adr-009
     adr_number: 8
     path: decisions/008-atomic-write-contract.md
+  - type: adr
+    id: adr-009
+    name: 009-heos-v1-4-scope
+    title: HEOS v1.4 — scope deklaracja (split nightly-evolution, CHANGELOG)
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-28'
+    updated_at: '2026-07-28'
+    review_due: '2027-01-26'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    - heos-internal
+    - governance
+    related:
+    - adr-006
+    - adr-007
+    - adr-008
+    - skill-nightly-evolution
+    adr_number: 9
+    superseded_by: (none)
+    path: decisions/009-heos-v1-4-scope.md
+  - type: adr
+    id: adr-010
+    name: 010-heos-v1-5-scope
+    title: HEOS v1.5 — scope deklaracja (output-templates split, nightly-evolution finalizacja)
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-28'
+    updated_at: '2026-07-28'
+    review_due: '2027-01-26'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - cross-cutting
+    - heos-internal
+    - governance
+    related:
+    - adr-006
+    - adr-009
+    - skill-nightly-evolution
+    adr_number: 10
+    superseded_by: (none)
+    path: decisions/010-heos-v1-5-scope.md
+  checklist:
+  - type: checklist
+    id: checklist-heos-pre-commit-validation
+    name: heos-pre-commit-validation
+    title: HEOS pre-commit validation — co sprawdzić przed commitem
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-27'
+    updated_at: '2026-07-27'
+    review_due: '2027-01-25'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - quality
+    - pre-commit
+    - audit
+    related:
+    - skill-using-heos
+    path: checklists/heos-pre-commit-validation.md
 inverse_index:
   skill-using-heos:
-  - checklist-heos-pre-commit-validation
   - playbook-heos-new-skill
   - skill-using-chm
   - lessons-2026-07-27-heos-audit-fix-bug
@@ -356,6 +427,7 @@ inverse_index:
   - adr-005
   - adr-007
   - adr-008
+  - checklist-heos-pre-commit-validation
   skill-gaja-lab-core:
   - skill-embedded-communications-debug
   - skill-esp32-s3-micropython-blink
@@ -373,6 +445,8 @@ inverse_index:
   - adr-002
   - adr-005
   - adr-008
+  - adr-009
+  - adr-010
   skill-using-chm:
   - skill-nightly-evolution
   - skill-using-heos
@@ -386,10 +460,21 @@ inverse_index:
   - skill-nightly-evolution
   - skill-using-chm
   - skill-using-heos
+  - adr-006
   adr-008:
   - skill-nightly-evolution
   - skill-using-heos
   - adr-007
+  - adr-009
+  adr-009:
+  - skill-nightly-evolution
+  - adr-006
+  - adr-007
+  - adr-008
+  - adr-010
+  adr-010:
+  - skill-nightly-evolution
+  - adr-006
   skill-memory-hygiene:
   - skill-nightly-evolution
   lessons-2026-07-27-heos-audit-fix-bug:
@@ -401,6 +486,7 @@ inverse_index:
   adr-007:
   - skill-using-heos
   - adr-008
+  - adr-009
   adr-003:
   - adr-001
   - adr-002
@@ -408,3 +494,7 @@ inverse_index:
   adr-004:
   - adr-002
   - adr-003
+  adr-006:
+  - adr-005
+  - adr-009
+  - adr-010

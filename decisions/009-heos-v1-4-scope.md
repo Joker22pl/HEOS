@@ -19,6 +19,7 @@ related:
 - adr-006
 - adr-007
 - adr-008
+- adr-010
 - skill-nightly-evolution
 
 # === Specyficzne dla ADR ===

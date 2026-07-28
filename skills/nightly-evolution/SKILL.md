@@ -24,6 +24,7 @@ related:
 - adr-005
 - adr-008
 - adr-009
+- adr-010
 - skill-memory-hygiene
 quality_schema: pending
 quality_technical: pending
@@ -272,6 +273,7 @@ Wnioski zebrane z pierwszej instalacji (2026-07-23) i późniejszych przebiegów
 - **ADR-005** — granice profili Hermes (ten skill jest tylko w `gaja`).
 - **ADR-008** — Atomic Write Contract (`_heos_atomic.py`, dziedziczony przez `update_quality.py`).
 - **ADR-009** — HEOS v1.4 scope (uzasadnia pierwszy split tego skilla).
+- **ADR-010** — HEOS v1.5 scope (uzasadnia drugi split: output templates).
 - HEOS Master Prompt v1.1 — konstytucja (sekcja "Proces realizacji").
 - HEOS Weekly Audit (skill `hermes-agent` + cron) — tygodniowy audyt HEOS Skills. Nightly Evolution jest codziennym odpowiednikiem dla runtime.
 

@@ -1,19 +1,19 @@
 # HEOS — STATUS
 
-**Wygenerowano:** 2026-07-28T01:33:40.447928+00:00  
-**Wersja HEOS:** `v1.3.1`  
+**Wygenerowano:** 2026-07-28T09:27:07.577232+00:00  
+**Wersja HEOS:** `v1.5.0`  
 **Auto-generowany:** ✅ (z `tools/generate_status.py`)
 
 ---
 
 ## Artefakty
 
-Łącznie: **17**
+Łącznie: **20**
 
 | Typ | Liczba |
 |---|---|
 | skill | 7 |
-| adr | 7 |
+| adr | 10 |
 | lessons | 1 |
 | checklist | 1 |
 | playbook | 1 |
@@ -32,9 +32,9 @@
 
 ## Git
 
-- **Ostatni commit:** `321bc310` — [tool] ADR-008 v1.3.1 — wspólny atomic write helper + refactor 4 narzędzi
-  - Data: 2026-07-28 00:27:17 +0200
-- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1
+- **Ostatni commit:** `b5de3507` — [refactor] nightly-evolution split v1.5.0 — Kroki 4-12 do output-templates.md
+  - Data: 2026-07-28 11:24:31 +0200
+- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0
 
 ---
 
