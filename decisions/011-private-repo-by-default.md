@@ -17,8 +17,9 @@ tags:
 - github
 - security
 related:
+- adr-006
 - adr-009
-
+- skill-nightly-evolution
 # === Specyficzne dla ADR ===
 adr_number: 11
 superseded_by: (none)

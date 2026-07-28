@@ -18,6 +18,8 @@ tags:
 related:
 - adr-005
 - adr-009
+- adr-011
+- skill-nightly-evolution
 - adr-010
 - skill-using-heos
 

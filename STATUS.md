@@ -1,7 +1,7 @@
 # HEOS — STATUS
 
-**Wygenerowano:** 2026-07-28T22:27:53.205861+00:00  
-**Wersja HEOS:** `v1.6.2`  
+**Wygenerowano:** 2026-07-28T22:29:12.494847+00:00  
+**Wersja HEOS:** `v1.6.3`  
 **Auto-generowany:** ✅ (z `tools/generate_status.py`)
 
 ---
@@ -32,9 +32,9 @@
 
 ## Git
 
-- **Ostatni commit:** `ffbc41b4` — [doc] CHANGELOG — poprawki duplikatów + brakujące wpisy v1.5.2 + v1.6.1
-  - Data: 2026-07-29 00:23:45 +0200
-- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0, v1.5.1, v1.5.2, v1.5.3, v1.5.4, v1.5.5, v1.6.0, v1.6.1, v1.6.2
+- **Ostatni commit:** `03c468d3` — [skill] nightly-evolution v1.6.2 — Krok 5.7 (Etap M: Runtime Health Check)
+  - Data: 2026-07-29 00:28:05 +0200
+- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0, v1.5.1, v1.5.2, v1.5.3, v1.5.4, v1.5.5, v1.6.0, v1.6.1, v1.6.2, v1.6.3
 
 ---
 
