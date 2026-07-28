@@ -23,6 +23,7 @@ related:
 - adr-002
 - adr-005
 - adr-008
+- adr-009
 - skill-memory-hygiene
 quality_schema: pending
 quality_technical: pending
