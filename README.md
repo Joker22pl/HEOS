@@ -1,6 +1,6 @@
 # HEOS — Hermes Engineering Operating System
 
-**Wersja HEOS:** v1.3.1
+**Wersja HEOS:** v1.5.4
 **Status:** 📊 patrz `STATUS.md` (auto-generowany)
 **CI:** [![HEOS lint](https://github.com/Joker22pl/HEOS/actions/workflows/lint.yml/badge.svg)](https://github.com/Joker22pl/HEOS/actions/workflows/lint.yml)
 
@@ -35,14 +35,17 @@ HEOS/
 └── archive/           ← snapshot v1.1 (nieaktywny)
 ```
 
-## Artefakty (9 aktywnych)
+## Artefakty (20 aktywnych)
 
 | Typ | Liczba | Lokalizacja |
 |---|---|---|
-| Skills | 4 (2 HEOS + 2 runtime Hermes) | `skills/` |
-| ADR | 5 | `decisions/` |
+| Skills | 7 (5 HEOS cross-cutting + 2 runtime Hermes) | `skills/` |
+| ADR | 10 | `decisions/` |
+| Lessons Learned | 1 | `lessons/` |
+| Checklisty | 1 | `checklists/` |
+| Playbooki | 1 | `playbooks/` |
 
-Pełna lista w `.registry.yaml`.
+Pełna lista w `.registry.yaml` (auto-generowany). Status bieżący w `STATUS.md`.
 
 ## Narzędzia (`tools/`)
 
@@ -50,19 +53,27 @@ Pełna lista w `.registry.yaml`.
 |---|---|
 | `skill_audit.py` | Walidator 3-poziomowy (Schema/Technical/Operational) |
 | `heos_lint.py` | Walidator cross-references, metadanych, spójności |
+| `check_related_symmetry.py` | Wykrywa + naprawia asymetrię cross-refs (per ADR-009) |
+| `check_operational_proven.py` | Operational Evidence Model — waliduje runtime usage (per ADR-007) |
+| `_heos_atomic.py` | Biblioteka atomic write (per ADR-008) |
 | `generate_registry.py` | Generuje `.registry.yaml` |
 | `generate_status.py` | Generuje `STATUS.md` |
-| `lifecycle_audit.py` | Audyt review_due, deprecated |
+| `lifecycle_audit.py` | Audyt `review_due`, `deprecated` |
+| `update_frontmatter.py` | Aktualizuje frontmatter (migracja) |
+| `update_quality.py` | Aktualizuje `quality_schema/technical` (atomic write per ADR-008) |
+| `weekly_report.py` | Raport tygodniowy (cron poniedziałek 9:00 UTC) |
+| `add_lessons_learned.py` | Dodaje nowy wpis Lessons Learned |
 | `heos_migrate.py` | Migracja v1.1→v1.2 (plan/dry-run/rollback) |
-| `update_frontmatter.py` | Aktualizuje frontmatter dla migracji |
 | `migrate_files.py` | Wykonuje git mv z mapy migracji |
-| `test_heos_lint.py`, `test_generate_registry.py` | Testy jednostkowe |
+| `migrate_runtime_skills.py` | Migracja skilli runtime do HEOS |
+| `validate_symlinks.py` | Waliduje mosty HEOS → profil Hermesa |
+| `test_*.py` (7 plików) | Testy jednostkowe (60 testów PASS) |
 
 ## Migracja (informacja)
 
 HEOS był migrowany z v1.1 do v1.2 dnia 2026-07-24. Plan w `heos-migration/plan.md`, mapa w `heos-migration/migration-map.json`, rollback w `heos-migration/rollback.sh`. Backup v1.1 w `~/hermes-backups/heos-pre-v1.2-*.tar.gz`. Git tag `v1.1.0-pre-migration` (punkt powrotu).
 
-## Decision Records (7 aktywnych)
+## Decision Records (10 aktywnych)
 
 | ID | Tytuł | Status |
 |---|---|---|
@@ -74,6 +85,8 @@ HEOS był migrowany z v1.1 do v1.2 dnia 2026-07-24. Plan w `heos-migration/plan.
 | [adr-006](decisions/006-skills-format-policy.md) | Polityka formatu Skills — kiedy `.md` vs katalog | Accepted |
 | [adr-007](decisions/007-operational-evidence-model.md) | Operational Evidence Model dla skilli HEOS | Accepted |
 | [adr-008](decisions/008-atomic-write-contract.md) | Atomic Write Contract dla narzędzi modyfikujących HEOS | Accepted |
+| [adr-009](decisions/009-heos-v1-4-scope.md) | HEOS v1.4 scope deklaracja (split nightly-evolution + CHANGELOG) | Accepted |
+| [adr-010](decisions/010-heos-v1-5-scope.md) | HEOS v1.5 scope deklaracja (output-templates split + STATUS regen) | Accepted |
 
 ## Otwarte decyzje architektoniczne (ODA)
 
@@ -93,15 +106,16 @@ Wszystkie 10 ODA z v1.1 zostały **rozwiązane** w propozycji v1.2. Nowe ODA poj
 
 1. Sprawdź czy już istnieje w `.registry.yaml`
 2. Wybierz typ (skill/adr/lessons/checklist/playbook)
-3. Skopiuj z `templates/<typ>.md`
+3. Skopiuj z `templates/<typ>.md.template`
 4. Uzupełnij wymagane pola (12 wspólnych + specyficzne dla typu)
 5. Sprawdź: `python3 tools/skill_audit.py <plik>` — musi ✅ PASS
 6. Sprawdź cross-refs: `python3 tools/heos_lint.py`
-7. Commit + push
-8. (Opcjonalnie) Regeneruj `.registry.yaml` i `STATUS.md` ręcznie:
+7. Sprawdź related symmetry: `python3 tools/check_related_symmetry.py` (per ADR-009)
+8. Commit + push do `Joker22pl/HEOS`
+9. (Opcjonalnie) Regeneruj `.registry.yaml` i `STATUS.md`:
    ```bash
-   python3 HEOS/tools/generate_registry.py
-   python3 HEOS/tools/generate_status.py
+   python3 tools/generate_registry.py
+   python3 tools/generate_status.py
    ```
    Lub poczekaj na cotygodniowy cron (poniedziałek 9:00 UTC)
 
@@ -116,13 +130,25 @@ HEOS używa SemVer: `<major>.<minor>.<patch>`. Wersja w `STATUS.md` (auto-genero
 | 1.2 | 2026-07-24 | Architektura 2D, STATUS.md, registry, 3-poziomowa ocena, 6-etapowy lifecycle |
 | 1.3 | 2026-07-27 | ADR-007 (Operational Evidence), ADR-008 (Atomic Write), `check_operational_proven.py`, `_heos_atomic.py`, GitHub Actions CI, push do `Joker22pl/HEOS` |
 | 1.3.1 | 2026-07-28 | Wspólny atomic helper, refactor 4 narzędzi na `atomic_write` + `transaction()`, fix silent YAML corruption w `update_quality.py`, ADR-006 (skills format policy) |
+| 1.3.2 | 2026-07-28 | housekeeping — STATUS regen + sync wersji README/CONSTITUTION/ARCHITECTURE |
+| 1.4.0 | 2026-07-28 | ADR-009 (v1.4 scope); nightly-evolution split 957 → 498 linii + 3 `references/` (per ADR-006); CHANGELOG.md (audyt historii); push do GitHub |
+| 1.4.1 | 2026-07-28 | Patch — brak migracji |
+| 1.4.2 | 2026-07-28 | Patch — pełna historia wersji w CHANGELOG.md |
+| 1.5.0 | 2026-07-28 | ADR-010 (v1.5 scope); nightly-evolution split Kroki 4-12 → `output-templates.md` (~70% redukcja kontekstu); STATUS regen (20 artefaktów) |
+| 1.5.1 | 2026-07-28 | Patch — ADR-010 + reverse-refs |
+| 1.5.2 | 2026-07-28 | Patch — CONSTITUTION/ARCHITECTURE sync do v1.5.2 (drift fix) |
+| 1.5.3 | 2026-07-28 | Patch — `.bak` cleanup + STATUS regen |
+| 1.5.4 | 2026-07-28 | Patch — `generate_status.py` fix (Tools: 25→24 real) + 5 testów |
 
 ## Powiązane
 
 - `~/.hermes/profiles/gaja/skills/` — runtime Skills (nie HEOS)
-- `Joker22pl/gaja-projekty` — repo (gdzie żyje HEOS)
-- `HEOS-v1.2-STAGE1-PLAN-v2.md` (w `~/.hermes/profiles/gaja/cache/`) — plan Etapu 1 v1.2
-- `HEOS-v1.2-PROPOSAL.md` (w cache) — propozycja v1.2 (10 zmian)
+- `Joker22pl/HEOS` — repo (osobne od 2026-07-27)
+- `CONSTITUTION.md` — jedyne źródło zasad (v1.5.2)
+- `ARCHITECTURE.md` — architektura techniczna (v1.5.2)
+- `CHANGELOG.md` — pełna historia wersji (v1.0 → v1.5.5)
+- `STATUS.md` — auto-generowany snapshot stanu (realna wersja zawsze tu)
+- Raport specjalisty 2026-07-27 (P0/P1/P2 lista) — napędził rozwój v1.3 → v1.5
 
 ---
 
