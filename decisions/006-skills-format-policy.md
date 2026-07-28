@@ -17,6 +17,7 @@ tags:
 - authoring
 related:
 - adr-005
+- adr-009
 
 # === Specyficzne dla ADR ===
 adr_number: 6

@@ -17,6 +17,7 @@ tags:
 - runtime-evidence
 related:
 - adr-008
+- adr-009
 - skill-using-heos
 supersedes: (none)
 adr_number: 7

@@ -18,6 +18,7 @@ related:
 - skill-using-heos
 - skill-nightly-evolution
 - adr-007
+- adr-009
 supersedes: (none)
 adr_number: 8
 quality_schema: pass
