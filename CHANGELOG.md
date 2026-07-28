@@ -42,12 +42,28 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ---
 
-## [v1.5.5] — 2026-07-28
+## [v1.6.1] — 2026-07-28
 
 ### Fixed
-- **`generate_status.py` `_count_files` zawyżał Tools** — `glob('*')` łapał też `__pycache__/` + `.pytest_cache/` (ukryte katalogi), co dawało "Tools: 25" zamiast realnych 23 (22 .py + 1 .sh). Fix: filtruj katalogi (`p.is_file()`) i ukryte pliki (`not p.name.startswith(".")`).
-  - STATUS.md teraz pokazuje "Tools: 24" (23 produkcyjne + 1 nowy test).
-- **Brak testów dla `_count_files`** — dodany `tools/test_generate_status.py` z 5 testami (skips hidden cache, pattern specific, empty dir, real HEOS integration, no subdir count).
+- **Cross-refs cleanup po ADR-011** (`6b10b2b`) — mój wcześniejszy patch błędnie dodał `adr-002`, `adr-005`, `adr-009` (self-ref) do `decisions/009 related:` (gdzie były w oryginale `adr-006/007/008/010 + skill-nightly-evolution + skill-using-heos`). To spowodowało 2 asymetrie cross-refs (009→002, 009→005), które `check_related_symmetry --dry-run` wykryło i zwróciło exit 1 → CI failure na v1.6.0.
+  - Fix: usunięto `adr-002/005/009` z `decisions/009` related; `decisions/011` related uproszczone do samego `adr-009` (ADR-011 to rozszerzenie scope deklaracji); `decisions/002 related` bez zmian (nie ma realnej zależności od 011).
+  - Weryfikacja: `check_related_symmetry --dry-run: 0 asymetrii, exit 0`, `heos_lint: 0 findings`, `skill_audit: 5/5 PASS schema`, `pytest: 76/76 PASS`.
+
+---
+
+## [v1.5.2] — 2026-07-28
+
+### Added
+- **`CHANGELOG.md`** — pierwsza wersja audytu historii wersji HEOS. Wpis v1.4.2 (CHANGELOG.md) + v1.5.0 (output-templates split) + v1.5.1 (ADR-010 + STATUS regen). Commit `8abc3b5`. Patch czysto dokumentacyjny, brak zmian w kodzie.
+
+---
+
+## [v1.5.4] — 2026-07-28
+
+### Changed
+- **`CONSTITUTION.md` + `ARCHITECTURE.md` sync** — oba dokumenty zaktualizowane z `v1.3.1` → `v1.5.2` (drift od 27.07). Patch czysto kosmetyczny (linia 3 + data), po audycie read-only który wykrył rozjazd z faktycznym stanem projektu.
+- **CHANGELOG.md** — wpis v1.5.3 dodany (był wcześniej pominięty w commicie `8abc3b5`).
+- Komit: `6908eff`.
 
 ---
 
@@ -62,6 +78,15 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 ### Removed
 - **`*.bak` files w working tree** — `decisions/008-atomic-write-contract.md.bak` + `skills/using-heos.md.bak` usunięte (gitignored, pozostałości z `update_quality.py` pre-atomic-fix).
 - **`CONSTITUTION.md` + `ARCHITECTURE.md` drift** — oba dokumenty zsynchronizowane z v1.5.2 (były na v1.3.1 od `8cda935`).
+
+---
+
+## [v1.5.5] — 2026-07-28
+
+### Fixed
+- **`generate_status.py` `_count_files` zawyżał Tools** — `glob('*')` łapał też `__pycache__/` + `.pytest_cache/` (ukryte katalogi), co dawało "Tools: 25" zamiast realnych 23 (22 .py + 1 .sh). Fix: filtruj katalogi (`p.is_file()`) i ukryte pliki (`not p.name.startswith(".")`).
+  - STATUS.md teraz pokazuje "Tools: 24" (23 produkcyjne + 1 nowy test).
+- **Brak testów dla `_count_files`** — dodany `tools/test_generate_status.py` z 5 testami (skips hidden cache, pattern specific, empty dir, real HEOS integration, no subdir count).
 
 ---
 
