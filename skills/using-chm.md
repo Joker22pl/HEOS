@@ -8,7 +8,7 @@ id: skill-using-chm
 title: Using CHM (Context Health Manager)
 owner: gaja
 created_at: '2026-07-24'
-updated_at: '2026-07-24'
+updated_at: '2026-07-28'
 review_due: '2027-01-23'
 version: 1.0.0
 heos_standard_version: '1.2'
@@ -20,9 +20,11 @@ related:
 - adr-005
 - skill-using-heos
 - skill-nightly-evolution
-quality_schema: pending
-quality_technical: pending
+quality_schema: pass
+quality_technical: pass
 quality_operational: unmeasured
+# NOTE: skill_audit.py oznacza ten plik jako 'runtime' (bo opisuje plugin + ma data_root ~/.hermes),
+# więc NIE pojawia się w standardowym audycie HEOS. quality_* ustawione manual review 2026-07-28.
 ---
 
 # Using CHM (Context Health Manager)
@@ -208,9 +210,9 @@ print(f'Health: {snap.health} | Usage: {snap.usage_percent:.1f}%')
 ## Oficjalne źródła
 
 - Plugin location: `~/.hermes/profiles/gaja/plugins/chm/`
-- HEOS Master Prompt v1.1: `~/gaja-projekty/HEOS/00-foundation/HEOS-MASTER-PROMPT-v1.1.md`
-- Hermes Agent context: https://hermes-agent.nousresearch.com/docs/user-guide/configuration
+- HEOS CONSTITUTION.md (v1.5.2): `CONSTITUTION.md` — zasady HEOS
 - ADR-005 (granice profili) — granice HEOS↔runtime
+- Hermes Agent context: https://hermes-agent.nousresearch.com/docs/user-guide/configuration
 
 ## Wersjonowanie
 
@@ -239,7 +241,7 @@ print(f'Health: {snap.health} | Usage: {snap.usage_percent:.1f}%')
 ## Powiązane
 
 - **ADR-005** — granice profili Hermes (CHM jest w profilu `gaja`).
-- HEOS Master Prompt v1.1 — konstytucja.
+- `CONSTITUTION.md` (HEOS v1.5.2) — konstytucja.
 - Hermes Agent config: https://hermes-agent.nousresearch.com/docs/user-guide/configuration
 - `nightly-evolution` skill — używa CHM do analizy kontekstu sesji w nocnym audycie.
 

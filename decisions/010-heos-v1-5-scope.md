@@ -19,6 +19,7 @@ related:
 - adr-006
 - adr-009
 - skill-nightly-evolution
+- skill-using-heos
 
 # === Specyficzne dla ADR ===
 adr_number: 10

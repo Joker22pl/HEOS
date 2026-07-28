@@ -1,5 +1,4 @@
 ---
-
 name: using-heos
 description: How to use, extend, and contribute to HEOS (Hermes Engineering Operating System). Load when starting any task
   that touches standards, ADR, Skills, or HEOS quality audits.
@@ -9,21 +8,24 @@ id: skill-using-heos
 title: Using HEOS
 owner: gaja
 created_at: '2026-07-24'
-updated_at: '2026-07-24'
+updated_at: '2026-07-28'
 review_due: '2027-01-23'
-version: 1.0.0
+version: 1.5.0
 heos_standard_version: '1.2'
 tags:
 - cross-cutting
 related:
 - adr-002
 - adr-005
-- lessons-2026-07-27-heos-audit-fix-bug
+- adr-006
+- adr-007
 - adr-008
+- adr-009
+- adr-010
+- lessons-2026-07-27-heos-audit-fix-bug
 - playbook-heos-new-skill
 - skill-using-chm
 - checklist-heos-pre-commit-validation
-- adr-007
 quality_schema: pass
 quality_technical: pass
 quality_operational: unmeasured
@@ -38,11 +40,12 @@ HEOS to system standardów, ADR i Skills dla Hermesa. Ten Skill mówi CI (agento
 ## Zakres
 
 **W zakresie:**
-- Lokalizacja plików (00-foundation, 01-domains, 02-artifacts, 03-quality, 04-knowledge-graph)
+- Lokalizacja plików (`skills/`, `decisions/`, `lessons/`, `checklists/`, `playbooks/`, `templates/`, `tools/`)
 - Kiedy pisać ADR, kiedy Skill, kiedy Lessons Learned
-- Jak uruchomić audyt (`skill_audit.py`, `heos_lint.py`)
+- Jak uruchomić audyt (`skill_audit.py`, `heos_lint.py`, `check_operational_proven.py`)
 - Konwencja commitów i statusów (active/deprecated/superseded)
-- Cross-cutting indeksy (registry.yaml)
+- Cross-cutting indeksy (`registry.yaml`, `STATUS.md`)
+- Wersjonowanie SemVer (major/minor/patch) + tagi git
 
 **Poza zakresem (inne Skillsy):**
 - Konkretne domeny (embedded, robotics) — mają własne Skills
@@ -68,9 +71,13 @@ HEOS to system standardów, ADR i Skills dla Hermesa. Ten Skill mówi CI (agento
 ### 1. Nowy Skill: gdzie i jak
 
 ```
-HEOS/01-domains/<domena>/skills/<skill-name>/SKILL.md
-HEOS/02-artifacts/skills/<skill-name>/SKILL.md   # cross-cutting
+skills/<skill-name>.md                      # flat (≤200 linii, brak references)
+skills/<skill-name>/SKILL.md                # katalog (≥200 linii lub ma references/scripts)
+skills/<skill-name>/references/             # supporting files
+skills/<skill-name>/scripts/                # executable helpers
 ```
+
+Reguła z **ADR-006**: flat dla prostych skilli, katalog dla dużych/z references. Loader Hermesa akceptuje oba formaty.
 
 Wymagane sekcje (7 obowiązkowych):
 1. **Cel** — co Skill robi
@@ -83,38 +90,42 @@ Wymagane sekcje (7 obowiązkowych):
 
 Plus opcjonalne (8): Typowe błędy, Debugging, Biblioteki, Narzędzia, Oficjalne źródła, Wersjonowanie, Checklisty, Najlepsze praktyki.
 
-Walidacja: `python3 HEOS/03-quality/skill_audit.py <ścieżka>`.
+Walidacja: `python3 tools/skill_audit.py <ścieżka>`.
 
 ### 2. Nowa decyzja architektoniczna: ADR
 
 ```
-HEOS/02-artifacts/decision-records/ADR-NNN-krotki-tytul.md
+decisions/NNN-krotki-tytul.md
 ```
 
-Użyj `template.md` z tego katalogu. Wpisz do rejestru w `README.md`. Powiąż z Skills (jeśli istnieją) przez `related-adrs: [ADR-NNN]` w frontmatter Skilla.
+Użyj `templates/ADR.md.template`. Numeracja kolejna (3 cyfry). Powiąż z Skills (jeśli istnieją) przez `related: [adr-NNN]` w frontmatter Skilla. ADR jest **Accepted** dopiero po decyzji Jokera — wcześniej status **Proposed**.
 
-### 3. Nowa domena: kiedy?
-
-Domena (`01-domains/<x>/`) to nowy **rozłączny** obszar wiedzy. Dodaj kiedy:
-- Masz ≥3 Skillsy które nie pasują do istniejących domen
-- To nowy "kierunek" pracy (np. audio synthesis, blockchain — jeśli kiedyś dojdzie)
-
-**Nie dodawaj** domeny "na zapas" — czekaj aż się obroni sama use-case'ami.
-
-### 4. Audyt
+### 3. Audyt
 
 ```bash
 # Pojedynczy Skill
-python3 HEOS/03-quality/skill_audit.py ścieżka/do/skilla
+python3 tools/skill_audit.py ścieżka/do/skilla
 
 # Cały HEOS
-python3 HEOS/03-quality/skill_audit.py HEOS/
+python3 tools/skill_audit.py HEOS/
 
 # Profil Hermesa
-python3 HEOS/03-quality/skill_audit.py ~/.hermes/profiles/gaja/skills
+python3 tools/skill_audit.py ~/.hermes/profiles/gaja/skills
+
+# Cross-references (per ADR-008)
+python3 tools/heos_lint.py
+
+# Asymetria cross-refs (related forward = backward)
+python3 tools/check_related_symmetry.py
+
+# Operational Evidence Model (per ADR-007)
+python3 tools/check_operational_proven.py
+
+# Atomic write contract (per ADR-008)
+# Wszystkie narzędzia modyfikujące używają _heos_atomic.atomic_write()
 
 # Tygodniowy raport (z opcją save)
-python3 HEOS/03-quality/heos_weekly_audit.py --save
+python3 tools/weekly_report.py --save
 ```
 
 Status: `PASS` (kompletne), `WARN` (obowiązkowe OK, brak >2 opcjonalnych), `FAIL` (brak ≥1 obowiązkowego).
@@ -137,13 +148,13 @@ Nie usuwaj plików — zostają jako historia.
 
 Sytuacja: dodajesz wsparcie dla nowej płytki (np. ESP32-C3).
 
-Wynik: tworzysz `HEOS/01-domains/embedded/skills/esp32-c3-micropython-blink/SKILL.md` z wszystkimi 7 obowiązkowymi sekcjami + powiązanym ADR jeśli decyzja "dlaczego MicroPython dla C3" jest nieoczywista.
+Wynik: tworzysz `skills/esp32-c3-micropython-blink/SKILL.md` (jeśli >200 linii lub z references) albo `skills/esp32-c3-micropython-blink.md` (flat) z wszystkimi 7 obowiązkowymi sekcjami + powiązanym ADR jeśli decyzja "dlaczego MicroPython dla C3" jest nieoczywista.
 
 ### Przykład 2: Decyzja: serializować stan do JSON czy YAML
 
 Sytuacja: projekt wymaga wyboru formatu serializacji.
 
-Wynik: porównanie w tabelce (szybkość, debugowalność, bezpieczeństwo, ekosystem), decyzja + uzasadnienie → ADR-006. Potem nowy Skill `using-state-serialization` z `related-adrs: [ADR-006]`.
+Wynik: porównanie w tabelce (szybkość, debugowalność, bezpieczeństwo, ekosystem), decyzja + uzasadnienie → `decisions/011-serialization-format.md`. Potem nowy Skill `using-state-serialization` z `related: [adr-011]`.
 
 ### Przykład 3: Deprecate starego Skilla
 
@@ -155,10 +166,12 @@ Wynik: w frontmatter `status: deprecated`. W Skills które się do niego odwołu
 
 1. **HEOS bez enforcementu = muzeum** — 100% Skillsów w profilu gaja było "FAIL" przy pierwszym audycie, bo nikt nie sprawdzał. To jest powód dlaczego mamy `skill_audit.py` i cron.
 2. **"Cel" vs "Zakres" to nie to samo** — Cel = co, Zakres = kiedy/granice. Pierwsze wersje HEOS v1.0 miały to pomieszane w jednej sekcji "About".
-3. **Plaski numer modułów (00-07) nie skaluje się** — po 10 modułach zaczyna się renumeracja. Dlatego v1.1 przeszło na 2-wymiarową architekturę (domeny × typy artefaktów).
+3. **Płaski numer modułów (00-07) nie skaluje się** — po 10 modułach zaczyna się renumeracja. Dlatego v1.1 przeszło na 2-wymiarową architekturę (domeny × typy artefaktów), a v1.2 upraszcza do płaskiej struktury z tagami.
 4. **ADR nie może być opcjonalny** — bez niego każda decyzja ginie przy rotacji kontekstu. Dlatego skill "Framework decyzji" wymaga ADR jako deliverable.
 5. **15-punktowy szablon Skilla to za dużo** — 5 sekcji zawsze puste. Dlatego v1.1 ma 7 obowiązkowych + 8 opcjonalnych (z fallbackiem).
 6. **Audyt działa nawet z aliasami** — `skill_audit.py` ma 30+ aliasów (angielski ↔ polski, "Workflow" ↔ "How to use"). Pierwszy audyt 0/87 PASS, po naprawie top 3 — lekcja: najpierw audyt, potem poprawki.
+7. **Atomic write eliminuje silent corruption** (ADR-008) — `_heos_atomic.atomic_write()` + `transaction()` context manager eliminuje klasę błędów P0-3 (non-atomic) i P0-4 (brak transakcyjności) z `update_quality.py` v2.
+8. **Forward ↔ backward related asymmetry** (ADR-007/009) — jeśli Skill A ma `related: [skill-B]`, to Skill B musi mieć `related: [skill-A]`. Asymetria to bug; `check_related_symmetry.py` wykrywa i raportuje.
 
 ## Typowe błędy
 
@@ -177,23 +190,41 @@ Wynik: w frontmatter `status: deprecated`. W Skills które się do niego odwołu
 | ADR ma złamane linki do Skills | Skill nie istnieje lub zmieniono nazwę | napraw link lub dodaj `superseded` |
 | Skill przechodzi audyt ale jest bezużyteczny | ma wszystkie nagłówki ale puste treści | audyt sprawdza strukturę, nie treść — recenzja ręczna |
 
-## Narzędzia (w HEOS)
+## Narzędzia (w HEOS `tools/`)
 
-- `HEOS/03-quality/skill_audit.py` — walidator Skills
-- `HEOS/03-quality/heos_weekly_audit.py` — raport tygodniowy
-- `HEOS/03-quality/heos_lint.py` (TODO) — walidator cross-references
-- `git` + push do `Joker22pl/gaja-projekty`
+- `skill_audit.py` — walidator Skills (7 obowiązkowych sekcji + 8 opcjonalnych)
+- `heos_lint.py` — walidator cross-references + metadanych + spójności
+- `check_related_symmetry.py` — wykrywa asymetrię `related: [X]` forward vs backward
+- `check_operational_proven.py` — Operational Evidence Model (ADR-007), waliduje runtime usage
+- `generate_registry.py` — generuje `.registry.yaml` (indeks artefaktów)
+- `generate_status.py` — generuje `STATUS.md` (snapshot stanu)
+- `lifecycle_audit.py` — audyt `review_due`, `deprecated`
+- `update_frontmatter.py` — aktualizuje frontmatter (migracja)
+- `update_quality.py` — aktualizuje `quality_schema`/`quality_technical` (atomic write per ADR-008)
+- `weekly_report.py` — raport tygodniowy (cron poniedziałek 9:00 UTC)
+- `_heos_atomic.py` — biblioteka atomic write (ADR-008)
+- `git` + push do `Joker22pl/HEOS` (branch `main`)
 
 ## Oficjalne źródła
 
-- HEOS Master Prompt v1.1: `HEOS/00-foundation/HEOS-MASTER-PROMPT-v1.1.md`
-- ADR rejestr: `HEOS/02-artifacts/decision-records/README.md`
-- ADR template: `HEOS/02-artifacts/decision-records/template.md`
-- Pierwszy audyt (baseline): `HEOS/03-quality/baseline-report-2026-07-23.txt`
+- `CONSTITUTION.md` — aktualne zasady (v1.5.2, 2026-07-28)
+- `ARCHITECTURE.md` — aktualna architektura (v1.5.2, 2026-07-28)
+- `STATUS.md` — auto-generowany snapshot stanu (v1.5.4)
+- `CHANGELOG.md` — pełna historia wersji HEOS (v1.0 → v1.5.5)
+- ADR rejestr: `decisions/` + `.registry.yaml`
+- ADR template: `templates/ADR.md.template`
+- Pierwszy audyt (baseline): audyt specjalisty 2026-07-27 (P0/P1/P2 lista)
 
 ## Wersjonowanie
 
-- **v1.0** (2026-07-23) — pierwsza wersja, oparta na HEOS Master Prompt v1.1
+- **v1.0** (2026-07-23) — pierwsza wersja, oparta na HEOS Master Prompt v1.0
+- **v1.1** (2026-07-23) — 5 ADR, `skill_audit.py`, baseline; 2-wymiarowa architektura (domeny × typy)
+- **v1.2** (2026-07-24) — architektura 2D → płaska z tagami; STATUS.md; registry; 3-poziomowa ocena (Schema/Technical/Operational); 6-etapowy lifecycle
+- **v1.3** (2026-07-27) — ADR-007 (Operational Evidence), ADR-008 (Atomic Write), `check_operational_proven.py`, `_heos_atomic.py`, GitHub Actions CI, push do `Joker22pl/HEOS`
+- **v1.4** (2026-07-28) — ADR-006 (skills format policy), ADR-009 (v1.4 scope); nightly-evolution split 957 → 498 linii + 3 `references/`
+- **v1.5** (2026-07-28) — ADR-010 (v1.5 scope); nightly-evolution split Kroki 4-12 → `output-templates.md` (~70% redukcja kontekstu); CHANGELOG.md (audyt historii); STATUS regen
+
+Aktualna wersja tego skilla: **1.5.0** (2026-07-28).
 
 ## Checklisty
 
@@ -203,9 +234,11 @@ Wynik: w frontmatter `status: deprecated`. W Skills które się do niego odwołu
 - [ ] Wiem kiedy Skill NIE powinien być użyty
 
 ### Post-write
-- [ ] `python3 HEOS/03-quality/skill_audit.py <ścieżka>` → PASS
+- [ ] `python3 tools/skill_audit.py <ścieżka>` → PASS
+- [ ] `python3 tools/heos_lint.py` → 0 findings
+- [ ] `python3 tools/check_related_symmetry.py` → 0 asymetrii (per ADR-009)
 - [ ] Powiązane ADR istnieje (jeśli decyzja architektoniczna)
-- [ ] Commit + push do `Joker22pl/gaja-projekty`
+- [ ] Commit + push do `Joker22pl/HEOS`
 
 ## Najlepsze praktyki
 
@@ -219,4 +252,9 @@ Wynik: w frontmatter `status: deprecated`. W Skills które się do niego odwołu
 
 - **ADR-002** — hub repo + osobne repo per projekt
 - **ADR-005** — granice profili Hermes
-- HEOS Master Prompt v1.1 — konstytucja
+- **ADR-006** — polityka formatu skilli (flat vs katalog)
+- **ADR-007** — Operational Evidence Model
+- **ADR-008** — Atomic Write Contract
+- **ADR-009** — HEOS v1.4 scope
+- **ADR-010** — HEOS v1.5 scope
+- `CONSTITUTION.md` — konstytucja HEOS (v1.5.2)
