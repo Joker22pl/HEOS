@@ -22,6 +22,7 @@ related:
 - skill-using-chm
 - adr-002
 - adr-005
+- adr-006
 - adr-008
 - adr-009
 - adr-010
