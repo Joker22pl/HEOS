@@ -14,6 +14,38 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ---
 
+## [v1.5.1] — 2026-07-28
+
+### Added
+- **ADR-010 — HEOS v1.5 scope deklaracja** (`decisions/010-heos-v1-5-scope.md`)
+  - Anty-scope-creep continuation po ADR-009.
+  - 2 cele v1.5: (1) split output-templates + (2) STATUS regen.
+  - Zamknięcie backlogu: "dalsze splity nightly-evolution NIE w v1.5 (sweet spot na ~291 linii)".
+  - Komit: `61826f4`.
+
+### Changed
+- **`STATUS.md`** — re-generacja po dodaniu ADR-008/009/010:
+  - Artefakty: 17 → **20** (10 ADR + 7 skill + 1 lessons + 1 checklist + 1 playbook).
+  - Komit: `61826f4`.
+
+## [v1.5.0] — 2026-07-28
+
+### Changed
+- **`skills/nightly-evolution/SKILL.md` (498 linii) → 291 linii + nowy `references/output-templates.md` (245 linii)**
+  - Kroki 4-12 (Etapy B-J: Daily Retrospective, Lessons Learned, Self Review, Doc Health, Arch Review, Error Intelligence, Performance Report, Improvement Backlog, Plan na jutro) — wszystkie template'y markdown wycięte do reference.
+  - Struktura pliku (4 references): etap-K + etap-L + **output-templates (nowy)** + alerts-and-examples.
+  - **Korzyść:** ~42% dalsza redukcja głównego SKILL.md. Sumarycznie z v1.4 split: 957 linii flat → 291 linii overview (~70% mniej).
+  - Frontmatter nightly-evolution: wersja 1.4.0 → 1.5.0.
+  - Komit: `b5de350`.
+
+## [v1.4.2] — 2026-07-28
+
+### Added
+- **`CHANGELOG.md`** — audyt pełnej historii wersji HEOS (v1.0 → v1.4.1).
+  - Format inspirowany Keep a Changelog (Added/Changed/Deprecated/Removed/Fixed/Security).
+  - Sekcje: legenda SemVer + tagi + commity + bramki CI, tabela migracji między wersjami, linki.
+  - Komit: `ee8b19f`.
+
 ## [v1.4.1] — 2026-07-28
 
 ### Changed
