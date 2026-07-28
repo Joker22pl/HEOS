@@ -1,7 +1,7 @@
 # HEOS — STATUS
 
-**Wygenerowano:** 2026-07-28T09:27:07.577232+00:00  
-**Wersja HEOS:** `v1.5.0`  
+**Wygenerowano:** 2026-07-28T10:11:15.912028+00:00  
+**Wersja HEOS:** `v1.5.2`  
 **Auto-generowany:** ✅ (z `tools/generate_status.py`)
 
 ---
@@ -32,9 +32,9 @@
 
 ## Git
 
-- **Ostatni commit:** `b5de3507` — [refactor] nightly-evolution split v1.5.0 — Kroki 4-12 do output-templates.md
-  - Data: 2026-07-28 11:24:31 +0200
-- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0
+- **Ostatni commit:** `8abc3b53` — [doc] CHANGELOG — wpisy v1.4.2 (CHANGELOG.md) + v1.5.0 (output-templates split) + v1.5.1 (ADR-010 + STATUS regen)
+  - Data: 2026-07-28 11:33:29 +0200
+- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0, v1.5.1, v1.5.2
 
 ---
 
