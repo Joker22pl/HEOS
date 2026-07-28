@@ -14,6 +14,20 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ---
 
+## [v1.5.3] — 2026-07-28
+
+### Changed
+- **`STATUS.md`** — regeneracja po audycie read-only (synchronizacja z HEAD `df1de40`):
+  - Ostatni commit: `df1de40` [chore] STATUS regen (sync z HEAD 8abc3b53) + cleanup .bak files
+  - Tagi: v1.2.0 → v1.5.3 (13 tagów)
+  - Bug `Tools: 25` (real: 22) pozostaje — known issue `generate_status.py`, deferred do osobnej sesji.
+
+### Removed
+- **`*.bak` files w working tree** — `decisions/008-atomic-write-contract.md.bak` + `skills/using-heos.md.bak` usunięte (gitignored, pozostałości z `update_quality.py` pre-atomic-fix).
+- **`CONSTITUTION.md` + `ARCHITECTURE.md` drift** — oba dokumenty zsynchronizowane z v1.5.2 (były na v1.3.1 od `8cda935`).
+
+---
+
 ## [v1.5.1] — 2026-07-28
 
 ### Added
