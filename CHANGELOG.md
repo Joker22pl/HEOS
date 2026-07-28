@@ -67,6 +67,27 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ---
 
+## [v1.6.10] — 2026-07-29
+
+### Fixed
+- **`tools/validate_symlinks.py` v2** (`330d6a2`) — multi-profile HEOS skill audit:
+  - Auto-discover wszystkie profile w `~/.hermes/profiles/` (nie tylko `gaja`)
+  - Obsługuje **hardlinki** (inode match z HEOS source) — wcześniej traktowane jako "REAL FILE" (false-positive drift)
+  - Exit code 1 tylko gdy są broken symlinki
+- **`.github/workflows/lint.yml`** — nowy step "Symlinks/hardlinks (HEOS → profile bridges, local-only)" — uruchamia `validate_symlinks.py` tylko gdy `~/.hermes/profiles/` istnieje (CI nie ma tego katalogu, shallow checkout)
+- **Mosty HEOS → profile naprawione** (lokalnie, poza commitami):
+  - `gaja/skills/.../nightly-evolution/SKILL.md` — dangling symlink (wskazywał na `nightly-evolution.md` który nie istnieje po split v1.4.1, 24.07) → naprawiony na symlink do `nightly-evolution/SKILL.md`
+  - `gaja-it/skills/.../nightly-evolution/` — real file v1.2.1 (3 wersje za HEOS) → zastąpiony hardlinkiem do HEOS source v1.6.6 (gaja-it ma cron `gaja-it-nightly-evol-001`)
+  - `gaja-robotics/skills/.../nightly-evolution/` — real file v1.6.6 → zastąpiony hardlinkiem do HEOS source
+- **Bug found in HEOS source itself**: `skills/nightly-evolution/SKILL.md` miał w pewnym momencie self-referencing symlink (loop) — naprawiony przez `git checkout HEAD --`
+
+### Verification
+- `validate_symlinks.py`: ✓ 11 mostów (6 symlink, 5 hardlink), ✗ 0 złamanych, ⚠️  0 runtime-only, ⚠️  388 real-file (drift risk, lokalne skille specyficzne dla profilu)
+- Bramki: skill_audit 5/5, heos_lint 0, symmetry 0, lifecycle 0, pytest 76/76
+- **CI Actions: 4/4 green** (po fix CI conditional na validate_symlinks)
+
+---
+
 ## [v1.6.7] — 2026-07-29
 
 ### Added
