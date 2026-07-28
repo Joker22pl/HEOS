@@ -1,6 +1,6 @@
 # HEOS — Hermes Engineering Operating System
 
-**Wersja HEOS:** v1.2.1
+**Wersja HEOS:** v1.3.1
 **Status:** 📊 patrz `STATUS.md` (auto-generowany)
 **CI:** [![HEOS lint](https://github.com/Joker22pl/HEOS/actions/workflows/lint.yml/badge.svg)](https://github.com/Joker22pl/HEOS/actions/workflows/lint.yml)
 
@@ -62,7 +62,7 @@ Pełna lista w `.registry.yaml`.
 
 HEOS był migrowany z v1.1 do v1.2 dnia 2026-07-24. Plan w `heos-migration/plan.md`, mapa w `heos-migration/migration-map.json`, rollback w `heos-migration/rollback.sh`. Backup v1.1 w `~/hermes-backups/heos-pre-v1.2-*.tar.gz`. Git tag `v1.1.0-pre-migration` (punkt powrotu).
 
-## Decision Records (5 aktywnych)
+## Decision Records (7 aktywnych)
 
 | ID | Tytuł | Status |
 |---|---|---|
@@ -71,6 +71,9 @@ HEOS był migrowany z v1.1 do v1.2 dnia 2026-07-24. Plan w `heos-migration/plan.
 | [adr-003](decisions/003-konwencja-commitow-po-polsku.md) | Konwencja commitów `[tag] opis` po polsku | Accepted |
 | [adr-004](decisions/004-cookiecutter-i-pre-commit.md) | Cookiecutter template + pre-commit hooks | Accepted |
 | [adr-005](decisions/005-granice-profili-hermes.md) | Granice profili Hermes (gaja / gaja-it / gaja-med) | Accepted |
+| [adr-006](decisions/006-skills-format-policy.md) | Polityka formatu Skills — kiedy `.md` vs katalog | Accepted |
+| [adr-007](decisions/007-operational-evidence-model.md) | Operational Evidence Model dla skilli HEOS | Accepted |
+| [adr-008](decisions/008-atomic-write-contract.md) | Atomic Write Contract dla narzędzi modyfikujących HEOS | Accepted |
 
 ## Otwarte decyzje architektoniczne (ODA)
 
@@ -111,6 +114,8 @@ HEOS używa SemVer: `<major>.<minor>.<patch>`. Wersja w `STATUS.md` (auto-genero
 | 1.0 | 2026-07-23 | Pierwsza wersja (manuskrypt) |
 | 1.1 | 2026-07-23 | 5 ADR, skill_audit, baseline |
 | 1.2 | 2026-07-24 | Architektura 2D, STATUS.md, registry, 3-poziomowa ocena, 6-etapowy lifecycle |
+| 1.3 | 2026-07-27 | ADR-007 (Operational Evidence), ADR-008 (Atomic Write), `check_operational_proven.py`, `_heos_atomic.py`, GitHub Actions CI, push do `Joker22pl/HEOS` |
+| 1.3.1 | 2026-07-28 | Wspólny atomic helper, refactor 4 narzędzi na `atomic_write` + `transaction()`, fix silent YAML corruption w `update_quality.py`, ADR-006 (skills format policy) |
 
 ## Powiązane
 
@@ -121,4 +126,4 @@ HEOS używa SemVer: `<major>.<minor>.<patch>`. Wersja w `STATUS.md` (auto-genero
 
 ---
 
-_Last updated: 2026-07-24_
+_Last updated: 2026-07-28_
