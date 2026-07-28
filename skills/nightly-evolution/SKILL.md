@@ -5,7 +5,7 @@ description: Uruchamiaj przy nocnym, automatycznym przebiegu analizy własnej pr
   Backlog i plan na kolejny dzień. Load ONLY when the Nightly Evolution cron job fires — never load this skill ad-hoc for
   user tasks.
 status: accepted
-heos_version: '1.4.0'
+heos_version: '1.5.0'
 data_root: ~/.hermes/profiles/gaja/nightly-evolution
 type: skill
 id: skill-nightly-evolution
@@ -14,7 +14,7 @@ owner: gaja
 created_at: '2026-07-24'
 updated_at: '2026-07-28'
 review_due: '2027-01-23'
-version: 1.4.0
+version: 1.5.0
 heos_standard_version: "1.2"
 tags:
 - cross-cutting
@@ -75,18 +75,19 @@ Automatyczny, ciągły proces doskonalenia pracy profilu Hermes Agent `gaja`. Co
 
 ## Struktura pliku
 
-Od wersji 1.4.0 (split per ADR-009) skill ma strukturę katalogową:
+Od wersji 1.4.0 (split per ADR-009) skill ma strukturę katalogową. Od v1.5.0 references obejmują też formaty wyjściowe (Kroki 4-12).
 
 ```
 skills/nightly-evolution/
-├── SKILL.md                          ← ten plik (overview + workflow + verification, ~250 linii)
+├── SKILL.md                          ← ten plik (overview + workflow + verification, ~290 linii)
 └── references/
     ├── etap-K-knowledge-routing.md   ← Krok 5.5 (Knowledge Routing, ~100 linii)
     ├── etap-L-memory-hygiene.md      ← Krok 5.6 + 5.6b (Memory Hygiene, ~140 linii)
+    ├── output-templates.md           ← Kroki 4-12 (Etapy B-J, formaty wyjściowe, ~225 linii)
     └── alerts-and-examples.md        ← Kroki 14a/14b + Przykłady 1-6 + Typowe błędy + Debugging + Checklisty + Bezpieczeństwo, ~330 linii
 ```
 
-**Zasada:** ładuj `SKILL.md` zawsze. Ładuj `references/<plik>` tylko w krokach, które go używają. To zmniejsza zużycie kontekstu o ~70% vs poprzedni flat `nightly-evolution.md` (957 linii).
+**Zasada:** ładuj `SKILL.md` zawsze. Ładuj `references/<plik>` tylko w krokach, które go używają. To zmniejsza zużycie kontekstu o ~75% vs poprzedni flat `nightly-evolution.md` (957 linii).
 
 ## Workflow
 
@@ -155,230 +156,22 @@ Korzystaj z `session_search` (FTS5, szybkie) + `search_files`/`read_file` do odc
 
 Już wykonany w kroku 1. Zapisz w raporcie daty okna.
 
-### Krok 4 — Etap B: Daily Retrospective → `reports/daily/YYYY-MM-DD-summary.md`
+### Kroki 4-12 — Etapy B-J (formaty wyjściowe)
 
-Struktura (każdy punkt obowiązkowy, ale treść może być "brak" jeśli faktycznie nic):
+> 📂 Załaduj `references/output-templates.md` — pełne szablony markdown dla:
+> - **Krok 4** (Etap B) — Daily Retrospective
+> - **Krok 5** (Etap C) — Lessons Learned
+> - **Krok 6** (Etap D) — Self Review
+> - **Krok 7** (Etap E) — Documentation Health
+> - **Krok 8** (Etap F) — Architecture Review
+> - **Krok 9** (Etap G) — Error Intelligence
+> - **Krok 10** (Etap H) — Performance Report
+> - **Krok 11** (Etap I) — Self Improvement Backlog
+> - **Krok 12** (Etap J) — Plan na jutro
+>
+> Każdy krok zawiera definicję sekcji markdown + (gdzie dotyczy) tabelę routingu typów akcji. **To są formaty wyjściowe**, ładowane tylko gdy dany krok jest wykonywany.
 
-```markdown
-# Daily Retrospective — YYYY-MM-DD
-
-Okno: <window_start> → <window_end> (UTC)
-
-## Co wykonano
-- ...
-
-## Cele osiągnięte
-- ...
-
-## Decyzje podjęte
-- ...
-
-## Problemy / błędy
-- ...
-
-## Eksperymenty
-- ...
-
-## Odrzucone pomysły
-- ...
-
-## Pozostaje otwarte
-- ...
-
-## Wymaga decyzji użytkownika
-- ...
-```
-
-### Krok 5 — Etap C: Lessons Learned (długoterminowe)
-
-Wybierz TYLKO wnioski z wartością długoterminową. Dla każdego:
-
-```
-- Wniosek: ...
-- Źródło/dowód: <plik:linia lub daily-summary>
-- Pewność: ★☆☆☆☆ do ★★★★★ (uzasadnij jednym zdaniem)
-- Trwałość: długoterminowa | średnioterminowa | jednorazowa
-- Proponowane miejsce: <skill | ADR | README | pamięć>
-- Rekomendacja: zachować | odrzucić | sprawdzić | zaproponować jako standard
-```
-
-**Nie zapisuj hipotez jako faktów.** Brak dowodu = brak wpisu.
-
-Dodaj `## Lessons Learned` do raportu daily.
-
-### Krok 5.5 — Etap K: Knowledge Routing (klasyfikacja i routing wiedzy)
-
-> 📂 Załaduj `references/etap-K-knowledge-routing.md` — pełna procedura routingu, tabela typ→ścieżka→akcja, sekcja `## Knowledge Routing` w daily.
-
-Krótko: dla każdego kandydata z okna (Lessons Learned, powtarzający się błąd, procedura, problem narzędzia, kandydat na skill, nowy trwały fakt) wypełnij rekord klasyfikacji (typ / trwałość / pewność / akcja). Szczegóły filtrów i tabeli routingu w reference.
-
-### Krok 5.6 — Etap L: Memory Hygiene (codzienny audyt pamięci)
-
-> 📂 Załaduj `references/etap-L-memory-hygiene.md` — pełna procedura: 6 sprawdzeń (rozmiar, append-only, pending-review wiek, duplikaty MEMORY↔decisions, baseline tracking, aktywne audyty miesięczne).
-
-Krótko: sprawdź `~/.hermes/profiles/gaja/memories/`. Dodaj do daily sekcję `## Memory Hygiene` z 5 punktami (stan pamięci, TODO przeniesienia, stare sprawy, duplikaty, akcja wymagana).
-
-### Krok 5.6b — Etap L+: Audyt miesięczny
-
-Aktywny **wyłącznie** gdy `date +%d` zwraca `"01"`. Rozszerza Krok 5.6 o 5 dodatkowych sprawdzeń (sync z hub README, archiwizacja, duplikaty przekrojowe, martwe wskaźniki, propozycje zmian). Szczegóły w `references/etap-L-memory-hygiene.md` §Krok 5.6b.
-
-### Krok 6 — Etap D: Self Review → `## Self Review` w daily
-
-```
-- Trafność planowania: HIGH|MEDIUM|LOW (uzasadnienie)
-- Jakość wykonania: HIGH|MEDIUM|LOW
-- Iteracje: <liczba> — czy były zbędne?
-- Błędy/nieudane próby: <lista>
-- Niepotrzebne użycie narzędzi: <lista>
-- Tokeny/koszt: <wartość lub "brak danych">
-- Co uprościć: <lista>
-```
-
-### Krok 7 — Etap E: Documentation Health → `## Documentation Health` w daily
-
-Sprawdź zmienione pliki w oknie:
-
-| Problem | Dowód |
-|---|---|
-| Duplikat informacji | <plik:sekcja> vs <plik:sekcja> |
-| Sprzeczne instrukcje | <plik A mówi X, plik B mówi ¬X> |
-| Martwe odnośniki | <ścieżka/URL nie istnieje> |
-| Tymczasowe traktowane jako obowiązujące | <ścieżka> |
-| Stan w dokumentach architektonicznych | <np. "TODO" w HEOS-MASTER-PROMPT> |
-| Wiele źródeł prawdy dla jednego standardu | <np. 3 pliki definiują konwencję commitów> |
-
-**Nie usuwaj ani nie przepisuj dokumentów.** Tylko raportuj.
-
-### Krok 8 — Etap F: Architecture Review → `## Architecture Review` w daily + opcjonalnie `reports/proposals/`
-
-```
-- Duplikacja: <lista>
-- Nadmierna złożoność: <lista>
-- Błędne zależności: <lista>
-- Niespójne odpowiedzialności: <lista>
-- Możliwości uproszczenia: <lista>
-- Brakujące testy/walidacja: <lista>
-```
-
-Każda **większa** zmiana architektury → osobna propozycja:
-
-`reports/proposals/YYYY-MM-DD-<krotka-nazwa>.md` z polami:
-
-```
-- Problem
-- Dowody
-- Proponowana zmiana
-- Korzyści
-- Ryzyka
-- Koszt wdrożenia (S|M|L|XL)
-- Kryteria akceptacji
-- Plan wycofania
-```
-
-Propozycje **nie są wdrażane** — czekają na akceptację użytkownika.
-
-### Krok 9 — Etap G: Error Intelligence → `reports/errors/YYYY-MM-DD-errors.md`
-
-Dla każdego istotnego błędu w oknie:
-
-```
-- Błąd: <krótki opis>
-- Objaw: ...
-- Prawdopodobna przyczyna: ...
-- Potwierdzone dowody: <log:linia, plik:linia>
-- Zastosowane rozwiązanie: ...
-- Prewencja: ...
-- Występował wcześniej: tak/nie, dowód
-```
-
-**Nie raportuj tego samego błędu wielokrotnie** — grupuj lub wskaż "patrz <daily-...>".
-
-### Krok 10 — Etap H: Performance Report → `reports/performance/YYYY-MM-DD.md`
-
-```markdown
-# Performance — YYYY-MM-DD
-
-Okno: <window_start> → <window_end>
-
-- Zadań (sesji): N
-- PASS: x | WARN: y | FAIL: z
-- Modele: <lista>
-- Tokeny wejściowe: N (lub "brak danych")
-- Tokeny wyjściowe: N (lub "brak danych")
-- Koszt: $X (lub "brak danych")
-- Czas wykonania (suma): Nh Mm
-- Najdroższe zadanie: <nazwa/ID>
-- Najwięcej iteracji: <nazwa/ID>
-```
-
-**Nie szacuj** — jeśli danych brak, wpisz `brak danych`.
-
-### Krok 11 — Etap I: Self Improvement Backlog → `state/improvement-backlog.md`
-
-Dla każdego kandydata z Etapu K (Knowledge Routing) oraz każdego problemu z daily (B, D, E, F, G):
-
-1. Sprawdź czy już istnieje w backlogu (grep po tytule lub ID).
-2. Jeśli tak → zaktualizuj istniejący wpis (data, status, notatka).
-3. Jeśli nie → dodaj nowy wpis z ID `IMP-YYYY-NNN`.
-
-**Pole `Typ` jest obowiązkowe** — wynika z Etapu K i determinuje domyślną akcję wykonawczą po akceptacji:
-
-| Typ | Akcja po akceptacji | Wymaga decyzji w Etap K |
-|---|---|---|
-| `new-skill` | Utworzenie nowego skilla | ✅ |
-| `skill-update` | Patch istniejącego skilla | ✅ |
-| `adr` | Utworzenie nowego ADR | ✅ |
-| `adr-update` | Patch istniejącego ADR | ✅ |
-| `project-doc` | Edycja plików w `~/gaja-projekty/<proj>/...` | ✅ |
-| `heos-doc` | Edycja w `~/gaja-projekty/HEOS/...` | ✅ |
-| `memory` | Zapis do `memories/<topic>.md` | ✅ |
-| `tracker` | Zmiana w trackerze projektowym | ✅ |
-| `error-fix` | Patch kodu / configu rozwiązujący błąd | ✅ |
-| `process-improvement` | Tylko zmiana w sposobie pracy (skill/profil/Joker) | ✅ |
-
-Format wpisu:
-
-```
-- [IMP-YYYY-NNN] <tytuł>
-- Data dodania: YYYY-MM-DD
-- Źródło: daily-YYYY-MM-DD | Etap K Knowledge Routing
-- Typ: <z tabeli powyżej>
-- Opis problemu: ...
-- Dowód: <ścieżka/sekcja>
-- Proponowane rozwiązanie: ...
-- Wpływ: HIGH|MEDIUM|LOW
-- Koszt wdrożenia: S|M|L|XL
-- Ryzyko: HIGH|MEDIUM|LOW
-- Priorytet: P0|P1|P2|P3
-- Status: OPEN | ACCEPTED | IN_PROGRESS | DONE | REJECTED
-- Powiązania: <ADR-NNN | skill-name | daily-YYYY-MM-DD>
-```
-
-### Krok 12 — Etap J: Plan na kolejny dzień → `## Plan` w daily
-
-```markdown
-## Plan na <YYYY-MM-DD+1>
-
-### 3 najważniejsze zadania
-1. ...
-2. ...
-3. ...
-
-### 3 najważniejsze ryzyka
-1. ...
-2. ...
-3. ...
-
-### 3 decyzje wymagane od użytkownika
-1. ...
-2. ...
-3. ...
-
-### 3 usprawnienia (best ROI)
-1. ...
-2. ...
-3. ...
-```
+Krótko: dla każdego etapu (B-J) przeczytaj template z reference i zastosuj go do okna z Kroku 1. Wszystkie 9 etapów mają obowiązkowe sekcje (treść może być "brak" jeśli faktycznie nic).
 
 ### Krok 13 — Atomowy zapis stanu (tylko po pełnym sukcesie)
 
@@ -478,7 +271,7 @@ Wnioski zebrane z pierwszej instalacji (2026-07-23) i późniejszych przebiegów
 - **ADR-002** — hub repo + osobne repo per projekt (kontekst HEOS).
 - **ADR-005** — granice profili Hermes (ten skill jest tylko w `gaja`).
 - **ADR-008** — Atomic Write Contract (`_heos_atomic.py`, dziedziczony przez `update_quality.py`).
-- **ADR-009** — HEOS v1.4 scope (uzasadnia split tego skilla).
+- **ADR-009** — HEOS v1.4 scope (uzasadnia pierwszy split tego skilla).
 - HEOS Master Prompt v1.1 — konstytucja (sekcja "Proces realizacji").
 - HEOS Weekly Audit (skill `hermes-agent` + cron) — tygodniowy audyt HEOS Skills. Nightly Evolution jest codziennym odpowiednikiem dla runtime.
 
