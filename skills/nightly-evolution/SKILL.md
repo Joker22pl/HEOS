@@ -14,7 +14,7 @@ owner: gaja
 created_at: '2026-07-24'
 updated_at: '2026-07-28'
 review_due: '2027-01-23'
-version: 1.6.2
+version: 1.6.6
 heos_standard_version: "1.2"
 tags:
 - cross-cutting
@@ -324,6 +324,85 @@ Krótko: przy `success=False` z Krok 0.5 → inkrementuj `consecutive_failures`,
 > 📂 Załaduj `references/alerts-and-examples.md` §"Krok 14b" — logika 3 kolejnych przebiegów > 95% + treść alertu.
 
 Krótko: sprawdź `consecutive_memory_critical` w `state/last-run.json`. Jeśli >= 2 (3. kolejny przebieg > 95%) → wyślij alert krytyczny + zresetuj.
+
+### Krok 14c — Alert: Runtime Health failure (Etap M)
+
+**Realizuje:** instrukcja Jokera "nie chcę 30h downtime zanim się zorientuję że coś leży". Etap M (Krok 5.7) **wykrywa** hosty down — ale bez alertu detection jest martwy. Ten krok zamyka tę dziurę.
+
+**Trigger:** `HOSTS_FAIL` z Krok 5.7 niepusty (przynajmniej jeden host z 4 sprawdzonych jest down).
+
+**Logika:**
+
+```bash
+# Po wykonaniu Kroku 5.7 mamy HOSTS_OK[] i HOSTS_FAIL[] z bash arrays
+
+if [ ${#HOSTS_FAIL[@]} -gt 0 ]; then
+    # Wyślij alert do origin (Discord) — NIE zastępuje standardowego raportu z Krok 14
+    # To jest DODATKOWY alert — priority channel
+    ALERT_MSG="🚨 Nightly Evolution — Runtime Health Failure (Etap M)
+
+Data: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+FAILed hosts ($(echo ${#HOSTS_FAIL[@]})):
+$(printf '  - %s\n' "${HOSTS_FAIL[@]}")
+
+OK hosts ($(echo ${#HOSTS_OK[@]})):
+$(printf '  - %s\n' "${HOSTS_OK[@]}')
+
+Diagnostyka:
+  - ping/ssh: ręcznie z terminala
+  - HTTP: curl -v http://HOST:PORT/healthz
+  - Więcej: see daily report sekcja '## Runtime Health'
+
+Bez akcji: hosty mogą leżeć do rana (8+ godzin straty).
+"
+
+    # Wysyłka przez ten sam kanał co Krok 14 (origin lub home per crona config)
+    # Użyj tego samego narzędzia co wysyłka Krok 14 (np. hermes CLI, MCP tool, etc.)
+    # W środowisku hermes-agent: hermes notify --level critical "$ALERT_MSG"
+    # W środowisku crona bezpośrednio: curl do Discord webhook (jeśli skonfigurowany)
+
+    # Inkrementuj licznik w state/last-run.json (dla rate-limiting alertów)
+    FAIL_COUNT=$(python3 -c "
+import json, pathlib
+p = pathlib.Path('$DATA/state/last-run.json')
+d = json.loads(p.read_text())
+d['runtime_health_alerts_sent'] = d.get('runtime_health_alerts_sent', 0) + 1
+d['last_runtime_health_failure'] = {
+    'timestamp': '$(date -u +%Y-%m-%dT%H:%M:%SZ)',
+    'failed_hosts': '${HOSTS_FAIL[@]}',
+}
+p.write_text(json.dumps(d, indent=2, ensure_ascii=False))
+print(d['runtime_health_alerts_sent'])
+")
+
+    echo "🚨 Alert sent (count: $FAIL_COUNT)"
+fi
+```
+
+**Co dodać do Krok 14 (standardowy raport) — nowa sekcja:**
+
+```markdown
+🟥 Runtime Health (Etap M):
+- 🔴 192.168.1.178 (ping fail — host offline) — alert wysłany
+- ✅ 192.168.1.173:8766/healthz — HTTP 200
+- ✅ 192.168.1.1 (router) — reachable
+```
+
+Lub jeśli wszystko OK:
+
+```markdown
+🟩 Runtime Health (Etap M):
+- ✅ 4/4 hostów reachable
+```
+
+**Uwagi:**
+
+- Alert NIE zastępuje standardowego raportu z Krok 14 — to jest **priority channel** dla failure case. Standardowy raport idzie zawsze.
+- **Rate limiting:** jeśli ten sam host jest down 3+ dni z rzędu, alert może spamować. Przyszła wersja: dodać `state/last-runtime-health.json` z `last_alert_per_host` i wysyłać tylko raz na 24h per host. (v1.6.6 — bez tego, dopiero v1.7+.)
+- **Format alertu:** markdown-friendly (Discord renderuje). Emoji 🔴/✅ zgodne z istniejącym wzorcem Krok 14.
+- **Co NIE robi:** NIE przerywa nightly run. Alert idzie równolegle do reszty kroków. Po wysłaniu alerta Krok 14 i tak się wykonuje normalnie.
+- **Bezpieczeństwo:** alert jest **non-destructive** — nie modyfikuje plików projektu, nie robi commitów. Tylko write do `state/last-run.json` (inkrementacja licznika) + wysyłka na Discord.
 
 ## Lessons Learned
 
