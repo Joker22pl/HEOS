@@ -30,8 +30,7 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ### Changed
 - **README.md** — Decision Records: 10 → 11, dodany wiersz ADR-011
-- **`decisions/002-hub-repo-i-osobne-repo.md`** — `related: +adr-011` (reverse-ref)
-- **`decisions/009-heos-v1-4-scope.md`** — `related: +adr-011` (reverse-ref); przywrócone 3 wcześniej usunięte (adr-006/007/008) + skill-nightly-evolution po błędzie patch
+- **`decisions/009-heos-v1-4-scope.md`** — `related: +adr-011` (reverse-ref); przywrócone 3 wcześniej usunięte (adr-006/007/008) + skill-nightly-evolution po błędzie patch; usunięte błędne `adr-002`, `adr-005`, `adr-009` (self-ref) dodane przez mojego pomyłkowego patcha
 
 ### Backlog (TODO dla Jokera)
 - **Jednorazowa akcja: zmiana widoczności 7 istniejących repo** (HEOS ma zostać public, 6 pozostałych — do decyzji Jokera):

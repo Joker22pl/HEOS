@@ -17,7 +17,6 @@ tags:
 - github
 - security
 related:
-- adr-002
 - adr-009
 
 # === Specyficzne dla ADR ===

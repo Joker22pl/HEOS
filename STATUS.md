@@ -1,7 +1,7 @@
 # HEOS — STATUS
 
-**Wygenerowano:** 2026-07-28T17:50:46.077978+00:00  
-**Wersja HEOS:** `v1.5.5`  
+**Wygenerowano:** 2026-07-28T17:53:21.606876+00:00  
+**Wersja HEOS:** `v1.6.0`  
 **Auto-generowany:** ✅ (z `tools/generate_status.py`)
 
 ---
@@ -32,9 +32,9 @@
 
 ## Git
 
-- **Ostatni commit:** `5334877e` — [skill] embedded-communications-debug v0.3.1 — effectiveness measured
-  - Data: 2026-07-28 18:33:11 +0200
-- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0, v1.5.1, v1.5.2, v1.5.3, v1.5.4, v1.5.5
+- **Ostatni commit:** `3f98f52c` — [feat] HEOS v1.6.0 — ADR-011 (private repo by default) + repo_visibility.py
+  - Data: 2026-07-28 19:51:08 +0200
+- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0, v1.5.1, v1.5.2, v1.5.3, v1.5.4, v1.5.5, v1.6.0
 
 ---
 
