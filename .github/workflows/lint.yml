@@ -52,6 +52,13 @@ jobs:
       - name: Related symmetry (dry-run only — nie naprawia)
         run: python3 tools/check_related_symmetry.py --dry-run
 
+      - name: Symlinks/hardlinks (HEOS → profile bridges)
+        # Weryfikuje że profile Hermes mają aktualne mosty do HEOS skills
+        # (hardlink lub symlink SKILL.md). Bez tego CI nie wykryje
+        # dangling symlinks jak nightly-evolution.md → nightly-evolution/SKILL.md
+        # po split v1.4.1 (commit ce08d24, 24.07.2026).
+        run: python3 tools/validate_symlinks.py
+
       - name: Update quality (check mode — wykrywa czy pliki wymagają aktualizacji)
         run: python3 tools/update_quality.py || true
 
