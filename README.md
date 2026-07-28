@@ -73,7 +73,7 @@ Pełna lista w `.registry.yaml` (auto-generowany). Status bieżący w `STATUS.md
 
 HEOS był migrowany z v1.1 do v1.2 dnia 2026-07-24. Plan w `heos-migration/plan.md`, mapa w `heos-migration/migration-map.json`, rollback w `heos-migration/rollback.sh`. Backup v1.1 w `~/hermes-backups/heos-pre-v1.2-*.tar.gz`. Git tag `v1.1.0-pre-migration` (punkt powrotu).
 
-## Decision Records (10 aktywnych)
+## Decision Records (11 aktywnych)
 
 | ID | Tytuł | Status |
 |---|---|---|
@@ -87,6 +87,7 @@ HEOS był migrowany z v1.1 do v1.2 dnia 2026-07-24. Plan w `heos-migration/plan.
 | [adr-008](decisions/008-atomic-write-contract.md) | Atomic Write Contract dla narzędzi modyfikujących HEOS | Accepted |
 | [adr-009](decisions/009-heos-v1-4-scope.md) | HEOS v1.4 scope deklaracja (split nightly-evolution + CHANGELOG) | Accepted |
 | [adr-010](decisions/010-heos-v1-5-scope.md) | HEOS v1.5 scope deklaracja (output-templates split + STATUS regen) | Accepted |
+| [adr-011](decisions/011-private-repo-by-default.md) | Repozytoria Joker22pl/* domyślnie prywatne | Accepted |
 
 ## Otwarte decyzje architektoniczne (ODA)
 
@@ -139,6 +140,37 @@ HEOS używa SemVer: `<major>.<minor>.<patch>`. Wersja w `STATUS.md` (auto-genero
 | 1.5.2 | 2026-07-28 | Patch — CONSTITUTION/ARCHITECTURE sync do v1.5.2 (drift fix) |
 | 1.5.3 | 2026-07-28 | Patch — `.bak` cleanup + STATUS regen |
 | 1.5.4 | 2026-07-28 | Patch — `generate_status.py` fix (Tools: 25→24 real) + 5 testów |
+| 1.6.0 | 2026-07-28 | **ADR-011** (private repo by default) + `tools/repo_visibility.py` (audyt + zmiana widoczności) |
+
+## Nowe repozytorium (workflow)
+
+Per **ADR-011** wszystkie nowe repo Joker22pl/* są domyślnie prywatne. Wyjątek (np. HEOS sam jako dokumentacja dla społeczności Hermes Agent) wymaga świadomej zgody w brief.
+
+```bash
+# 1. Utwórz repo na github.com (UI) — domyślnie prywatne
+# 2. Bootstrap z HEOS jako remote:
+cd ~/gaja-projekty/<nowy-projekt>
+git init && git add -A && git commit -m "[init] bootstrap <projekt>"
+git remote add origin git@github.com:Joker22pl/<projekt>.git
+git push -u origin main
+```
+
+### Audyt widoczności istniejących repo
+
+```bash
+python3 tools/repo_visibility.py --audit
+```
+
+### Zmiana widoczności na private (jednorazowa akcja Jokera)
+
+Wymaga GitHub PAT z scope `repo`:
+
+```bash
+export GITHUB_TOKEN=ghp_...
+python3 tools/repo_visibility.py --make-private --all --yes
+```
+
+Output: każde repo zmienione z public → private z audit trail.
 
 ## Powiązane
 

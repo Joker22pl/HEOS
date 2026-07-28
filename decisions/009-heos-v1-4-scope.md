@@ -16,10 +16,14 @@ tags:
 - heos-internal
 - governance
 related:
+- adr-002
+- adr-005
 - adr-006
 - adr-007
 - adr-008
+- adr-009
 - adr-010
+- adr-011
 - skill-nightly-evolution
 - skill-using-heos
 

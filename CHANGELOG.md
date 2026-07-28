@@ -14,6 +14,35 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ---
 
+## [v1.6.0] — 2026-07-28
+
+### Added
+- **ADR-011 — Repozytoria Joker22pl/* domyślnie prywatne** (`decisions/011-private-repo-by-default.md`)
+  - Polityka: nowe repo private domyślnie, świadomy override dla publicznych.
+  - HEOS zostaje public (dokumentacja dla społeczności Hermes Agent) — explicite udokumentowane.
+- **`tools/repo_visibility.py`** — audyt + zmiana widoczności istniejących repo
+  - `--audit` (read-only, bez tokena): listuje aktualną widoczność 7 znanych repo
+  - `--make-private --repo NAME` (wymaga `GITHUB_TOKEN` z scope `repo`)
+  - `--make-private --all --yes` (jednorazowa akcja dla wszystkich 7)
+  - Safety: bez `--yes` tylko raportuje co zrobi; bez tokena → exit 1 z komunikatem
+- **`tools/test_repo_visibility.py`** — 11 testów (KNOWN_HEOS_REPOS, _api_request z/bez tokena, 404 handling, audit/make_private flow, exit codes)
+- **README sekcja "Nowe repozytorium"** — workflow dla bootstrap + komendy audytu/zmiany widoczności
+
+### Changed
+- **README.md** — Decision Records: 10 → 11, dodany wiersz ADR-011
+- **`decisions/002-hub-repo-i-osobne-repo.md`** — `related: +adr-011` (reverse-ref)
+- **`decisions/009-heos-v1-4-scope.md`** — `related: +adr-011` (reverse-ref); przywrócone 3 wcześniej usunięte (adr-006/007/008) + skill-nightly-evolution po błędzie patch
+
+### Backlog (TODO dla Jokera)
+- **Jednorazowa akcja: zmiana widoczności 7 istniejących repo** (HEOS ma zostać public, 6 pozostałych — do decyzji Jokera):
+  ```bash
+  export GITHUB_TOKEN=ghp_...
+  python3 tools/repo_visibility.py --make-private --all --yes
+  ```
+  Bez tokena nie zrobię — wymaga akcji Jokera (UI lub PAT).
+
+---
+
 ## [v1.5.5] — 2026-07-28
 
 ### Fixed

@@ -1,6 +1,6 @@
 # HEOS — STATUS
 
-**Wygenerowano:** 2026-07-28T11:22:38.171365+00:00  
+**Wygenerowano:** 2026-07-28T17:50:46.077978+00:00  
 **Wersja HEOS:** `v1.5.5`  
 **Auto-generowany:** ✅ (z `tools/generate_status.py`)
 
@@ -26,14 +26,14 @@
 ## Struktura
 
 - **Templates:** 6 (`HEOS/templates/`)
-- **Tools:** 24 (`HEOS/tools/`)
+- **Tools:** 26 (`HEOS/tools/`)
 - **Migration infra:** 5 (`HEOS/heos-migration/`)
 - **Backup:** ❌ brak (`~/hermes-backups/heos-pre-v1.2-*.tar.gz` nie istnieje)
 
 ## Git
 
-- **Ostatni commit:** `6e5c9df4` — [skill] using-heos v1.5.0 + using-chm quality pass — ścieżki do HEOS v1.3+
-  - Data: 2026-07-28 13:21:21 +0200
+- **Ostatni commit:** `5334877e` — [skill] embedded-communications-debug v0.3.1 — effectiveness measured
+  - Data: 2026-07-28 18:33:11 +0200
 - **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0, v1.5.1, v1.5.2, v1.5.3, v1.5.4, v1.5.5
 
 ---
