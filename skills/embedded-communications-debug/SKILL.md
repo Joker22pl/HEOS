@@ -28,9 +28,17 @@ related:
 - skill-gaja-lab-core
 quality_schema: pass
 quality_technical: pass
-quality_operational: unmeasured
-last_verified: 2026-07-26
-verified_on: ESP32-S3 + I2C sensor (2026-07-25), UART debug session
+quality_operational: candidate
+last_verified: 2026-07-28
+last_eval_run: evals/results/embedded-communications-debug-baseline-2026-07-28.json
+verification_method: real_agent
+verification_evidence:
+- evals/results/embedded-communications-debug-baseline-2026-07-28.json
+- "5 task fixtures with real ESP32-S3 data (USB-CDC, I2C, SPI, CAN, USB-serial)"
+- "task_success_rate 40% (2/5): spi-crc-error PASS, usb-serial-disconnect close (4/5 hits)"
+- "raw findings hit rate 80% (24/30 findings)"
+- "0 safety violations"
+last_reviewed: 2026-07-28
 ---
 
 # Embedded Communications Debug
