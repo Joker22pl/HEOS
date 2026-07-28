@@ -5,7 +5,7 @@ description: Uruchamiaj przy nocnym, automatycznym przebiegu analizy własnej pr
   Backlog i plan na kolejny dzień. Load ONLY when the Nightly Evolution cron job fires — never load this skill ad-hoc for
   user tasks.
 status: accepted
-heos_version: '1.5.0'
+heos_version: '1.6.2'
 data_root: ~/.hermes/profiles/gaja/nightly-evolution
 type: skill
 id: skill-nightly-evolution
@@ -14,7 +14,7 @@ owner: gaja
 created_at: '2026-07-24'
 updated_at: '2026-07-28'
 review_due: '2027-01-23'
-version: 1.5.0
+version: 1.6.2
 heos_standard_version: "1.2"
 tags:
 - cross-cutting
@@ -25,6 +25,7 @@ related:
 - adr-008
 - adr-009
 - adr-010
+- adr-011
 - skill-memory-hygiene
 quality_schema: pending
 quality_technical: pending
@@ -76,11 +77,11 @@ Automatyczny, ciągły proces doskonalenia pracy profilu Hermes Agent `gaja`. Co
 
 ## Struktura pliku
 
-Od wersji 1.4.0 (split per ADR-009) skill ma strukturę katalogową. Od v1.5.0 references obejmują też formaty wyjściowe (Kroki 4-12).
+Od wersji 1.4.0 (split per ADR-009) skill ma strukturę katalogową. Od v1.5.0 references obejmują też formaty wyjściowe (Kroki 4-12). Od v1.6.2 (Etap M) runtime health jest wbudowany w SKILL.md (inline, nie w references/) — bo to jedyny krok z zewnętrznymi zależnościami (ping/ssh/curl).
 
 ```
 skills/nightly-evolution/
-├── SKILL.md                          ← ten plik (overview + workflow + verification, ~290 linii)
+├── SKILL.md                          ← ten plik (overview + workflow + verification + Runtime Health Etap M, ~365 linii)
 └── references/
     ├── etap-K-knowledge-routing.md   ← Krok 5.5 (Knowledge Routing, ~100 linii)
     ├── etap-L-memory-hygiene.md      ← Krok 5.6 + 5.6b (Memory Hygiene, ~140 linii)
@@ -173,6 +174,77 @@ Już wykonany w kroku 1. Zapisz w raporcie daty okna.
 > Każdy krok zawiera definicję sekcji markdown + (gdzie dotyczy) tabelę routingu typów akcji. **To są formaty wyjściowe**, ładowane tylko gdy dany krok jest wykonywany.
 
 Krótko: dla każdego etapu (B-J) przeczytaj template z reference i zastosuj go do okna z Kroku 1. Wszystkie 9 etapów mają obowiązkowe sekcje (treść może być "brak" jeśli faktycznie nic).
+
+### Krok 5.7 — Etap M: Runtime Health Check (ping kluczowych hostów)
+
+**Realizuje:** instrukcja Jokera "nie chcę 30h downtime zanim się zorientuję że coś leży".
+
+**Cel:** wykryj hosty/usługi które są down ZANIM raport zostanie wysłany do Jokera. Brak runtime monitoringu = brak sygnału o awarii do rana (czyli 8+ godzin od startu problemu). Ten krok daje sygnał w raporcie daily.
+
+**Zakres (stała lista hostów do monitorowania):**
+
+| Host | Typ sprawdzenia | Pass criteria |
+|---|---|---|
+| `192.168.1.178` (RPi HDS client) | `ping -c 1 -W 3` | ≥1 reply |
+| `192.168.1.178` (RPi HDS client) | `ssh -o ConnectTimeout=3 hds@... echo ok` | exit 0 |
+| `192.168.1.173:8766/healthz` (NUC HDS server) | `curl -s -o /dev/null -w '%{http_code}'` | HTTP 200 |
+| `192.168.1.1` (router LAN) | `ping -c 1 -W 2` | ≥1 reply (kontrolnie — czy sieć żyje) |
+
+**Wykonanie (bash, w safety-net `if ! ping -c 1 -W 3 HOST 2>/dev/null`):**
+
+```bash
+HOSTS_OK=()
+HOSTS_FAIL=()
+
+# RPi .178 (HDS client)
+if ping -c 1 -W 3 192.168.1.178 >/dev/null 2>&1; then
+    HOSTS_OK+=("192.168.1.178 (ping)")
+    if ssh -o ConnectTimeout=3 -o BatchMode=yes hds@192.168.1.178 echo ok >/dev/null 2>&1; then
+        HOSTS_OK+=("192.168.1.178 (ssh)")
+    else
+        HOSTS_FAIL+=("192.168.1.178 (ping OK ale SSH fail)")
+    fi
+else
+    HOSTS_FAIL+=("192.168.1.178 (ping fail — host offline)")
+fi
+
+# NUC .173 HDS server (HTTP)
+HTTP_CODE=$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 http://192.168.1.173:8766/healthz)
+if [ "$HTTP_CODE" = "200" ]; then
+    HOSTS_OK+=("192.168.1.173:8766/healthz (HTTP $HTTP_CODE)")
+else
+    HOSTS_FAIL+=("192.168.1.173:8766/healthz (HTTP $HTTP_CODE, oczekiwane 200)")
+fi
+```
+
+**Co dodać do daily report (nowa sekcja `## Runtime Health`):**
+
+```markdown
+## Runtime Health (Etap M)
+
+### Sprawdzone hosty (4 z 4)
+- ✅ 192.168.1.178 (ping) — reachable
+- ✅ 192.168.1.178 (ssh) — auth OK
+- ✅ 192.168.1.173:8766/healthz — HTTP 200
+- ✅ 192.168.1.1 (router) — reachable
+
+### Akcja wymagana
+- (brak — wszystkie hosty OK)
+```
+
+Jeśli `HOSTS_FAIL` niepusty:
+
+```markdown
+### Akcja wymagana
+- 🔴 **192.168.1.178 (ping fail — host offline)** — sprawdź fizycznie RPi (zasilanie, kabel). NUC serwer (HTTP 200) jest OK, ale klient leży.
+```
+
+**Uwagi:**
+
+- To jest **monitoring podstawowy** (ping + SSH + HTTP) — NIE zastępuje dedykowanego monitoringu typu Prometheus/Uptime Kuma. Ale tania warstwa która wykrywa awarię do rana zamiast wieczorem.
+- Lista hostów jest **hardcoded** w skill. Jeśli Joker dodaje nowy host — edytuj tę sekcję + dodaj do daily report template.
+- Sprawdzenie jest **non-blocking** (timeout 3-5s per host), więc dodaje max 15s do nightly run.
+- Failure jednego hosta NIE przerywa nocnego przebiegu (reszta etapów działa). Failure = wpis w daily report.
 
 ### Krok 13 — Atomowy zapis stanu (tylko po pełnym sukcesie)
 
