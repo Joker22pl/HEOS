@@ -67,6 +67,36 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ---
 
+## [v1.6.7] — 2026-07-29
+
+### Added
+- **`skills/nightly-evolution/SKILL.md` — Krok 14c (Alert: Runtime Health failure)** (`8fd4e6f`)
+  - Trigger: `HOSTS_FAIL` z Krok 5.7 niepusty.
+  - Wysyła priority alert na Discord (origin/home) z listą FAILed hostów.
+  - Standardowy raport (Krok 14) idzie zawsze — to jest **dodatkowy** priority channel dla failure case.
+  - Format markdown-friendly z 🔴/✅ (zgodne z istniejącym wzorcem Krok 14).
+  - Inkrementuje `runtime_health_alerts_sent` w `state/last-run.json` (dla przyszłego rate-limiting).
+  - Frontmatter: `version 1.6.2 → 1.6.6` (bump o 4 patch-level dla cumulative feat).
+  - **Non-destructive:** nie modyfikuje plików projektu, nie robi commitów.
+  - Przykładowa wiadomość alertu:
+    ```
+    🚨 Nightly Evolution — Runtime Health Failure (Etap M)
+
+    Data: 2026-07-29T03:01:00Z
+    FAILed hosts (2):
+      - 192.168.1.178 (ping fail — host offline)
+      - 192.168.1.173:8766/healthz (HTTP 000)
+    OK hosts (2):
+      - 192.168.1.178 (ssh)
+      - 192.168.1.1 (router)
+    ```
+
+### Known Limits
+- **Brak rate limiting** — alert może spamować jeśli host down 3+ dni z rzędu (rate limiting deferred do v1.7+).
+- **Brak integracji z konkretnym webhook URL** — zakłada hermes CLI lub `DISCORD_WEBHOOK_URL` env var.
+
+---
+
 ## [v1.6.2] — 2026-07-28
 
 ### Fixed

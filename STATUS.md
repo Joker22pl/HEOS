@@ -1,7 +1,7 @@
 # HEOS — STATUS
 
-**Wygenerowano:** 2026-07-28T22:37:11.407267+00:00  
-**Wersja HEOS:** `v1.6.6`  
+**Wygenerowano:** 2026-07-28T22:38:34.675815+00:00  
+**Wersja HEOS:** `v1.6.7`  
 **Auto-generowany:** ✅ (z `tools/generate_status.py`)
 
 ---
@@ -32,9 +32,9 @@
 
 ## Git
 
-- **Ostatni commit:** `db6b1cb1` — [doc] CHANGELOG — wpisy v1.6.2 + v1.6.3 + v1.6.5
-  - Data: 2026-07-29 00:36:04 +0200
-- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0, v1.5.1, v1.5.2, v1.5.3, v1.5.4, v1.5.5, v1.6.0, v1.6.1, v1.6.2, v1.6.3, v1.6.4, v1.6.5, v1.6.6
+- **Ostatni commit:** `8fd4e6fe` — [skill] nightly-evolution v1.6.6 — Krok 14c (Runtime Health alert na Discord)
+  - Data: 2026-07-29 00:37:11 +0200
+- **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0, v1.5.1, v1.5.2, v1.5.3, v1.5.4, v1.5.5, v1.6.0, v1.6.1, v1.6.2, v1.6.3, v1.6.4, v1.6.5, v1.6.6, v1.6.7
 
 ---
 
