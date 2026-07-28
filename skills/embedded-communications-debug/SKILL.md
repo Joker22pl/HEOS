@@ -1,15 +1,18 @@
 ---
-
 type: skill
 id: skill-embedded-communications-debug
 name: embedded-communications-debug
 title: Embedded Communications Debug — UART/I2C/SPI/CAN/USB-serial
+description: Debug embedded communication buses (UART, I2C, SPI, CAN, USB-serial) on microcontrollers. Use when
+  the user reports no response from a sensor, bus errors, framing issues, CRC mismatches, timeouts, or hardware
+  not responding on expected pins. Triggered by keywords — UART, I2C, SPI, CAN, USB-serial, sensor not responding,
+  bus error, NACK, framing error, CRC error.
 status: accepted
 owner: gaja
 created_at: '2026-07-25'
-updated_at: '2026-07-26'
+updated_at: '2026-07-28'
 review_due: '2027-01-25'
-version: 0.3.0
+version: 0.3.1
 heos_standard_version: "1.2"
 tags:
 - embedded
