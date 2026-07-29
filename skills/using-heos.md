@@ -25,6 +25,7 @@ related:
 - lessons-2026-07-27-heos-audit-fix-bug
 - playbook-heos-new-skill
 - skill-using-chm
+- skill-clarify-discord-fit
 - checklist-heos-pre-commit-validation
 quality_schema: pass
 quality_technical: pass

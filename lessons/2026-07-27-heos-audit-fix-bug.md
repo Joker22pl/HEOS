@@ -16,6 +16,7 @@ tags:
 - bug-fix
 related:
 - skill-using-heos
+- skill-clarify-discord-fit
 quality_schema: pass
 quality_technical: pass
 quality_operational: fresh

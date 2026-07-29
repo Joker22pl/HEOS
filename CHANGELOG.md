@@ -67,6 +67,27 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ---
 
+## [v1.6.12] — 2026-07-29
+
+### Added
+- **`skills/clarify-discord-fit/SKILL.md`** — nowy skill wymuszający Discord-fit format dla `clarify` tool:
+  - `clarify` = pytanie + opcje, kontekst osobną wiadomością (Discord 2000 chars limit)
+  - Severity emoji 🔴🟠🟡✅ standaryzowane
+  - Max 4 opcje (Discord UI limit)
+  - Pytanie max 100 chars, opcje max 40 chars
+  - Montowany we wszystkich 5 profilach Hermes (gaja, gaja-it, gaja-lab, gaja-med, gaja-robotics) przez hardlink
+
+### Fixed
+- **`tools/test_weekly_report.py`** — `test_parse_audit_output_standard_format` zaktualizowany z 5 → 6 skille (po dodaniu `clarify-discord-fit`)
+- **`skills/using-heos.md` related** — dodany `skill-clarify-discord-fit`
+- **`lessons/2026-07-27-heos-audit-fix-bug.md` related** — dodany `skill-clarify-discord-fit`
+
+### Profile bridges
+- 5 hardlinków `skills/clarify-discord-fit/SKILL.md` (5 profili) — walidowane przez `validate_symlinks.py` (v2 z hardlink support)
+- Łącznie: 16 mostów HEOS → profile (6 symlink, 10 hardlink)
+
+---
+
 ## [v1.6.10] — 2026-07-29
 
 ### Fixed

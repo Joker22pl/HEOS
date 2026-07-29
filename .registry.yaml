@@ -1,12 +1,12 @@
 _meta:
-  generated_at: '2026-07-28T09:27:06.235692+00:00'
+  generated_at: '2026-07-29T07:06:39.655601+00:00'
   heos_root: /home/gaja/gaja-projekty/HEOS
-  total_artifacts: 20
+  total_artifacts: 21
   by_type:
     playbook: 1
     skill: 7
     lessons: 1
-    adr: 10
+    adr: 11
     checklist: 1
 artifacts:
   playbook:
@@ -35,9 +35,9 @@ artifacts:
     status: accepted
     owner: gaja
     created_at: '2026-07-25'
-    updated_at: '2026-07-26'
+    updated_at: '2026-07-28'
     review_due: '2027-01-25'
-    version: 0.3.0
+    version: 0.3.1
     heos_standard_version: '1.2'
     tags:
     - embedded
@@ -117,7 +117,7 @@ artifacts:
     created_at: '2026-07-24'
     updated_at: '2026-07-28'
     review_due: '2027-01-23'
-    version: 1.5.0
+    version: 1.6.6
     heos_standard_version: '1.2'
     tags:
     - cross-cutting
@@ -125,9 +125,11 @@ artifacts:
     - skill-using-chm
     - adr-002
     - adr-005
+    - adr-006
     - adr-008
     - adr-009
     - adr-010
+    - adr-011
     - skill-memory-hygiene
     path: skills/nightly-evolution/SKILL.md
   - type: skill
@@ -137,7 +139,7 @@ artifacts:
     status: accepted
     owner: gaja
     created_at: '2026-07-24'
-    updated_at: '2026-07-24'
+    updated_at: '2026-07-28'
     review_due: '2027-01-23'
     version: 1.0.0
     heos_standard_version: '1.2'
@@ -157,21 +159,25 @@ artifacts:
     status: accepted
     owner: gaja
     created_at: '2026-07-24'
-    updated_at: '2026-07-24'
+    updated_at: '2026-07-28'
     review_due: '2027-01-23'
-    version: 1.0.0
+    version: 1.5.0
     heos_standard_version: '1.2'
     tags:
     - cross-cutting
     related:
     - adr-002
     - adr-005
-    - lessons-2026-07-27-heos-audit-fix-bug
+    - adr-006
+    - adr-007
     - adr-008
+    - adr-009
+    - adr-010
+    - lessons-2026-07-27-heos-audit-fix-bug
     - playbook-heos-new-skill
     - skill-using-chm
+    - skill-clarify-discord-fit
     - checklist-heos-pre-commit-validation
-    - adr-007
     path: skills/using-heos.md
   lessons:
   - type: lessons
@@ -306,7 +312,10 @@ artifacts:
     related:
     - adr-005
     - adr-009
+    - adr-011
+    - skill-nightly-evolution
     - adr-010
+    - skill-using-heos
     adr_number: 6
     superseded_by: (none)
     path: decisions/006-skills-format-policy.md
@@ -373,7 +382,10 @@ artifacts:
     - adr-006
     - adr-007
     - adr-008
+    - adr-010
+    - adr-011
     - skill-nightly-evolution
+    - skill-using-heos
     adr_number: 9
     superseded_by: (none)
     path: decisions/009-heos-v1-4-scope.md
@@ -396,9 +408,33 @@ artifacts:
     - adr-006
     - adr-009
     - skill-nightly-evolution
+    - skill-using-heos
     adr_number: 10
     superseded_by: (none)
     path: decisions/010-heos-v1-5-scope.md
+  - type: adr
+    id: adr-011
+    name: 011-private-repo-by-default
+    title: Repozytoria Joker22pl/* domyślnie prywatne
+    status: accepted
+    owner: gaja
+    created_at: '2026-07-28'
+    updated_at: '2026-07-28'
+    review_due: '2027-01-26'
+    version: 1.0.0
+    heos_standard_version: '1.2'
+    tags:
+    - governance
+    - heos-internal
+    - github
+    - security
+    related:
+    - adr-006
+    - adr-009
+    - skill-nightly-evolution
+    adr_number: 11
+    superseded_by: (none)
+    path: decisions/011-private-repo-by-default.md
   checklist:
   - type: checklist
     id: checklist-heos-pre-commit-validation
@@ -425,8 +461,11 @@ inverse_index:
   - lessons-2026-07-27-heos-audit-fix-bug
   - adr-002
   - adr-005
+  - adr-006
   - adr-007
   - adr-008
+  - adr-009
+  - adr-010
   - checklist-heos-pre-commit-validation
   skill-gaja-lab-core:
   - skill-embedded-communications-debug
@@ -444,9 +483,11 @@ inverse_index:
   - skill-using-chm
   - adr-002
   - adr-005
+  - adr-006
   - adr-008
   - adr-009
   - adr-010
+  - adr-011
   skill-using-chm:
   - skill-nightly-evolution
   - skill-using-heos
@@ -461,6 +502,13 @@ inverse_index:
   - skill-using-chm
   - skill-using-heos
   - adr-006
+  adr-006:
+  - skill-nightly-evolution
+  - skill-using-heos
+  - adr-005
+  - adr-009
+  - adr-010
+  - adr-011
   adr-008:
   - skill-nightly-evolution
   - skill-using-heos
@@ -468,25 +516,35 @@ inverse_index:
   - adr-009
   adr-009:
   - skill-nightly-evolution
+  - skill-using-heos
   - adr-006
   - adr-007
   - adr-008
   - adr-010
+  - adr-011
   adr-010:
   - skill-nightly-evolution
+  - skill-using-heos
   - adr-006
+  - adr-009
+  adr-011:
+  - skill-nightly-evolution
+  - adr-006
+  - adr-009
   skill-memory-hygiene:
   - skill-nightly-evolution
-  lessons-2026-07-27-heos-audit-fix-bug:
-  - skill-using-heos
-  playbook-heos-new-skill:
-  - skill-using-heos
-  checklist-heos-pre-commit-validation:
-  - skill-using-heos
   adr-007:
   - skill-using-heos
   - adr-008
   - adr-009
+  lessons-2026-07-27-heos-audit-fix-bug:
+  - skill-using-heos
+  playbook-heos-new-skill:
+  - skill-using-heos
+  skill-clarify-discord-fit:
+  - skill-using-heos
+  checklist-heos-pre-commit-validation:
+  - skill-using-heos
   adr-003:
   - adr-001
   - adr-002
@@ -494,7 +552,3 @@ inverse_index:
   adr-004:
   - adr-002
   - adr-003
-  adr-006:
-  - adr-005
-  - adr-009
-  - adr-010

@@ -67,15 +67,16 @@ def test_parse_audit_output_standard_format():
     """Parser odczytuje Schema: ✅ N PASS | ⚠️  N WARN | ❌ N FAIL.
 
     Regression test — wcześniej parser szukał '%' który nigdy nie był w output.
+    Aktualizacja 2026-07-29: dodany skill-clarify-discord-fit (v1.6.12) — 5 → 6 skille.
     """
     from weekly_report import _run_audit
     from pathlib import Path
-    # Mock: używamy prawdziwego skill_audit.py na HEOS (mamy 5 skille, 5 PASS, 0 WARN, 0 FAIL)
+    # Mock: używamy prawdziwego skill_audit.py na HEOS (mamy 6 skille, 6 PASS, 0 WARN, 0 FAIL)
     heos = Path(__file__).resolve().parent.parent
     stats = _run_audit(heos)
     assert "error" not in stats, f"_run_audit error: {stats.get('error')}"
-    assert stats["total"] == 5, f"Expected total=5, got {stats['total']}"
-    assert stats["pass"] == 5, f"Expected pass=5, got {stats['pass']}"
+    assert stats["total"] == 6, f"Expected total=6, got {stats['total']}"
+    assert stats["pass"] == 6, f"Expected pass=6, got {stats['pass']}"
     assert stats["warn"] == 0, f"Expected warn=0, got {stats['warn']}"
     assert stats["fail"] == 0, f"Expected fail=0, got {stats['fail']}"
 
