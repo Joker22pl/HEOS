@@ -101,9 +101,14 @@ clarify(
 ```
 
 **Hard limits:**
-- `question`: max 100 chars
-- `choices[i]`: max 40 chars każda
+- `question`: max 100 chars (sweet spot: 60-80)
+- `choices[i]`: max 80 chars każda (sweet spot: 50-70) — powyżej 90 chars Discord renderuje obcinane
 - Max 4 opcje (Discord UI ograniczenie)
+
+**Eksperymentalne limity (28.07.2026, profil gaja):**
+- pytanie 22 chars + opcja 56 chars → ✅ widoczne w całości
+- pytanie 22 chars + opcja 85 chars → ✅ widoczne w całości
+- pytanie 22 chars + opcja 100+ chars → ❌ obcinane przez Discord
 
 ## Przykład (A+B zastosowane)
 
