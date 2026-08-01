@@ -351,8 +351,10 @@ def audytuj_katalog(root: Path) -> list[SkillReport]:
     skills_dir = root / "skills"
     if skills_dir.is_dir():
         for p in sorted(skills_dir.glob("*.md")):
-            if _jest_plik_runtime(p):
-                continue
+            raporty.append(audytuj_skill(p))
+            seen.add(p)
+        # v1.2+ HEOS: skills/<name>/SKILL.md (skills with references/scripts)
+        for p in sorted(skills_dir.glob("*/SKILL.md")):
             raporty.append(audytuj_skill(p))
             seen.add(p)
     # v1.1 HEOS: 01-domains/*/skills/*/SKILL.md
@@ -467,9 +469,9 @@ def main() -> int:
     print(f"--- Podsumowanie (poziom: {args.level}) ---")
     print(f"Zbadane Skills: {len(raporty)}")
     print(f"Schema: ✅ {n_pass} PASS | ⚠️  {n_warn} WARN | ❌ {n_fail} FAIL")
+    n_tech_pass = sum(1 for r in raporty if r.technical_status == "PASS")
+    n_tech_fail = sum(1 for r in raporty if r.technical_status == "FAIL")
     if "technical" in levels or args.level == "all":
-        n_tech_pass = sum(1 for r in raporty if r.technical_status == "PASS")
-        n_tech_fail = sum(1 for r in raporty if r.technical_status == "FAIL")
         print(f"Technical: ✅ {n_tech_pass} PASS | ❌ {n_tech_fail} FAIL")
     if "all" in levels or args.level == "all":
         print(f"Combined: approved={n_approved} | partial={n_partial} | broken={n_broken} | invalid={n_invalid}")
@@ -516,7 +518,12 @@ def main() -> int:
                 print(f"  → {n_runtime_diff} skille wymagają ręcznej aktualizacji")
         except ImportError:
             print("⚠️  check_operational_proven.py nie znaleziony — runtime check pominięty")
-    return 1 if n_fail > 0 else 0
+    selected_failed = n_fail > 0
+    if "technical" in levels:
+        selected_failed = selected_failed or n_tech_fail > 0
+    if args.strict:
+        selected_failed = selected_failed or n_warn > 0
+    return 1 if selected_failed else 0
 
 
 if __name__ == "__main__":

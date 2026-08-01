@@ -64,13 +64,13 @@ def _git_tags(root: Path) -> list[str]:
 def _heos_version(root: Path, tags: list[str]) -> str:
     """Wykrywa wersję HEOS z git tagów (priorytet) lub plików (fallback)."""
     # Priorytet 1: tag v*.*.*
-    version_tags = [t for t in tags if t.startswith("v") and "." in t]
+    import re
+    version_tags = [t for t in tags if re.fullmatch(r"v\d+\.\d+\.\d+", t)]
     if version_tags:
-        return version_tags[-1]  # ostatni
+        return max(version_tags, key=lambda t: tuple(int(part) for part in t[1:].split(".")))
     # Priorytet 2: grep w README.md
     readme = root / "README.md"
     if readme.exists():
-        import re
         text = readme.read_text(encoding="utf-8", errors="replace")
         m = re.search(r"\*\*Wersja HEOS:\*\*\s*(\S+)", text)
         if m:

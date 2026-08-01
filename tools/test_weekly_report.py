@@ -54,7 +54,7 @@ def test_build_report_minimal():
     assert "HEOS Weekly Audit" in md
     assert "3/5" in md
     assert "2/87" in md
-    assert "HEOS (nowe Skillsy)" in md
+    assert "HEOS shared Skills" in md
     assert "Hermes Profile" in md
 
 
@@ -67,16 +67,16 @@ def test_parse_audit_output_standard_format():
     """Parser odczytuje Schema: ✅ N PASS | ⚠️  N WARN | ❌ N FAIL.
 
     Regression test — wcześniej parser szukał '%' który nigdy nie był w output.
-    Aktualizacja 2026-07-29: dodany skill-clarify-discord-fit (v1.6.12) — 5 → 6 skille.
+    Aktualizacja 2026-08-01: audyt obejmuje wszystkie 8 skilli HEOS.
     """
     from weekly_report import _run_audit
     from pathlib import Path
-    # Mock: używamy prawdziwego skill_audit.py na HEOS (mamy 6 skille, 6 PASS, 0 WARN, 0 FAIL)
+    # Używamy prawdziwego skill_audit.py na bieżącym HEOS (8/8 PASS).
     heos = Path(__file__).resolve().parent.parent
     stats = _run_audit(heos)
     assert "error" not in stats, f"_run_audit error: {stats.get('error')}"
-    assert stats["total"] == 6, f"Expected total=6, got {stats['total']}"
-    assert stats["pass"] == 6, f"Expected pass=6, got {stats['pass']}"
+    assert stats["total"] == 8, f"Expected total=8, got {stats['total']}"
+    assert stats["pass"] == 8, f"Expected pass=8, got {stats['pass']}"
     assert stats["warn"] == 0, f"Expected warn=0, got {stats['warn']}"
     assert stats["fail"] == 0, f"Expected fail=0, got {stats['fail']}"
 

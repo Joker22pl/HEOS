@@ -28,8 +28,8 @@ related:
 - adr-010
 - adr-011
 - skill-memory-hygiene
-quality_schema: pending
-quality_technical: pending
+quality_schema: pass
+quality_technical: pass
 quality_operational: unmeasured
 ---
 

@@ -64,10 +64,10 @@ jobs:
           fi
 
       - name: Update quality (check mode — wykrywa czy pliki wymagają aktualizacji)
-        run: python3 tools/update_quality.py || true
+        run: python3 tools/update_quality.py
 
       - name: Pytest
-        run: python3 -m pytest --tb=long -v 2>&1 | tail -50
+        run: python3 -m pytest --tb=long -v
 
       - name: Working tree clean
         # Weryfikuje że bramki nie zostawiają śmieci w repo
