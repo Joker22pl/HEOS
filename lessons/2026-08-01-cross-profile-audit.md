@@ -83,9 +83,16 @@ Pierwszy systematyczny audyt HEOS wraz z całą rodziną profili Hermes
   python3 tools/migrate_runtime_skills.py --fix-drift --target clarify-discord-fit
   ```
   (jeśli dodamy taki tryb do istniejącego narzędzia).
+  **Status 2026-08-01:** R1 wykonane. 5 plików w profilach zastąpionych
+  symlinkami do HEOS master. Backup w `/tmp/heos-drift-backup-20260801_081301/`
+  (5 plików, oryginalne md5 36e08c98). Wszystkie 5 cele mają teraz md5
+  identyczny z HEOS master (`30f7a489`).
 - **Hardlink → symlink migration:** 5 hardlinków (gaja-it × 1, gaja-robotics × 4)
   zamienić na symlinki dla ujednolicenia. Hardlinki nie przechodzą granic filesystem
   — symlinki są bardziej portable (np. przy przenoszeniu profilu na inny dysk).
+  **Status 2026-08-01 (bonus):** Wykonane efektem ubocznym R1 — 5 cele
+  `clarify-discord-fit` w profilach to teraz symlinki do HEOS master
+  (unia między profilami — wcześniej hardlinki między 4 profilami).
 
 ### Mid effort (P2)
 
@@ -116,12 +123,12 @@ Pierwszy systematyczny audyt HEOS wraz z całą rodziną profili Hermes
 
 | Profil | Skills | Pass-rate | Bridge→HEOS | Drift |
 |---|---|---|---|---|
-| gaja | 123 | 91% | 5 symlinks | 1 (clarify-discord-fit) |
-| gaja-it | 21 | 43% | 1 hardlink | 1 (clarify-discord-fit) |
-| gaja-lab | 68 | 2.9% | 0 | 1 (clarify-discord-fit, hardlink kopia) |
-| gaja-med | 74 | 1.4% | 0 | 1 (clarify-discord-fit, hardlink kopia) |
-| gaja-robotics | 78 | 11.5% | 1 sym + 4 hardlinks | 1 (clarify-discord-fit) |
-| **TOTAL** | **381** | varies | **11 mostów** | **5 kopii, 1 unikalny skill** |
+| gaja | 123 | 91% | 5 symlinks | 0 (drift fix R1 ✅) |
+| gaja-it | 21 | 43% | 1 hardlink + 1 symlink (post R1) | 0 (drift fix R1 ✅) |
+| gaja-lab | 68 | 2.9% | 1 symlink (post R1, was 0) | 0 (drift fix R1 ✅) |
+| gaja-med | 74 | 1.4% | 1 symlink (post R1, was 0) | 0 (drift fix R1 ✅) |
+| gaja-robotics | 78 | 11.5% | 5 most (1+4) + 1 symlink (post R1) | 0 (drift fix R1 ✅) |
+| **TOTAL** | **381** | varies | **16 mostów** (po R1: 11→16, +5 symlinks) | **5 dryfów → 0** (R1 fixed) |
 
 ADR-005 (cross-profile boundaries): **respektowany** — każdy profil ma
 unikalną pamięć (md5 różne), auth.json per profil, brak leak.

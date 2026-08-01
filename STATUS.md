@@ -1,6 +1,6 @@
 # HEOS — STATUS
 
-**Wygenerowano:** 2026-08-01T03:33:43.685681+00:00  
+**Wygenerowano:** 2026-08-01T06:14:19.830160+00:00  
 **Wersja HEOS:** `v1.6.14`  
 **Auto-generowany:** ✅ (z `tools/generate_status.py`)
 
@@ -32,8 +32,8 @@
 
 ## Git
 
-- **Ostatni commit:** `8c189f9c` — [fix] HEOS P1.1 README sync + P2.1 candidate skills + failing test fix (audyt 2026-08-01 kontynuacja)
-  - Data: 2026-08-01 03:24:39 +0200
+- **Ostatni commit:** `562baeb5` — [doc] HEOS Lessons Learned — cross-profile audit 2026-08-01 + vv→v kosmetyka
+  - Data: 2026-08-01 05:33:54 +0200
 - **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0, v1.5.1, v1.5.2, v1.5.3, v1.5.4, v1.5.5, v1.6.0, v1.6.1, v1.6.10, v1.6.11, v1.6.12, v1.6.13, v1.6.14, v1.6.2, v1.6.3, v1.6.4, v1.6.5, v1.6.6, v1.6.7, v1.6.8, v1.6.9
 
 ---
