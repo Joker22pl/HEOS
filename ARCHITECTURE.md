@@ -1,6 +1,6 @@
 # HEOS — Architektura
 
-**Wersja:** v1.5.2
+**Wersja:** v1.6.13
 **Data:** 2026-07-28
 
 > Patrz też: `CONSTITUTION.md` (zasady) · `STATUS.md` (stan) · `archive/00-HEOS-ARCHITECTURE-v1.1.md` (poprzednia wersja)

@@ -14,6 +14,24 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 
 ---
 
+## [v1.6.14] — 2026-08-01
+
+### Fixed
+- **P0.1 — `skill_audit.py` nie mógł się sam siebie audytować** (audyt HEOS 2026-08-01):
+  - Domyślna ścieżka `~/.hermes/profiles/gaja/skills` powodowała "Katalog nie istnieje" pod Hermes profile (gdzie `$HOME=/home/gaja/.hermes/profiles/<name>/home`).
+  - Patch: default → absolutna ścieżka `/home/gaja/.hermes/profiles/gaja/skills`. Własny audytor HEOS od teraz działa z `--quiet` bez argumentów.
+  - `tools/test_skill_audit_default_path.py` — 4 testy regresji (default path is absolute, exists, no "Katalog nie istnieje", ≥1 skill found).
+- **P0.2 — wersja HEOS dryfowała w 4 plikach** (CONSTITUTION=v1.5.2, README=v1.5.4, ARCHITECTURE=v1.5.2, STATUS=v1.6.13):
+  - Single Source of Truth (P3 §CONSTITUTION 10) złamany.
+  - `tools/sync_versions.py` — STATUS jest truth, CONSTITUTION/README/ARCHITECTURE są mirrorowane. Tryby `--check` (CI), `--sync` (naprawa), `--show` (diagnostyka). Atomic write per ADR-008.
+  - `tools/test_sync_versions.py` — 5 testów regresji (drift detection, sync repair, atomic write no corruption, status has version, initial sync runs).
+  - Po `--sync` wszystkie 4 pliki zsynchronizowane do v1.6.13.
+
+### Changed
+- **Suite testów**: 86 → **95** testów (+9 nowych). Czas: 1.1s → 4.3s.
+
+---
+
 ## [v1.6.0] — 2026-07-28
 
 ### Added

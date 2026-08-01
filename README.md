@@ -1,6 +1,6 @@
 # HEOS — Hermes Engineering Operating System
 
-**Wersja HEOS:** v1.5.4
+**Wersja HEOS:** v1.6.13
 **Status:** 📊 patrz `STATUS.md` (auto-generowany)
 **CI:** [![HEOS lint](https://github.com/Joker22pl/HEOS/actions/workflows/lint.yml/badge.svg)](https://github.com/Joker22pl/HEOS/actions/workflows/lint.yml)
 

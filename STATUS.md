@@ -1,6 +1,6 @@
 # HEOS — STATUS
 
-**Wygenerowano:** 2026-07-31T23:36:46.321445+00:00  
+**Wygenerowano:** 2026-08-01T01:16:34.237578+00:00  
 **Wersja HEOS:** `v1.6.13`  
 **Auto-generowany:** ✅ (z `tools/generate_status.py`)
 
@@ -26,14 +26,14 @@
 ## Struktura
 
 - **Templates:** 6 (`HEOS/templates/`)
-- **Tools:** 27 (`HEOS/tools/`)
+- **Tools:** 30 (`HEOS/tools/`)
 - **Migration infra:** 5 (`HEOS/heos-migration/`)
 - **Backup:** ❌ brak (`~/hermes-backups/heos-pre-v1.2-*.tar.gz` nie istnieje)
 
 ## Git
 
-- **Ostatni commit:** `bb19766a` — [doc] STATUS + registry regen — 22 artefaktów (clarify-discord-fit + v1.6.12/v1.6.13 tagi)
-  - Data: 2026-07-31 22:38:37 +0200
+- **Ostatni commit:** `4b8e7971` — [fix] HEOS gates v1.6.13 — fail-closed audit, 8/8 discovery, semver, weekly report
+  - Data: 2026-08-01 02:47:03 +0200
 - **Tagi:** v1.2.0, v1.2.1, v1.2.2, v1.2.3, v1.3.0, v1.3.1, v1.3.2, v1.4.0, v1.4.1, v1.4.2, v1.5.0, v1.5.1, v1.5.2, v1.5.3, v1.5.4, v1.5.5, v1.6.0, v1.6.1, v1.6.10, v1.6.11, v1.6.12, v1.6.13, v1.6.2, v1.6.3, v1.6.4, v1.6.5, v1.6.6, v1.6.7, v1.6.8, v1.6.9
 
 ---

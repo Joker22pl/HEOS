@@ -1,6 +1,6 @@
 # HEOS — Hermes Engineering Operating System
 
-**Wersja:** v1.5.2
+**Wersja:** v1.6.13
 **Data:** 2026-07-28
 **Auto-generowany:** ❌ (ręcznie utrzymywany)
 **Źródło decyzji:** `archive/00-HEOS-CHANGELOG-v1.1.md` (migracja v1.0→v1.1) + `archive/00-HEOS-CHANGELOG-v1.2.md` (migracja v1.1→v1.2, patrz `archive/HEOS-MASTER-PROMPT-v1.0.docx` dla v1.0)

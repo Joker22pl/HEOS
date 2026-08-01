@@ -434,7 +434,11 @@ def _format_report(r: SkillReport, levels: set[str]) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Skill audit v1.2 (3 poziomy)")
-    parser.add_argument("sciezka", nargs="?", default="~/.hermes/profiles/gaja/skills",
+    # NOTE: hardcoded absolute path (nie "~") bo pod Hermes profile HOME=/home/gaja/.hermes/profiles/<name>/home
+    #       a expanduser("~") zwraca wtedy "/home/gaja/.hermes/profiles/<name>/home/.hermes/..." — podwójny root.
+    #       Realna ścieżka Hermes profile 'gaja' z skills/ jest zawsze stała.
+    parser.add_argument("sciezka", nargs="?",
+                        default="/home/gaja/.hermes/profiles/gaja/skills",
                         help="Katalog ze Skillami")
     parser.add_argument("--level", default="schema",
                         choices=["schema", "technical", "operational", "all"],
