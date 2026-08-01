@@ -1,6 +1,6 @@
 # HEOS — Hermes Engineering Operating System
 
-**Wersja HEOS:** v1.6.13
+**Wersja HEOS:** `v1.6.14`
 **Status:** 📊 patrz `STATUS.md` (auto-generowany)
 **CI:** [![HEOS lint](https://github.com/Joker22pl/HEOS/actions/workflows/lint.yml/badge.svg)](https://github.com/Joker22pl/HEOS/actions/workflows/lint.yml)
 
@@ -35,18 +35,15 @@ HEOS/
 └── archive/           ← snapshot v1.1 (nieaktywny)
 ```
 
-## Artefakty (20 aktywnych)
+## Artefakty (22 aktywnych)
 
 | Typ | Liczba | Lokalizacja |
 |---|---|---|
-| Skills | 7 (5 HEOS cross-cutting + 2 runtime Hermes) | `skills/` |
-| ADR | 10 | `decisions/` |
+| Skills | 8 | `skills/` |
+| ADR | 11 | `decisions/` |
 | Lessons Learned | 1 | `lessons/` |
 | Checklisty | 1 | `checklists/` |
 | Playbooki | 1 | `playbooks/` |
-
-Pełna lista w `.registry.yaml` (auto-generowany). Status bieżący w `STATUS.md`.
-
 ## Narzędzia (`tools/`)
 
 | Narzędzie | Opis |
@@ -78,15 +75,15 @@ HEOS był migrowany z v1.1 do v1.2 dnia 2026-07-24. Plan w `heos-migration/plan.
 | ID | Tytuł | Status |
 |---|---|---|
 | [adr-001](decisions/001-micropython-esp32-s3-pico.md) | MicroPython + mpremote dla ESP32-S3-PICO | Accepted |
-| [adr-002](decisions/002-hub-repo-i-osobne-repo.md) | Hub repo + osobne repo per projekt | Accepted |
-| [adr-003](decisions/003-konwencja-commitow-po-polsku.md) | Konwencja commitów `[tag] opis` po polsku | Accepted |
-| [adr-004](decisions/004-cookiecutter-i-pre-commit.md) | Cookiecutter template + pre-commit hooks | Accepted |
+| [adr-002](decisions/002-hub-repo-i-osobne-repo.md) | Hub repo `gaja-projekty` + osobne repo per projekt | Accepted |
+| [adr-003](decisions/003-konwencja-commitow-po-polsku.md) | Konwencja commitów — `[tag] opis` po polsku | Accepted |
+| [adr-004](decisions/004-cookiecutter-i-pre-commit.md) | Cookiecutter template + pre-commit hooks (ruff, gitleaks) | Accepted |
 | [adr-005](decisions/005-granice-profili-hermes.md) | Granice profili Hermes (gaja / gaja-it / gaja-med) | Accepted |
-| [adr-006](decisions/006-skills-format-policy.md) | Polityka formatu Skills — kiedy `.md` vs katalog | Accepted |
-| [adr-007](decisions/007-operational-evidence-model.md) | Operational Evidence Model dla skilli HEOS | Accepted |
-| [adr-008](decisions/008-atomic-write-contract.md) | Atomic Write Contract dla narzędzi modyfikujących HEOS | Accepted |
-| [adr-009](decisions/009-heos-v1-4-scope.md) | HEOS v1.4 scope deklaracja (split nightly-evolution + CHANGELOG) | Accepted |
-| [adr-010](decisions/010-heos-v1-5-scope.md) | HEOS v1.5 scope deklaracja (output-templates split + STATUS regen) | Accepted |
+| [adr-006](decisions/006-skills-format-policy.md) | Polityka formatu Skills — kiedy .md vs katalog | Accepted |
+| [adr-007](decisions/007-operational-evidence-model.md) | Model dowodu operacyjnego dla skilli HEOS | Accepted |
+| [adr-008](decisions/008-atomic-write-contract.md) | Atomic Write Contract dla narzędzi HEOS modyfikujących pliki | Accepted |
+| [adr-009](decisions/009-heos-v1-4-scope.md) | HEOS v1.4 — scope deklaracja (split nightly-evolution, CHANGELOG) | Accepted |
+| [adr-010](decisions/010-heos-v1-5-scope.md) | HEOS v1.5 — scope deklaracja (output-templates split, nightly-evolution finalizacja) | Accepted |
 | [adr-011](decisions/011-private-repo-by-default.md) | Repozytoria Joker22pl/* domyślnie prywatne | Accepted |
 
 ## Otwarte decyzje architektoniczne (ODA)

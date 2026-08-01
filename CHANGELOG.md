@@ -26,9 +26,27 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
   - `tools/sync_versions.py` — STATUS jest truth, CONSTITUTION/README/ARCHITECTURE są mirrorowane. Tryby `--check` (CI), `--sync` (naprawa), `--show` (diagnostyka). Atomic write per ADR-008.
   - `tools/test_sync_versions.py` — 5 testów regresji (drift detection, sync repair, atomic write no corruption, status has version, initial sync runs).
   - Po `--sync` wszystkie 4 pliki zsynchronizowane do v1.6.13.
+- **P1.1 — README dryfowało z registry**:
+  - README ręcznie mówiło "Skills 7, ADR 10, Artefakty 20" — registry ma 8/11/22.
+  - `tools/generate_readme.py` — czyta `.registry.yaml`, generuje prawidłowe tabele + synchronizuje wersję z STATUS. Tryby `--check` (signals-based, ignoruje kosmetykę tytułów ADR) i `--sync` (atomic write per ADR-008).
+  - `tools/test_generate_readme.py` — 7 testów (drift signals, normalize version, count updates, --check exit codes, drift detection).
+- **P2.1 — 2 skille miały `quality_operational: candidate` bez runtime evidence**:
+  - `embedded-communications-debug` i `memory-hygiene` — brak wpisu w `~/.hermes/skills/.usage.json`, więc rekomendacja to `unmeasured`.
+  - Frontmatter → `quality_operational: unmeasured` zgodnie z `check_operational_proven.py`.
+- **Test regresji — `test_rollout_gates.py::test_current_repository_version_is_latest_semver_tag`**:
+  - Hardcoded `assert == "v1.6.13"` pękł przy każdym nowym tagu.
+  - Naprawa: dynamiczna wartość oczekiwana = `max(tags, key=semver_key)`.
+
+### Added
+- **`tools/generate_readme.py`** — auto-regeneracja tabel artefaktów + Decision Records z `.registry.yaml`. STATUS-driven version sync. Single source of truth dla treści cytujących registry.
+- **`tools/sync_versions.py`** — 3-mode version sync (--check/--sync/--show) z atomic write.
+- **`tools/test_skill_audit_default_path.py`** — 4 nowe testy regresji (default path).
+- **`tools/test_sync_versions.py`** — 5 nowych testów regresji (version sync).
+- **`tools/test_generate_readme.py`** — 7 nowych testów regresji (README sync).
 
 ### Changed
-- **Suite testów**: 86 → **95** testów (+9 nowych). Czas: 1.1s → 4.3s.
+- **Suite testów**: 86 → **102** testów (+16 nowych). Czas: 1.1s → 4.6s.
+- **Tools count**: 27 → 32 (nowe).
 
 ---
 

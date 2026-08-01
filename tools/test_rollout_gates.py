@@ -86,8 +86,26 @@ def test_version_selection_uses_semver_not_lexical_order(tmp_path: Path) -> None
 
 
 def test_current_repository_version_is_latest_semver_tag() -> None:
+    """
+    Repozytorium musi zgłaszać aktualnie NAJWYŻSZY SemVer tag jako wersję HEOS.
+    Poprzednia wersja tego testu hardkodowała 'v1.6.13' — pękł przy każdym nowym tagu.
+    Fix: wylicz oczekiwaną wartość z posortowanych SemVer tagów (jak sama
+    implementacja `generate_status._heos_version`), bez hardcoded `latest`.
+    """
     tags = generate_status._git_tags(HEOS_ROOT)
-    assert generate_status._heos_version(HEOS_ROOT, tags) == "v1.6.13"
+    assert tags, "Brak tagów git w repo — nie da się zweryfikować wersji."
+
+    def semver_key(tag: str) -> tuple[int, ...]:
+        # strip leading 'v'
+        body = tag[1:] if tag.startswith("v") else tag
+        return tuple(int(x) for x in body.split("."))
+
+    expected = max(tags, key=semver_key)
+    actual = generate_status._heos_version(HEOS_ROOT, tags)
+    assert actual == expected, (
+        f"_heos_version powinien zwrócić najwyższy SemVer tag ({expected}), "
+        f"dostał {actual}."
+    )
 
 
 def test_ci_preserves_pytest_failure_status() -> None:

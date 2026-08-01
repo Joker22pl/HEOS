@@ -28,7 +28,7 @@ related:
 - skill-gaja-lab-core
 quality_schema: pass
 quality_technical: pass
-quality_operational: candidate
+quality_operational: unmeasured
 last_verified: 2026-07-28
 last_eval_run: evals/results/embedded-communications-debug-baseline-2026-07-28.json
 verification_method: real_agent
