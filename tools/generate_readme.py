@@ -278,7 +278,7 @@ def cmd_sync() -> int:
         return 0
 
     atomic_write(README, new)
-    print(f"🔧 README zaktualizowane do v{version}.")
+    print(f"🔧 README zaktualizowane do {version}.")
     for w in warnings:
         print(f"⚠️  {w}", file=sys.stderr)
     return 0

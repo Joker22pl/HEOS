@@ -43,6 +43,12 @@ Pełna historia wersji HEOS. Format inspirowany [Keep a Changelog](https://keepa
 - **`tools/test_skill_audit_default_path.py`** — 4 nowe testy regresji (default path).
 - **`tools/test_sync_versions.py`** — 5 nowych testów regresji (version sync).
 - **`tools/test_generate_readme.py`** — 7 nowych testów regresji (README sync).
+- **`lessons/2026-08-01-cross-profile-audit.md`** — Lessons Learned z cross-profile audit
+  (HEOS + 5 profili: gaja, gaja-it, gaja-lab, gaja-med, gaja-robotics = 381 skilli).
+  Findings: 11 mostów HEOS→profil, 370 unikalnych, 1 realny dryf (clarify-discord-fit
+  w 4 profilach — starsza wersja sprzed augmentacji). ADR-005 (granice profili)
+  respektowany: każdy profil ma unikalną pamięć (md5 różne). Rekomendacje P1-P3
+  dla kolejnych iteracji (skill_audit --en-language, validate_symlinks subdirs).
 
 ### Changed
 - **Suite testów**: 86 → **102** testów (+16 nowych). Czas: 1.1s → 4.6s.

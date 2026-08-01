@@ -35,13 +35,13 @@ HEOS/
 └── archive/           ← snapshot v1.1 (nieaktywny)
 ```
 
-## Artefakty (22 aktywnych)
+## Artefakty (23 aktywnych)
 
 | Typ | Liczba | Lokalizacja |
 |---|---|---|
 | Skills | 8 | `skills/` |
 | ADR | 11 | `decisions/` |
-| Lessons Learned | 1 | `lessons/` |
+| Lessons Learned | 2 | `lessons/` |
 | Checklisty | 1 | `checklists/` |
 | Playbooki | 1 | `playbooks/` |
 ## Narzędzia (`tools/`)
