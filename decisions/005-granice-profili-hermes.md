@@ -18,6 +18,8 @@ related:
 - skill-nightly-evolution
 - skill-using-chm
 - adr-006
+- lessons-2026-08-01-cross-profile-audit
+- adr-012
 quality_schema: pending
 quality_technical: pending
 quality_operational: unmeasured

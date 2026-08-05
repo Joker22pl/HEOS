@@ -19,6 +19,7 @@ related:
 - adr-008
 - adr-009
 - skill-using-heos
+- adr-012
 supersedes: (none)
 adr_number: 7
 quality_schema: pass

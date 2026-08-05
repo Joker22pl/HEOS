@@ -35,12 +35,12 @@ HEOS/
 └── archive/           ← snapshot v1.1 (nieaktywny)
 ```
 
-## Artefakty (23 aktywnych)
+## Artefakty (24 aktywnych)
 
 | Typ | Liczba | Lokalizacja |
 |---|---|---|
 | Skills | 8 | `skills/` |
-| ADR | 11 | `decisions/` |
+| ADR | 12 | `decisions/` |
 | Lessons Learned | 2 | `lessons/` |
 | Checklisty | 1 | `checklists/` |
 | Playbooki | 1 | `playbooks/` |
@@ -70,7 +70,7 @@ HEOS/
 
 HEOS był migrowany z v1.1 do v1.2 dnia 2026-07-24. Plan w `heos-migration/plan.md`, mapa w `heos-migration/migration-map.json`, rollback w `heos-migration/rollback.sh`. Backup v1.1 w `~/hermes-backups/heos-pre-v1.2-*.tar.gz`. Git tag `v1.1.0-pre-migration` (punkt powrotu).
 
-## Decision Records (11 aktywnych)
+## Decision Records (12 aktywnych)
 
 | ID | Tytuł | Status |
 |---|---|---|
@@ -85,6 +85,7 @@ HEOS był migrowany z v1.1 do v1.2 dnia 2026-07-24. Plan w `heos-migration/plan.
 | [adr-009](decisions/009-heos-v1-4-scope.md) | HEOS v1.4 — scope deklaracja (split nightly-evolution, CHANGELOG) | Accepted |
 | [adr-010](decisions/010-heos-v1-5-scope.md) | HEOS v1.5 — scope deklaracja (output-templates split, nightly-evolution finalizacja) | Accepted |
 | [adr-011](decisions/011-private-repo-by-default.md) | Repozytoria Joker22pl/* domyślnie prywatne | Accepted |
+| [adr-012](decisions/012-hermes-contracts-registry.md) | Rejestracja namespace `hermes.*` i wspólnych kontraktów Gaja Desk | Accepted |
 
 ## Otwarte decyzje architektoniczne (ODA)
 

@@ -22,6 +22,7 @@ related:
 - skill-nightly-evolution
 - adr-010
 - skill-using-heos
+- lessons-2026-08-01-cross-profile-audit
 
 # === Specyficzne dla ADR ===
 adr_number: 6

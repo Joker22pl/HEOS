@@ -27,6 +27,8 @@ related:
 - skill-using-chm
 - skill-clarify-discord-fit
 - checklist-heos-pre-commit-validation
+- lessons-2026-08-01-cross-profile-audit
+- adr-012
 quality_schema: pass
 quality_technical: pass
 quality_operational: unmeasured
