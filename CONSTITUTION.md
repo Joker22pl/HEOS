@@ -224,12 +224,17 @@ Każdy artefakt ma status + datę przeglądu (`review_due`). Wszystkie decyzje a
 
 | Mechanizm | Co sprawdza | Kiedy |
 |---|---|---|
-| `pre-commit` (gitleaks, detect-secrets) | Bezpieczeństwo (P0) | przed każdym commitem |
+| `pre-commit` (heos-skill-audit) | Schema Skills (P1, P2) | przed każdym commitem |
 | `skill_audit.py` | Schema + Technical Skills (P1, P2) | per PR / co tydzień |
 | `heos_lint.py` | Cross-references, metadane, spójność architektury (P1, P2) | per PR / co tydzień |
 | `lifecycle_audit.py` | review_due, deprecated (P3) | co tydzień |
 | `generate_status.py` | Snapshot stanu (P3) | co tydzień + per commit |
 | `heos_migrate.py` | Zmiany struktury (P0) | jednorazowo przy migracji |
+
+> **Uwaga (stan 2026-08-05):** gitleaks/detect-secrets z ADR-004 NIE są
+> zainstalowane w pre-commit (tylko `heos-skill-audit`). Weryfikacja sekretów
+> przed commitem nie jest zautomatyzowana — wymaga decyzji (dodać hooks albo
+> świadomie zrezygnować i usunąć z ADR-004).
 
 **Cron:** HEOS Weekly Audit, co poniedziałek 9:00 UTC, generuje raport do tego wątku.
 
