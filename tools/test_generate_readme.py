@@ -8,6 +8,12 @@ względem registry (Skills: 7 zamiast 8, ADR: 10/11, Artefakty: 20 vs 22).
 Fix: tools/generate_readme.py czyta .registry.yaml, --check wykrywa dryf w counts
 + wersji (nie w tytułach ADR — to migracja), --sync aktualizuje tabele.
 
+Hermetyczność (audyt 2026-08-05): testy NIE dotykają realnego repo.
+Fixture `hermetic_repo` kopiuje README/.registry.yaml/STATUS/generate_readme.py
+do tmp_path i przekierowuje moduł na kopię. Subprocess-y działają w kopii.
+Poprzednia wersja uruchamiała `--sync` na prawdziwym README i pisała po nim
+bezpośrednio — zanieczyszczała working tree (P1-1 w audycie zewnętrznym 2026-08-05).
+
 Testy:
 1. drift_signals poprawnie identyfikuje count mismatches.
 2. _normalize_version normalizuje '1.6.13' / 'v1.6.13' / '`v1.6.13`' do 'v1.6.13'.
@@ -15,15 +21,18 @@ Testy:
 4. compute_desired_readme zamienia 'Artefakty (20 aktywnych)' → '(22 aktywnych)'.
 5. compute_desired_readme zamienia '| Skills | 7 |' → '| Skills | 8 |'.
 6. compute_desired_readme zamienia nagłówek 'Decision Records (N)' na aktualne.
-7. --check (subprocess) exit 0 gdy README zgodne.
-8. --sync poprawnie aktualizuje README (atomic write).
+7. --check (subprocess) exit 0 gdy README zgodne (na hermetycznej kopii).
+8. --sync poprawnie aktualizuje README (atomic write, na hermetycznej kopii).
 """
 from __future__ import annotations
 
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = REPO_ROOT / "tools" / "generate_readme.py"
@@ -34,6 +43,30 @@ STATUS = REPO_ROOT / "STATUS.md"
 # Import modułu do unit-testów.
 sys.path.insert(0, str(REPO_ROOT / "tools"))
 import generate_readme  # type: ignore[import-not-found]  # noqa: E402
+
+
+@pytest.fixture(scope="module")
+def hermetic_repo(tmp_path_factory):
+    """Buduje hermetyczną kopię repo w tmp_path i kieruje moduł na nią.
+
+    Kopiowane: README.md, .registry.yaml, STATUS.md, tools/generate_readme.py.
+    Subprocess-y (--check/--sync) uruchamiane są w kopii, więc realne repo
+    pozostaje nietknięte — także przy dryfie registry↔README.
+    """
+    root = tmp_path_factory.mktemp("heos_readme")
+    tools = root / "tools"
+    tools.mkdir()
+    shutil.copy(README, root / "README.md")
+    shutil.copy(REGISTRY, root / ".registry.yaml")
+    shutil.copy(STATUS, root / "STATUS.md")
+    shutil.copy(SCRIPT, tools / "generate_readme.py")
+
+    # Przekieruj importowany moduł (in-process) na hermetyczną kopię.
+    generate_readme.REPO_ROOT = root
+    generate_readme.README = root / "README.md"
+    generate_readme.REGISTRY = root / ".registry.yaml"
+    generate_readme.STATUS = root / "STATUS.md"
+    return root, tools
 
 
 def test_normalize_version():
@@ -47,8 +80,8 @@ def test_normalize_version():
     assert generate_readme._normalize_version("`1.6.13`") == "v1.6.13"
 
 
-def test_status_version_returns_v_prefix():
-    """status_version() zawsze zwraca 'vX.Y.Z' z prefix."""
+def test_status_version_returns_v_prefix(hermetic_repo):
+    """status_version() zawsze zwraca 'vX.Y.Z' z prefix (czyta STATUS z kopii)."""
     v = generate_readme.status_version()
     assert v.startswith("v"), f"Oczekiwałem 'vX.Y.Z', dostałem '{v}'"
     assert re.fullmatch(r"v\d+\.\d+\.\d+", v), f"'{v}' nie jest SemVer"
@@ -113,12 +146,15 @@ def test_compute_desired_readme_updates_counts():
     assert "| ADR | 11 |" in new, "ADR count nie zaktualizowany"
 
 
-def test_check_exit_zero_when_synced():
-    """Po --sync, --check exit 0."""
-    # Najpierw sync (zapewnia że README jest zgodne).
+def test_check_exit_zero_when_synced(hermetic_repo):
+    """Po --sync, --check exit 0 — na hermetycznej kopii, nie na realnym repo."""
+    root, tools = hermetic_repo
+    script = tools / "generate_readme.py"
+
+    # Najpierw sync (zapewnia że README w kopii jest zgodne z registry).
     sync_res = subprocess.run(
-        [sys.executable, str(SCRIPT), "--sync"],
-        cwd=str(REPO_ROOT),
+        [sys.executable, str(script), "--sync"],
+        cwd=str(root),
         capture_output=True,
         text=True,
         timeout=30,
@@ -126,8 +162,8 @@ def test_check_exit_zero_when_synced():
     assert sync_res.returncode == 0, f"--sync zwrócił {sync_res.returncode}: {sync_res.stderr!r}"
 
     check_res = subprocess.run(
-        [sys.executable, str(SCRIPT), "--check"],
-        cwd=str(REPO_ROOT),
+        [sys.executable, str(script), "--check"],
+        cwd=str(root),
         capture_output=True,
         text=True,
         timeout=30,
@@ -139,9 +175,13 @@ def test_check_exit_zero_when_synced():
     assert "✅" in check_res.stdout, check_res.stdout
 
 
-def test_check_detects_known_drift():
-    """Gdy obniżymy Skills count w README, --check exit 1 z dryfem."""
-    original = README.read_text(encoding="utf-8")
+def test_check_detects_known_drift(hermetic_repo):
+    """Gdy obniżymy Skills count w README (kopii), --check exit 1 z dryfem."""
+    root, tools = hermetic_repo
+    script = tools / "generate_readme.py"
+    copied_readme = root / "README.md"
+
+    original = copied_readme.read_text(encoding="utf-8")
     try:
         # Wywołaj dryf: Skills 8 → 7
         drifted = re.sub(
@@ -151,11 +191,11 @@ def test_check_detects_known_drift():
             count=1,
         )
         assert drifted != original
-        README.write_text(drifted, encoding="utf-8")
+        copied_readme.write_text(drifted, encoding="utf-8")
 
         check_res = subprocess.run(
-            [sys.executable, str(SCRIPT), "--check"],
-            cwd=str(REPO_ROOT),
+            [sys.executable, str(script), "--check"],
+            cwd=str(root),
             capture_output=True,
             text=True,
             timeout=30,
@@ -165,32 +205,25 @@ def test_check_detects_known_drift():
         )
         assert "Skills count" in check_res.stdout or "Skills count" in check_res.stderr
     finally:
-        README.write_text(original, encoding="utf-8")
+        copied_readme.write_text(original, encoding="utf-8")
 
 
-def test_atomic_write_no_corruption():
-    """--sync używa atomic write — README ma tę samą semantykę po i przed."""
+def test_atomic_write_no_corruption(hermetic_repo):
+    """--sync używa atomic write — README (kopii) ma czytelną semantykę po sync."""
+    root, tools = hermetic_repo
+    script = tools / "generate_readme.py"
+    copied_readme = root / "README.md"
+
     sync_res = subprocess.run(
-        [sys.executable, str(SCRIPT), "--sync"],
-        cwd=str(REPO_ROOT),
+        [sys.executable, str(script), "--sync"],
+        cwd=str(root),
         capture_output=True,
         text=True,
         timeout=30,
     )
     assert sync_res.returncode == 0
     # Sprawdź że README ma czytelne elementy.
-    text = README.read_text(encoding="utf-8")
+    text = copied_readme.read_text(encoding="utf-8")
     assert re.search(r"Artefakty \(\d+ aktywnych\)", text)
     assert re.search(r"\| Skills \| \d+ \|", text)
     assert re.search(r"\| ADR \| \d+ \|", text)
-
-
-if __name__ == "__main__":
-    test_normalize_version()
-    test_status_version_returns_v_prefix()
-    test_drift_signals_counts()
-    test_compute_desired_readme_updates_counts()
-    test_check_exit_zero_when_synced()
-    test_check_detects_known_drift()
-    test_atomic_write_no_corruption()
-    print("✅ test_generate_readme.py — 7/7 OK")
