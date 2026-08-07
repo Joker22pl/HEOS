@@ -182,7 +182,7 @@ Po każdym większym zadaniu odpowiedz:
 - Czy zmienić standard?
 - Czy napisać ADR?
 
-Zapisuj w `lessons-learned/YYYY-MM-DD-krótki-tytuł.md`.
+Zapisuj w `lessons/YYYY-MM-DD-krótki-tytuł.md`.
 
 ## Lifecycle artefaktów (6-etapowy)
 
@@ -249,6 +249,6 @@ Każdy artefakt ma status + datę przeglądu (`review_due`). Wszystkie decyzje a
 
 **Profile Hermesa (gaja, gaja-it, gaja-med) = runtime Skills, konfiguracja, rozszerzenia profilu.**
 
-- 87 Skills profilu Hermesa pozostaje w `~/.hermes/profiles/gaja/skills/` — **NIE** migruje do HEOS
+- ~128 Skills profilu Hermesa (stan 2026-08-05) pozostaje w `~/.hermes/profiles/gaja/skills/` — **NIE** migruje do HEOS
 - Każdy Skill (gdziekolwiek) deklaruje `heos_standard_version: 1.2`
 - `skill_audit.py` audytuje **oba** (HEOS + profil) z różną polityką (HEOS: fail blokuje, profil: raport)

@@ -17,7 +17,7 @@ HEOS/                                          [repo root]
 ├── STATUS.md                  ← auto-generowany, snapshot stanu
 ├── README.md                  ← punkt wejścia
 │
-├── skills/                    ← wszystkie Skillsy (płasko)
+├── skills/                    ← Skillsy (pliki .md + katalogi SKILL.md, ADR-006)
 │   ├── esp32-s3-micropython-blink.md
 │   ├── using-heos.md
 │   └── ...
@@ -30,7 +30,7 @@ HEOS/                                          [repo root]
 ├── checklists/                ← Checklisty (płasko)
 ├── playbooks/                 ← Playbooki (płasko)
 │
-├── templates/                 ← szablony 5 typów
+├── templates/                 ← szablony 6 typów (skill, skill-runtime, adr, lessons, checklist, playbook)
 │   ├── skill.md
 │   ├── adr.md
 │   └── ...

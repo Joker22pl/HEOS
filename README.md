@@ -28,7 +28,7 @@ HEOS/
 ├── checklists/        ← Checklisty
 ├── playbooks/         ← Playbooki
 │
-├── templates/         ← 5 szablonów (skill, adr, lessons, checklist, playbook)
+├── templates/         ← 6 szablonów (skill, skill-runtime, adr, lessons, checklist, playbook)
 ├── tools/             ← narzędzia (audyt, lint, generacja, migracja)
 │
 ├── heos-migration/    ← infrastruktura migracji (snapshot plan, rollback)
@@ -58,13 +58,13 @@ HEOS/
 | `lifecycle_audit.py` | Audyt `review_due`, `deprecated` |
 | `update_frontmatter.py` | Aktualizuje frontmatter (migracja) |
 | `update_quality.py` | Aktualizuje `quality_schema/technical` (atomic write per ADR-008) |
-| `weekly_report.py` | Raport tygodniowy (cron poniedziałek 9:00 UTC) |
+| `weekly_report.py` | Raport tygodniowy (cron poniedziałek 03:30 UTC) |
 | `add_lessons_learned.py` | Dodaje nowy wpis Lessons Learned |
 | `heos_migrate.py` | Migracja v1.1→v1.2 (plan/dry-run/rollback) |
 | `migrate_files.py` | Wykonuje git mv z mapy migracji |
 | `migrate_runtime_skills.py` | Migracja skilli runtime do HEOS |
 | `validate_symlinks.py` | Waliduje mosty HEOS → profil Hermesa |
-| `test_*.py` (7 plików) | Testy jednostkowe (60 testów PASS) |
+| `test_*.py` (12 plików) | Testy jednostkowe (102 testy PASS) |
 
 ## Migracja (informacja)
 
@@ -93,7 +93,7 @@ Wszystkie 10 ODA z v1.1 zostały **rozwiązane** w propozycji v1.2. Nowe ODA poj
 
 ## Cron jobs
 
-- **HEOS Weekly Audit** — co poniedziałek 9:00 UTC, generuje raport + STATUS.md + audyt lifecycle, dostarcza do tego wątku.
+- **HEOS Weekly Audit** — co poniedziałek 03:30 UTC, generuje raport + STATUS.md + audyt lifecycle, dostarcza do tego wątku.
 
 ## Granice HEOS
 
@@ -105,7 +105,7 @@ Wszystkie 10 ODA z v1.1 zostały **rozwiązane** w propozycji v1.2. Nowe ODA poj
 
 1. Sprawdź czy już istnieje w `.registry.yaml`
 2. Wybierz typ (skill/adr/lessons/checklist/playbook)
-3. Skopiuj z `templates/<typ>.md.template`
+3. Skopiuj z `templates/<typ>.md`
 4. Uzupełnij wymagane pola (12 wspólnych + specyficzne dla typu)
 5. Sprawdź: `python3 tools/skill_audit.py <plik>` — musi ✅ PASS
 6. Sprawdź cross-refs: `python3 tools/heos_lint.py`
@@ -116,7 +116,7 @@ Wszystkie 10 ODA z v1.1 zostały **rozwiązane** w propozycji v1.2. Nowe ODA poj
    python3 tools/generate_registry.py
    python3 tools/generate_status.py
    ```
-   Lub poczekaj na cotygodniowy cron (poniedziałek 9:00 UTC)
+   Lub poczekaj na cotygodniowy cron (poniedziałek 03:30 UTC)
 
 ## Wersjonowanie
 
@@ -139,6 +139,11 @@ HEOS używa SemVer: `<major>.<minor>.<patch>`. Wersja w `STATUS.md` (auto-genero
 | 1.5.3 | 2026-07-28 | Patch — `.bak` cleanup + STATUS regen |
 | 1.5.4 | 2026-07-28 | Patch — `generate_status.py` fix (Tools: 25→24 real) + 5 testów |
 | 1.6.0 | 2026-07-28 | **ADR-011** (private repo by default) + `tools/repo_visibility.py` (audyt + zmiana widoczności) |
+| 1.6.10 | 2026-07-29 | `validate_symlinks` v2 + multi-profile HEOS skill audit |
+| 1.6.11 | 2026-07-29 | `clarify-discord-fit` — Discord 2000 chars workaround |
+| 1.6.12 | 2026-07-29 | `clarify-discord-fit` — opcje 40→80 chars |
+| 1.6.13 | 2026-07-31 | Gates fail-closed: 8/8 discovery, semver, weekly report |
+| 1.6.14 | 2026-08-01 | P0.1 skill_audit default path, P0.2 sync_versions, P1.1 generate_readme |
 
 ## Nowe repozytorium (workflow)
 
@@ -182,4 +187,4 @@ Output: każde repo zmienione z public → private z audit trail.
 
 ---
 
-_Last updated: 2026-07-28_
+_Last updated: 2026-08-05_
